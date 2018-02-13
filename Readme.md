@@ -1,28 +1,35 @@
-# Workshop Template
+# Fuse 7 Workshop
 
-This workshop template is the base layout for a text-based workshop. Using text for building workshop material is preferable for collaboration, versioning, audit, and easy pull request/diff workflows. 
+This workshop introduces participants to Red Hat Fuse through a presentation and hands-on lab format. 
 
-It consists of two main text-based sections:
 
-* slides/
-* labs/
+## Agenda
 
-## Slides
 
-Slides are done with [reveal.js](https://github.com/hakimel/reveal.js/). You can checkout this repo (or download a release) and navigate to the slides directory. You'll need `npm` for nodejs modules and dependency management. If on a mac, you should be able to `brew install npm` to get npm. Run the following commands to install the dependencies:
+* Fuse Ignite
+    * Simple Integration 
+    * Step Extension
+    * Connector Extension
+    * Data Mapper
+    * Operational Concerns
+    	* Monitoring
+    	* Installation
+    	* Support
+    	* Import/Export
+    	* OpenShift 
 
-```
-slides $  npm install
-```
+* Fuse and Runtimes
+    * What's new in Camel
+    * Spring Boot
+    	* Stand alone
+    	* Fuse on OpenShift
+    		* Config and secrets 
+    * Karaf
+    	* Fabirc migration 	
+    * EAP
+    * Management and Operations
 
-Once the dependencies have been installed, you can start up the reveal.js web page like this:
-
-```
-slides $  npm start
-```
-
-Your slides will go into `slides/index.html`. Please refer to the [reveal.js documentation](https://github.com/hakimel/reveal.js/) for how to create slides. There is also a `demo.html` file in the `slides` folder that gives concrete examples for how to create certain transitions and effects for your slides. You can also change the theme for your slides in the `index.html` file. 
-
+    
 
 ### Publishing slides
 
