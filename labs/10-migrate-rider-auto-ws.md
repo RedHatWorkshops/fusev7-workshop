@@ -4,8 +4,8 @@ This project demonstrates the migration of a karaf-based SOAP webservice from [R
 
 ### Prerequisites
 
-(1) Ensure you have JBoss Developers Studio version 11.2 + with the latest Fuse Tooling
-(2) Ensure AMQ 7.x is running locally
+1. Ensure you have JBoss Developers Studio version 11.2 + with the latest Fuse Tooling
+2. Ensure AMQ 7.x is running locally
 
 ### Procedure
 
@@ -97,7 +97,7 @@ To begin, we need to create a Fuse SpringBoot project in JBDS.
 Notice we've updated the JMS endpoint to point to AMQ 7 using the AMQP protocol.
 
 8. Save the camel-context.xml file.
-9. Now we need to migrate the Order POJO and Endpoint.  First, delete the existing package and contents under `src/main/java`  Copy `../10-artifacts/Order.java` to your new rider-auto-ws project, and paste it into a new source package called `org.fusesource.camel.model`.
+9. Now we need to migrate the Order POJO and Endpoint.  First, delete the existing package and contents under `src/main/java`.  Copy `../10-artifacts/Order.java` to your new rider-auto-ws project, and paste it into a new source package called `org.fusesource.camel.model`.
 10.  Do the same for `../10-artifacts/OrderEndpoint.java`, except paste it into a new package called `org.fusesource.camel.ws`.
 11. Create a new package structure under `src/main/resources/org/fusesource/camel/model/`.  Copy `../10-artifacts/jaxb.index` to the new package.
 12. If everything compiles, try right-clicking on the `camel-context.xml` file and selecting "Run As" and then "Local Camel Context".
