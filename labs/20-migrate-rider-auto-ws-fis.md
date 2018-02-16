@@ -128,5 +128,5 @@ The build will be begin and via binary streams, deploy to your Minishift environ
 22.  Click on the route that was created and verify the WSDL is accessible.  The URI context is `/cxf/order?wsdl`
 23.  Using PostMan or SOAP UI, copy the WSDL URL and send a sample SOAP request message.  You should receive an OK response message, and your request should end up on the AMQ `incomingOrders` queue.
 
-![Type Project Name](images/10-Step-14.png)
+![Type Project Name](images/20-Step-23.png)
 
