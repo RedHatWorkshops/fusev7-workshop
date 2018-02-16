@@ -1,0 +1,9 @@
+metadata:
+  labels:
+    hystrix.enabled: false
+spec:
+  ports:
+  - name: http
+    port: 8183
+    protocol: TCP
+    targetPort: 8183
