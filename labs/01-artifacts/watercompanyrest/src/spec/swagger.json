@@ -1,0 +1,115 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "DemoBank",
+    "description": "Demo Bank Service API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/balance": {
+      "get": {
+        "summary": "Balance of the account",
+        "description": "Remaining balance of the user",
+        "responses": {
+          "200": {
+            "description": "Balance successfully returned.",
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          },
+          "400": {
+            "description": "Balance not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "banked",
+          "in": "query",
+          "description": "Identification number",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/payment": {
+      "post": {
+        "summary": "Payment",
+        "description": "Place payment request",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Payment details",
+            "schema": {
+              "$ref": "#/definitions/Payment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment Done",
+            "schema": {
+              "$ref": "#/definitions/account"
+            }
+          },
+          "400": {
+            "description": "error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "bankid",
+          "in": "query",
+          "description": "Identification number",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "account": {
+      "required": [
+        "bankid",
+        "Type",
+        "balance"
+      ],
+      "properties": {
+        "bankid": {
+          "description": "Identification Number in Bank",
+          "type": "string"
+        },
+        "Type": {
+          "description": "Type of account, checking 1 and saving 2",
+          "type": "integer"
+        },
+        "balance": {
+          "description": "Remaining balance",
+          "type": "integer"
+        }
+      }
+    },
+    "Payment": {
+      "properties": {
+        "senderid": {},
+        "receiverid": {},
+        "amount": {},
+        "accounttype": {}
+      }
+    },
+    "Error": {
+      "properties": {
+        "errorcode": {},
+        "description": {}
+      }
+    }
+  }
+}
