@@ -5,29 +5,37 @@ This workshop introduces participants to Red Hat Fuse through a presentation and
 
 ## Agenda
 
-
-* Fuse Ignite
-    * Simple Integration 
-    * Step Extension
-    * Connector Extension
-    * Data Mapper
-    * Operational Concerns
-    	* Monitoring
+* Overview - Day 1 Afternoon
+	* TODO (Keith) 
+	
+* Fuse Ignite - Day 2 All day
+    * **Simple Integration** - Go over the basics of what is in Fuse Ignite, and focus on the simple low-code hands on example for lab.
+    * **Data Mapper** - First customization extension. Define customize datatype for various connector endpointd. 
+    * **Step Extension** - Implement step extension using Camel, build reusable modules for citizen developer.
+    * **Connector Extension** - Extending new connectors for new endpoints.
+    * **Operational Concerns** - Deep dive into the deployment architecture of Fuse Ignite. And all the concerns people might have when operating Fuse Ignite.
+    	* Monitoring 
     	* Installation
     	* Support
-    	* Import/Export
+    	* Import/Export - Multi-tenancy in Fuse Ingnite
     	* OpenShift 
 
-* Fuse and Runtimes
-    * What's new in Camel
-    * Spring Boot
-    	* Stand alone
+* Fuse and Runtimes - Day 3 All day
+    * **Spring Boot** - What's new in the runtime
+    	* Stand alone 
     	* Fuse on OpenShift
     		* Config and secrets 
-    * Karaf
-    	* Fabirc migration 	
-    * EAP
-    * Management and Operations
+    * **Karaf**
+    	* Differentce between Karaf 2 and 4
+    	* Deploying Fuse with Karaf on OpenShift
+    * **Fabirc migration** 	
+    	* Moving from profile to OpenShift
+    * **EAP**
+    	* What is new in EAP
+    	* Deploying Fuse with EAP on OpenShift 
+    * **Management and Operations**
+    	* Managing Runtimes on OpenShift
+    	* Managing standalone runtimes 	
 
     
 
