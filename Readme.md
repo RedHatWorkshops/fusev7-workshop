@@ -25,7 +25,7 @@ This workshop introduces participants to Red Hat Fuse through a presentation and
     	* OpenShift 
 
 * Fuse and Runtimes Hands-on Lab - Day 3 All day
-    * **Spring Boot**  90 mins - What's new in the runtime
+    * **Spring Boot** 90 mins - What's new in the runtime
     	* Standalone 
     	* Fuse on OpenShift
     		* Config and secrets 
@@ -37,8 +37,9 @@ This workshop introduces participants to Red Hat Fuse through a presentation and
     * **EAP** 90 mins - 
     	* What is new in EAP
     	* Deploying Fuse with EAP on OpenShift 
-    * **Management and Operations** 60 mins -     	* Managing Runtimes on OpenShift
-    	* Managing standalone runtimes 	
+    * **Management and Operations** 60 mins -     	
+    	* Managing Runtimes on OpenShift
+    	* Managing standalone Runtimes 	
 
     
 

@@ -1,6 +1,6 @@
 # Migrate the Rider-Auto-WS component to SpringBoot standalone
 
-This project demonstrates the migration of a karaf-based SOAP webservice from [Rider Auto](https://github.com/RedHatWorkshops/rider-auto-osgi/tree/master/rider-auto-ws) to Fuse 7 standalone SpringBoot. 
+This project demonstrates the migration of a Karaf-based SOAP webservice from [Rider Auto](https://github.com/RedHatWorkshops/rider-auto-osgi/tree/master/rider-auto-ws) to Fuse 7 standalone SpringBoot. 
 
 ### Prerequisites
 
