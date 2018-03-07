@@ -14,25 +14,25 @@ This workshop introduces participants to Red Hat Fuse through a presentation and
 	
 * Fuse Ignite Hands-on Lab - Day 2 All day
     * **Simple Integration** 60 min- Go over the basics of what is in Fuse Ignite, and focus on the simple low-code hands on example for lab.
-    * **Data Mapper** 80 mins - First customization extension. Define customize datatype for various connector endpointd. 
+    * **Data Mapper** 80 mins - First customization extension. Define customize datatype for various connector endpoints. 
     * **Step Extension** 80 mins - Implement step extension using Camel, build reusable modules for citizen developer.
     * **Connector Extension** 80 mins - Extending new connectors for new endpoints.
     * **Operational Concerns** 120 mins - Deep dive into the deployment architecture of Fuse Ignite. And all the concerns people might have when operating Fuse Ignite.
     	* Monitoring 
     	* Installation
     	* Support
-    	* Import/Export - Multi-tenancy in Fuse Ingnite
+    	* Import/Export - Multitenancy in Fuse Ignite
     	* OpenShift 
 
 * Fuse and Runtimes Hands-on Lab - Day 3 All day
     * **Spring Boot**  90 mins - What's new in the runtime
-    	* Stand alone 
+    	* Standalone 
     	* Fuse on OpenShift
     		* Config and secrets 
     * **Karaf** 90 mins -
-    	* Differentce between Karaf 2 and 4
+    	* Difference between Karaf 2 and 4
     	* Deploying Fuse with Karaf on OpenShift
-    * **Fabirc migration** 90 mins -	
+    * **Fabric migration** 90 mins -	
     	* Moving from profile to OpenShift
     * **EAP** 90 mins - 
     	* What is new in EAP
