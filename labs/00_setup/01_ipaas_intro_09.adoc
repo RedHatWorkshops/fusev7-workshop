@@ -1,0 +1,21 @@
+:data-uri:
+:numbered!:
+:noaudio:
+
+:scrollbar:
+
+== Summary
+
+* The Citizen Developer
+* Differences with Traditional Integration
+* Technology
+* Technical Benefits
+* Fuse Ignite terminology
+
+ifdef::showscript[]
+
+=== Transcript
+
+This module covered the various aspects of Red Hat Fuse Ignite.
+
+endif::showscript[]

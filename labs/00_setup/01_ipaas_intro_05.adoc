@@ -1,0 +1,30 @@
+:data-uri:
+:numbered!:
+:noaudio:
+
+:scrollbar:
+
+== Terminology
+
+* Integration
+** Integration project involving multiple datasources or applications.
+* Step
+** A task that performs data manipulation, retrieval or persistence.
+** Each integration typically comprises of several of these.
+* Connector
+** A building block for a connection.
+* Connection
+** A link to either a datasource or an application.
+
+ifdef::showscript[]
+
+=== Transcript
+
+Several new terms regarding topics in integration projects are introduced in Fuse Online.
+An integration is a project involving multiple datasources or applications.
+A step is a task that performs data manipulation, retrieval or persistence.
+Each integration typically comprises of several of steps.
+A connector is a building block for a connection.
+A connection is a link to either a datasource or an application, where data is transfered.
+
+endif::showscript[]

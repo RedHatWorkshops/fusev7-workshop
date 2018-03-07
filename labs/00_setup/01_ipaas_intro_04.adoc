@@ -1,0 +1,16 @@
+:data-uri:
+:numbered!:
+:noaudio:
+
+:scrollbar:
+
+== Differences with Traditional Integration
+
+
+
+ifdef::showscript[]
+
+=== Transcript
+
+
+endif::showscript[]

@@ -1,0 +1,33 @@
+:data-uri:
+:numbered!:
+:noaudio:
+
+:scrollbar:
+
+== Technology Features
+
+* Generic API Connector
+** Allows any API to be imported as a connector
+* Step Extensions
+** Ability to natively extend the platform by adding steps
+* AMQ connector
+** Compatible with AMQ xPaaS images
+* Database connector
+** Accepts user-defined SQL
+* Amazon S3 connector
+** Cloud-based file transfer
+* Import and export facility for integrations
+** Facilitate transfer of integrations between local and Fuse Online environments
+
+ifdef::showscript[]
+
+=== Transcript
+
+First, Fuse Online provides a Generic API Connector, which allows any API to be imported as a connector.
+Next, Step Extensions provide developers the power to natively extend the platform by adding steps.
+An AMQ connector compatible with AMQ xPaaS images is also provided for reliable messaging.
+A Database connector that accepts user-defined SQL procedures and statements, in order to manipulate data.
+An Amazon S3 connector for cloud-based file transfer and storage.
+Import and export of integrations through a facility, allows transfer of integrations between environments
+
+endif::showscript[]
