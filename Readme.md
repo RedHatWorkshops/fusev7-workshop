@@ -6,11 +6,11 @@ This workshop introduces participants to Red Hat Fuse through a presentation and
 ## Agenda
 
 * Overview - Day 1 Afternoon
-	* **Business Value**   - 45 mins
-	* **Technical Overview**  - 45 mins
-	* **Tech deep dive - Fuse Ignite** - 45 mins
-	* **Tech deep dive - Fuse Standalone** - 45 mins
-	* **Tech deep dive - Fuse on OpenShift**- 45 mins
+	* **Product / Market Overview** - 45 mins
+	* **Tech deep dive - Fuse Ignite** - 60 mins
+	* **Tech deep dive - Fuse Standalone** - 60 mins
+	* **Tech deep dive - Fuse on OpenShift** - 60 mins
+	* **Developer Panel with Q&A** - 60 mins
 	
 * Fuse Ignite Hands-on Lab - Day 2 All day
     * **Simple Integration** 60 min- Go over the basics of what is in Fuse Ignite, and focus on the simple low-code hands on example for lab.
