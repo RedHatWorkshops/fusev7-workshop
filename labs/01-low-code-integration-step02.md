@@ -17,7 +17,7 @@ The **Water Company** API has a backend dashboard that display all the payment. 
 
 ![Demo 37](images/01-Step-37.png)
 
-OpenShift managment Console is avaliable at:
+OpenShift management Console is available at:
 
 > https://console.fuse-ignite.openshift.com/console/
 
@@ -27,13 +27,13 @@ OpenShift managment Console is avaliable at:
 
 ### Step One - Start and configure AMQ broker
 
-Before we start integration, let's start the default broker. Go to the OpenShift managment Console. And select projecxt on *Fuse Online*
+Before we start integration, let's start the default broker. Go to the OpenShift management Console. And select project on *Fuse Online*
 
 > https://console.fuse-ignite.openshift.com/console/
 
 ![Demo 52](images/01-Step-52.png)
 
-Scale up **broker-amq** from 0 to 1 located at the buttom of the overview.
+Scale up **broker-amq** from 0 to 1 located at the bottom of the overview.
 ![Demo 53](images/01-Step-53.png)
 
 Once started, click on the running pod.
@@ -52,7 +52,7 @@ Enter
  
 ![Demo 57](images/01-Step-57.png)
 
-On the lefthand panel, select Queue with name paymentevent and click **+Send** on the top tab panel. and set the credentail of the sender by clicking on **Preference** .
+On the lefthand panel, select Queue with name paymentevent and click **+Send** on the top tab panel. and set the credential of the sender by clicking on **Preference** .
 
 ![Demo 58](images/01-Step-58.png)
 
@@ -99,7 +99,7 @@ On the Choose a Start Connection page, click the default DefaultBroker connectio
 
 ![Demo 66](images/01-Step-66.png)
 
-Choose *Subscribe for message* to listent to events send to broker.
+Choose *Subscribe for message* to listen to events send to broker.
 ![Demo 67](images/01-Step-67.png)
 
 Enter following input. 
@@ -131,7 +131,7 @@ Create two constant
 * **YOUR_NAME:** *String*
 ![Demo 75](images/01-Step-75.png)
 
-Map your contant from Source panel to Target accordingly
+Map your constant from Source panel to Target accordingly
 
 ![Demo 76](images/01-Step-76.png)
 
@@ -143,7 +143,7 @@ Name your integration and click publish.
 
 ### Step Three - Integration Result
 
-Go back to your AMQ cosole, enter pay in the payload and click send message.
+Go back to your AMQ console, enter pay in the payload and click send message.
 
 ![Demo 79](images/01-Step-79.png)
 ![Demo 80](images/01-Step-80.png)

@@ -69,7 +69,7 @@ On the Choose a Start Connection page, click the default PostgresDB connection.
 
 ![Demo 16](images/01-Step-16.png)
 
-Choose *Periodic SQL Invocation* to setup the re-occurr payment.
+Choose *Periodic SQL Invocation* to setup the re-occurring payment.
 ![Demo 17](images/01-Step-17.png)
 
 Enter following input. 
@@ -91,15 +91,15 @@ In the left panel, hover over the plus sign between the TODO *PERIODIC SQL INVOC
 On the Choose a Step page, click Data Mapper. 
 ![Demo 22](images/01-Step-22.png)
 
-In the data mapper, the Sources panel on the left displays the fields in the output from the Todo step. The Target panel on the right displays the fields from the Water Company API. In the Target panel, expand the body field. Drag the **Task** field from Souce panel to the **senderid** in the Target Panel.
+In the data mapper, the Sources panel on the left displays the fields in the output from the Todo step. The Target panel on the right displays the fields from the Water Company API. In the Target panel, expand the body field. Drag the **Task** field from Source panel to the **senderid** in the Target Panel.
 
 ![Demo 23](images/01-Step-23.png)
 
-On the Mappiung Detail Panel, Under Action, select **Separate**.
+On the Mapping Detail Panel, Under Action, select **Separate**.
 
 ![Demo 25](images/01-Step-25.png)
 
-On the same Mappiung Detail Panel, Under Targets, enter 2 in the Separate Index, and select *Add Transformation* and select **Trim**. And Click on *Add Target*
+On the same Mapping Detail Panel, Under Targets, enter 2 in the Separate Index, and select *Add Transformation* and select **Trim**. And Click on *Add Target*
 
 ![Demo 26](images/01-Step-26.png)
 
