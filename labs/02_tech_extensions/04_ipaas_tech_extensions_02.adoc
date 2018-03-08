@@ -1,0 +1,20 @@
+:scrollbar:
+:data-uri:
+:scrollbar:
+:noaudio:
+
+== Topics
+
+* Packaged technical extensions
+* Extensions Discovery
+* Extensions Management
+
+ifdef::showscript[]
+
+=== Transcript
+
+This module covers the use of technical extensions in Red Hat Fuse Online.
+
+A connector is a template that you use to create one or more connections.
+
+endif::showscript[]

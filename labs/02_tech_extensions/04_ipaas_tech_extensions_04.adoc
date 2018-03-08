@@ -1,0 +1,18 @@
+:scrollbar:
+:data-uri:
+:scrollbar:
+:noaudio:
+
+== Summary
+
+* Packaged technical extensions
+* Extensions Discovery
+* Extensions Management
+
+ifdef::showscript[]
+
+=== Transcript
+
+This module covered the various connectors of Red Hat Fuse Online.
+
+endif::showscript[]
