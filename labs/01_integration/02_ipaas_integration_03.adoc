@@ -1,0 +1,30 @@
+:scrollbar:
+:data-uri:
+:scrollbar:
+:noaudio:
+
+== Managing Integrations
+
+* Portability of integrations
+** Supports multiple Fuse Ignite environments (Development, Test, Production)
+* Environment portability
+** to and fro the cloud
+** to and fro on-premise
+* Export of integration
+** Packages everything needed to run that integration (connections, extensions, metadata) within a single ZIP archive
+* Import of integration
+** uploads integration with all dependencies into a Fuse Online environment
+* Update of connections
+** Needed when porting between environments
+
+ifdef::showscript[]
+
+=== Transcript
+
+In order to support multiple Fuse Ignite environments (Development, Test, Production), integrations are made portable.
+Environment portability is possible to and fro the cloud and to and fro a Fuse Online environment that is on-premise.
+Export of an integration results in a single ZIP archive, which packages everything needed to run that integration (connections, extensions, metadata).
+Import of an integration uploads that integration with all dependencies into a Fuse Online environment.
+When porting between Fuse Online environments, updates will have to be made to connections in the integration.
+
+endif::showscript[]
