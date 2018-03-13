@@ -180,7 +180,7 @@ And finally, to the `<builds>/<plugins>` section, add the following block:
 				</executions>
 			</plugin>
 ```
-5. Copy `../30-artifacts/features.xml` to `src/main/resources`.
+5. Copy `../40-artifacts/features.xml` to `src/main/resources`.
 6.  Startup minishift / CDK.
 7. Login via the CLI using `oc login -u developer`.
 8. Create a new project using the command `oc new-project fis-karaf-openshift`
@@ -198,7 +198,7 @@ The build will be begin and via binary streams, deploy to your Minishift environ
 
 12.  Via the CLI, type `oc rsh fis-karaf-openshift-1-<your unique pod ID>` to rsh into the running pod
 
-13.  Now that we're inside the pod, `cd` to the `/tmp` directory and create a new file called `order1.xml`.  Copy the contents of `../30-artifacts/order1.xml` using vi or your editor or choice and save the file to the `/tmp` directory.
+13.  Now that we're inside the pod, `cd` to the `/tmp` directory and create a new file called `order1.xml`.  Copy the contents of `../40-artifacts/order1.xml` using vi or your editor or choice and save the file to the `/tmp` directory.
 
 14.  Copy `/tmp/order1.xml` to `/deployments/fis-karaf-openshift-1.0.0-SNAPSHOT/work/cbr/input`.
 
