@@ -6,7 +6,7 @@ Fuse 7 introduces a new version of the Karaf OSGi container, Karaf 4.  One of th
 | ---------------------------- | ---------------------------- |
 | admin:change-opts | instance:opts-change |
 | admin:change-rmi-registry-port | instance:rmi-registry-port-change |
-| admin:change-rmi-server-port	instance:rmi-server-port-change |
+| admin:change-rmi-server-port | instance:rmi-server-port-change |
 | admin:change-ssh-port | instance:ssh-port-change |
 | admin:clone | instance:clone |
 | admin:connect | instance:connect |
