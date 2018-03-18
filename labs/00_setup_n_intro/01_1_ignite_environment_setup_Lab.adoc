@@ -63,15 +63,16 @@ image::images/cf_course_selection_elab.png[]
 [source,text]
 -----
 You have been enrolled in the Red Hat OPENTLC FUSE IGNITE OpenShift environment.
-You can access your environment by going to https://master.<GUID>.openshift.opentlc.com and logging in using <YOUR OPENTLC ID>.
+You can access your Fuse Ignite environment by going to https://master.<GUID>.openshift.opentlc.com and logging in using <YOUR OPENTLC ID>.
+You can access the Coolstore Product Catalog Microservice by going to http://<GUID>.product-catalog-service.apps.na1.openshift.opentlc.com/ .
 
-NOTICE: Your environment will expire and be deleted in 14 day(s) at 2017-08-24 00:00:00 -0400. In order to conserve resources we cannot archive or restore any data in this environment. All data will be lost upon expiration.
+NOTICE: Your environment will expire and be deleted in 14 day(s) at 2018-03-24 00:00:00 -0400. In order to conserve resources we cannot archive or restore any data in this environment. All data will be lost upon expiration.
 -----
 
 . Identify your OpenShift lab environment GUID.
 * In the example shown above, the GUID is `na1`. Your email contains a unique GUID. Make a note of your GUID to use throughout this course.
 
-. Open a browser on your host machine and navigate to the URL identified in the confirmation email.
+. Open a web browser window on your host machine and navigate to the URL to the *Fuse Ignite* environment identified from the confirmation email.
 . Click through the warnings from your browser indicating that it has no knowledge of the Certificate Authority associated to your OpenShift Container Platform web console.
 * The _OpenShift Container Platform web console_ in your lab environment is secured by default using a self-signed certificate.
 
@@ -79,13 +80,14 @@ NOTICE: Your environment will expire and be deleted in 14 day(s) at 2017-08-24 0
 +
 image::images/ocp_login.png[]
 
-You now have a working OpenShift Container Platform lab environment from which to conduct labs created for Red Hat Fuse Ignite (aka iPaaS).
+. Open another web browser window on your host machine and navigate to the URL for the *Coolstore Product Catalog Microservice* identified from the confirmation email.
+. Notice the JSON output from the Microservice, displayed in the web browser window.
+. You now have a working Fuse Ignite lab environment from which to conduct labs. In addition, you can use the Microservice for your labs.
 
 [NOTE]
-There are a total three software environments hosted on the OPENTLC OpenShift Container Platform lab environment:
-1. Fuse Ignite
-2. Red Hat AMQ 7
-3. EAP 7
+There is a total two software applications hosted on the OPENTLC OpenShift Container Platform lab environment:
+1. Fuse Ignite - for Integration tooling
+2. Coolstore Product Catalog Microservice - for specific integration lab use
 
 === Define Environment Variables
 

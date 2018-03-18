@@ -1,0 +1,32 @@
+:data-uri:
+:numbered!:
+:noaudio:
+
+:scrollbar:
+
+== Pre-packaged software
+
+* PostgresDB and AMQ are embedded by default
+* Default Database - PostgresDB
+** Provide necessary persistent data storage
+** Suitable for user scenarios requiring data management
+** users without data requirements can safely ignore the database
+** external databases (MariaDB, MySQL, IBM DB2, Microsoft SQL Server) can be integrated through
+*** JDBC drivers packaged as technical extensions and
+*** pre-packaged SQL component
+* Default Message Broker - Red Hat AMQ
+** Provides reliable and asynchronous messaging support
+** Addreses use cases which require inter-systems communication
+** users without reliable messaging requirements can safely ignore the Red Hat AMQ broker
+
+ifdef::showscript[]
+
+=== Transcript
+
+By default, every Fuse Ignite instance contains a PostgresDB database. This datastore provides necessary persistent data storage and addresses user requirements involving data management.
+In scenarios without data requirements, users can safely ignore the database.
+External databases (for instance, MariaDB, MySQL, IBM DB2, Microsoft SQL Server) can be integrated with JDBC drivers packaged as technical extensions, with help from the pre-packaged SQL component.
+Every Fuse Ignite instance also contains Red Hat AMQ as the default messaging broker.
+AMQ provides reliable and asynchronous messaging support in integrations. It addreses use cases which require inter-systems communication. Users without reliable messaging requirements can safely ignore the Red Hat AMQ broker.
+
+endif::showscript[]

@@ -1,0 +1,25 @@
+:data-uri:
+:numbered!:
+:noaudio:
+
+:scrollbar:
+
+== Topics
+
+* Target Audience
+* Technical Features
+* Fuse Ignite Terminology
+* Architecture
+* Pre-packaged software
+* Operational Considerations
+* Pricing Models
+* Competitive Analysis
+* Future Possibilities
+
+ifdef::showscript[]
+
+=== Transcript
+
+This module delves into the various aspects of Red Hat Fuse Online.
+
+endif::showscript[]

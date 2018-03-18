@@ -1,0 +1,19 @@
+:data-uri:
+:numbered!:
+:noaudio:
+
+:scrollbar:
+
+== Competitive Analysis
+
+* Dell Boomi
+* Jitterbit
+* Mulesoft
+
+ifdef::showscript[]
+
+=== Transcript
+
+The competitors of Fuse Online are: Dell Boomi, Jitterbit and Mulesoft.
+
+endif::showscript[]

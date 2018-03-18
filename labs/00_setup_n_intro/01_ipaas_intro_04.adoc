@@ -4,7 +4,7 @@
 
 :scrollbar:
 
-== Technology Features
+== Technical Features
 
 * Generic API Connector
 ** Allows any API to be imported as a connector

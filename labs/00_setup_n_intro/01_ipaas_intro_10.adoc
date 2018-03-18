@@ -4,13 +4,11 @@
 
 :scrollbar:
 
-== The Citizen Developer
-
+== Pricing Models
 
 
 ifdef::showscript[]
 
 === Transcript
-
 
 endif::showscript[]

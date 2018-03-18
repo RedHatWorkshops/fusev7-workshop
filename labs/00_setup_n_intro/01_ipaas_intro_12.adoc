@@ -4,13 +4,11 @@
 
 :scrollbar:
 
-== Differences with Traditional Integration
-
+== Future Possibilities
 
 
 ifdef::showscript[]
 
 === Transcript
-
 
 endif::showscript[]

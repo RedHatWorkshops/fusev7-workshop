@@ -1,0 +1,23 @@
+:data-uri:
+:numbered!:
+:noaudio:
+
+:scrollbar:
+
+== Target Audience
+
+* The Citizen Developer
+** Does not code
+** Strong in business requirements knowledge
+** Needs a tool like Fuse Online, which does not require coding skills to accomplish integrations.
+
+ifdef::showscript[]
+
+=== Transcript
+
+Fuse Online is the next-generation integration tooling and runtime engine, designed to provide Integration-as-a-Service.
+The Citizen Developer is anyone who wants to build either an application or an integration project, and does not write code for a living.
+However, the Citizen Developer is strong in business requirements knowledge.
+A tool like Fuse Online, provides the necessary technical capabilities in order to accomplish integration projects, without requiring any coding skills from the developer using this tool.
+
+endif::showscript[]
