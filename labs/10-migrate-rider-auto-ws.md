@@ -1,6 +1,19 @@
 # Migrate the Rider-Auto-WS component to SpringBoot standalone
 
-This project demonstrates the migration of a Karaf-based SOAP webservice from [Rider Auto](https://github.com/RedHatWorkshops/rider-auto-osgi/tree/master/rider-auto-ws) to Fuse 7 standalone SpringBoot. 
+Fuse 7 introduces SpringBoot as a standalone container for Fuse integration apps.  Some key new topics centered around SpringBoot support are:
+
+* Not everything contained in the Fuse 7 SpringBoot BOM are supported.  Examples are Spring Data REST, Spring MVC, RabbitMQ and Spring Integration.  Instead, we  encourage the use of RestDSL, CXF, AMQ and Camel as supportable (and better) alternatives.
+
+* Use of JBDS Templates versus OIO Missions.  JBDS Templates are useful for Integrators who want to make use of the drag-and-drop tooling or develop with SpringXML.  OIO Missions are IDE-agnostic, therefore useful for power developers wanting an easily downloadable kickstart template project
+
+* Spring encourages the use of JavaDSL over SpringXML.  There are various tradeoffs between the two DSL's.  JavaDSL is better for power developers, IDE agnostic and better suited to the Spring bean-injection model.  SpringXML is better for Integrators who use the JBDS IDE tooling or prefer XML over Java for creating their integrations.
+
+Additionally, there are some cool features built into SpringBoot which are often overlooked, including:
+
+* Secrets mounting in SpringBoot apps
+* ConfigMap property injection
+
+This project demonstrates the migration of a Karaf-based SOAP webservice from [Rider Auto](https://github.com/RedHatWorkshops/rider-auto-osgi/tree/master/rider-auto-ws) to Fuse 7 standalone SpringBoot.
 
 ### Prerequisites
 
@@ -20,34 +33,52 @@ To begin, we need to create a Fuse SpringBoot project in JBDS.
 
 ![Type Project Name](images/10-Step-3.png)
 
-4. Chose the latest Camel version (2.21)
+4. Select Fuse 7 as the **Target Runtime**.
 
-5. Choose the predefined template under "JBoss Fuse", then select "Advanced", "CXF code first" and "Spring DSL".  Click Finish.
+![Type Project Name](images/10-Step-4.png)
+
+5. Choose the predefined template under "JBoss Fuse", then select "Fuse on OpenShift", "SpringBoot on OpenShift" and "Spring DSL".  Click Finish.
 
 ![Type Project Name](images/10-Step-5.png)
 
-6.  Now that we have a template project, let's update the pom.xml file.  Update the `artifactId` name to 'artifactId'.  Underneath camel-cxf component in dependencies, paste the following:
+6.  Now that we have a template project, let's update the pom.xml file.  Update the `artifactId` name to **rider-auto-ws**.  Underneath **camel-spring-boot-starter** component in dependencies, paste the following:
 
 ```
 		<dependency>
 			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cxf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-amqp</artifactId>
-			<version>${camel.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-bindy</artifactId>
-			<version>${camel.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-csv</artifactId>
-			<version>${camel.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-jaxb</artifactId>
-			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
 		</dependency>
 ```
 
@@ -63,16 +94,9 @@ To begin, we need to create a Fuse SpringBoot project in JBDS.
         <property name="username" value="admin"/>
         <property name="password" value="admin"/>
     </bean>
-    <bean
-        class="org.springframework.jms.connection.CachingConnectionFactory" id="jmsCachingConnectionFactory">
-        <property name="targetConnectionFactory" ref="jmsConnectionFactory"/>
-    </bean>
-    <bean class="org.apache.camel.component.jms.JmsConfiguration" id="jmsConfig">
-        <property name="connectionFactory" ref="jmsCachingConnectionFactory"/>
-        <property name="cacheLevelName" value="CACHE_CONSUMER"/>
-    </bean>
     <bean class="org.apache.camel.component.amqp.AMQPComponent" id="amqp">
-        <property name="configuration" ref="jmsConfig"/>
+ <property name="connectionFactory" ref="jmsConnectionFactory" />
+
     </bean>
     <cxf:cxfEndpoint address="http://localhost:8183/cxf/order"
         id="orderEndpoint" serviceClass="org.fusesource.camel.ws.OrderEndpoint"/>
@@ -97,7 +121,7 @@ To begin, we need to create a Fuse SpringBoot project in JBDS.
 Notice we've updated the JMS endpoint to point to AMQ 7 using the AMQP protocol.
 
 8. Save the camel-context.xml file.
-9. Now we need to migrate the Order POJO and Endpoint.  First, delete the existing package and contents under `src/main/java`.  Copy `../10-artifacts/Order.java` to your new rider-auto-ws project, and paste it into a new source package called `org.fusesource.camel.model`.
+9. Now we need to migrate the Order POJO and Endpoint. First, create a new source package called `org.fusesource.camel.model`. Copy `../10-artifacts/Order.java` to the new package.
 10.  Do the same for `../10-artifacts/OrderEndpoint.java`, except paste it into a new package called `org.fusesource.camel.ws`.
 11. Create a new package structure under `src/main/resources/org/fusesource/camel/model/`.  Copy `../10-artifacts/jaxb.index` to the new package.
 12. If everything compiles, try right-clicking on the `camel-context.xml` file and selecting "Run As" and then "Local Camel Context".
