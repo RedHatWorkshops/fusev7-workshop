@@ -21,7 +21,9 @@ To begin, we need to create a FIS SpringBoot project in JBDS.
 
 ![Type Project Name](images/10-Step-3.png)
 
-4. Chose the latest Camel version (2.21)
+4. Select Fuse 7 as the **Target Runtime**.
+
+![Type Project Name](images/10-Step-4.png)
 
 5. Choose the predefined template under "Fuse on OpenShift", then select "SpringBoot on OpenShift" and "Spring DSL".  Click Finish.
 
@@ -87,8 +89,6 @@ To begin, we need to create a FIS SpringBoot project in JBDS.
     </camelContext>
 </beans>
 ```
-
-Notice we've updated the JMS endpoint to point to AMQ 7 using the AMQP protocol.
 
 8. Save the camel-context.xml file.
 9. Now we need to migrate the Order POJO and Endpoint.  First, delete the MyTransformer class under `src/main/java/org/mycompany`.  Copy `../20-artifacts/Order.java` to your new rider-auto-ws project, and paste it into a new source package called `org.fusesource.camel.model`.
