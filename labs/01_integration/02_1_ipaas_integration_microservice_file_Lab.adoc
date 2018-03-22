@@ -92,9 +92,6 @@ You will setup an integration between the Microservice and the web hosting servi
 . Specify the value of the *File name expression* field, as `product-catalog.txt`.
 . Specify the value of the *FTP Directory* field, as `./htdocs`.
 . Click *Done*. The `hosting-server` connection is now part of the Integration.
-
-//=== Add a data mapping step
-
 . At the top-left hand corner of the Fuse Ignite console, select the field with the text `Enter integration name...`
 . Provide _Microservice to File_ as the name for the integration.
 . At the upper right corner of the console, click *Publish*.
@@ -124,6 +121,14 @@ You will setup a connection to the web hosting service where the flat file conta
 If you are using the Fuse Ignite Technology Preview release, exactly one integration at a time can be active (ie: in publish state).
 Though you can create another Fuse Ignite integration, you cannot publish it while another integration is active.
 As a good housekeeping practice, it is recommended to unpublish any integration that you no longer wish to test.
+
+===
+
+
++
+image::images/choose-a.png[]
++
+
 
 === Housekeeping
 

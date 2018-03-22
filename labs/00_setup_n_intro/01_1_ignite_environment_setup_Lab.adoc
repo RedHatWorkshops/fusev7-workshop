@@ -14,8 +14,7 @@ This course includes at least one lab per module. Each lab is hands-on and typic
 
 .Requirements
 * Red Hat OPENTLC credentials
-* OpenShift Container Platform CLI (`oc` utility) has to be link:https://access.redhat.com/documentation/en-us/openshift_container_platform/3.7/html/cli_reference/cli-reference-get-started-cli#installing-the-cli[downloaded] to your local PC, unarchived and setup for command line use
-* A command line SSH client must be setup on your local PC
+* Either Mozilla Firefox, or Google Chrome, web browser installed on your PC
 * Active Internet connection must be provided
 +
 [IMPORTANT]
@@ -89,54 +88,6 @@ There is a total two software applications hosted on the OPENTLC OpenShift Conta
 1. Fuse Ignite - for Integration tooling
 2. Coolstore Product Catalog Microservice - for specific integration lab use
 
-=== Define Environment Variables
-
-You need to set a few environment-specific variables in your shell terminal that can be leveraged throughout various commands in this course.
-
-. As the super user of your local PC, execute each of the following commands, one at a time.
-. Set an environment variable with your lab environment GUID:
-+
-[source,text]
------
-$ echo "export GUID=<your OCP lab environment GUID as provided in the confirmation email>" >> ~/.bashrc
------
-
-. Set an environment variable with your OpenShift user Id:
-+
------
-$ echo 'export OCP_USER_ID=<your OCP USER ID>' >> ~/.bashrc
------
-+
-NOTE:  This value will be your OPENTLC User ID.
-
-. Enable the new environment variables in your existing shell:
-+
-[source,text]
------
-$ source ~/.bashrc
------
-
-=== Authenticate into OpenShift Using `oc` Utility
-
-From your local PC, the `oc` utility allows you to interact from the command line with your provisioned OpenShift Container Platform environment.
-
-. Authenticate to your OpenShift Container Platform environment as follows:
-
-. Ensure that you are logged in as the super user of your local PC.
-. Execute the login command to OpenShift:
-+
-[source,text]
------
-$ oc login https://master.$GUID.openshift.opentlc.com -u $OCP_USER_ID
------
-
-. Notice the message, similar to this:
-+
-[source,text]
------
-Logged into "https://master.$GUID.openshift.opentlc.com:443" as "$OCP_USER_ID" using existing credentials.
------
-
-You are now ready for enterprise integration work using Red Hat Fuse Ignite.
+You are now ready to proceed with enterprise integration work using Red Hat Fuse Ignite.
 
 :numbered!:
