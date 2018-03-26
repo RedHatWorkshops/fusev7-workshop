@@ -5,9 +5,7 @@
 :coursevm:
 
 
-== Integration Lab - Data Synchronization on the Cloud: Microservice to Flat File scenario
-
-//Describe business scenario - repeat architecture diagram
+== Integration Lab - Product Data Synchronization: Microservice to Flat File scenario
 
 This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
 
@@ -19,10 +17,14 @@ This course includes at least one lab per module. Each lab is hands-on and typic
 * Provisioned a Fuse Ignite environment
 
 In this lab, you will fulfill the requirements for a cloud-based data synchronization solution, by integrating a provider of JSON data, namely a Microservice, to a remote file hosting server designated to host the destination copy of the data.
+The data is hosted by Coolstore, an online store that conducts wholesale business of quality consumer products. The consumer of the data is any reseller of Coolstore products.
+
+image::images/architecture-microservice-to-file.png[]
 
 The data will be persisted into a flat file, which will be created upon the initial synchronization with the Microservice using a Fuse Ignite integration. This integration scenario will be real-time and will be active indefinitely (does not ever stop, if you allow it).
 
-As the Integration actively polls the Microservice for Product Catalog data of an e-commerce business, called Coolstore, the flat file is constantly refreshed with the most current data that the Microservice offers. This allows the users of the Product Catalog data to confidently download the data from the remote file hosting server anytime they require it for use in their business operations.
+As the Integration actively polls the Microservice for Product Catalog data of an e-commerce business, called Coolstore, the flat file is constantly refreshed with the most current data that the Microservice offers. This allows any resellers of Coolstore product to be assured of data quality and therefore, confidently download the data from the remote file hosting server anytime.
+This business data regarding the product catalog is utilized as part of business operations of any reseller of Coolstore products.
 
 :numbered:
 
@@ -104,41 +106,49 @@ Now, testing of the data synchronization integration can proceed.
 
 You will setup a connection to the web hosting service where the flat file containing JSON data will be stored.
 
+==== Interprete JSON output from Microservice
+
 . Click *Integrations*, in the left-hand pane of the Fuse Ignite console.
 . Select the _Microservice to File_ integration.
 . Validate that the _Microservice to File_ integration is active.
 . In a separate web browser window, access the *Coolstore Product Catalog Microservice* using the URL earlier identified from the confirmation email.
 . Notice the JSON output, provided by the Microservice, displayed in the web browser window.
-* Question: Can you identify the individual products listed as well as their attributes?
+* *Question:* Can you identify the individual products listed as well as their attributes?
+
+==== Validate data transfer completion
+
 . Using an FTP client, or a web-based console (if available), login and navigate to the root directory of your web hosting service account.
 . Navigate to the `./htdocs` subdirectory.
 . Locate and download the `product-catalog.txt` file to your local PC.
 . Locate the `product-catalog.txt` file on your local PC and open it using your favorite text editor.
 . Compare the contents of the `product-catalog.txt` file, with the JSON output from the *Coolstore Product Catalog Microservice* which is displayed in the web browser window.
-* Question: Does the flat file contents differ from the JSON output in the web browser window? What are your conclusions regarding the function of the _Microservice to File_ integration?
+* *Question:* Does the flat file contents differ from the JSON output in the web browser window? What are your conclusions regarding the function of the _Microservice to File_ integration?
+
+==== Validate data transfer completion
+
+. Using the FTP client, or a web-based console (if available), delete the `product-catalog.txt` files from the remote web host as well as the local PC.
+. After a minute or more, list the contents of the `./htdocs` subdirectory.
+. Verify that the `product-catalog.txt` file appears again.
+* *Question:* If the _Microservice to File_ integration is not active, will this file appear under these circumstances?
+. Locate and download the `product-catalog.txt` file to your local PC.
+. Locate the `product-catalog.txt` file on your local PC and open it using your favorite text editor.
+. Compare the contents of the `product-catalog.txt` file, with the JSON output from the *Coolstore Product Catalog Microservice* which is displayed in the web browser window.
+* *Question:* Does this validates that the _Microservice to File_ integration achieves its objective of real-time data synchronization for the benefit of resellers of Coolstore products?
 
 [NOTE]
 If you are using the Fuse Ignite Technology Preview release, exactly one integration at a time can be active (ie: in publish state).
 Though you can create another Fuse Ignite integration, you cannot publish it while another integration is active.
-As a good housekeeping practice, it is recommended to unpublish any integration that you no longer wish to test.
-
-===
-
-
-+
-image::images/choose-a.png[]
-+
-
+As a good housekeeping practice, it is recommended to `unpublish` any integration that you no longer wish to test.
 
 === Housekeeping
 
-You will clean up the integration.
+You will clean up the integration. as a housekeeping best practice.
 
 . In the left-hand pane, click *Integrations*.
 . Locate the entry for the _Microservice to File_ integration.
 . Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
 . Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
-* At this stage, any other integration can be published and tested.
+* If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
 +
 [NOTE]
 The next few steps are optional. Use them only when you are certain that the integration will never be required again.
@@ -147,7 +157,7 @@ The next few steps are optional. Use them only when you are certain that the int
 . Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
 . Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
 
-You have completed, tests and cleaned up your integration in Fuse Ignite.
+You have completed, tested and cleaned up your integration in Fuse Ignite.
 
 ifdef::showscript[]
 
