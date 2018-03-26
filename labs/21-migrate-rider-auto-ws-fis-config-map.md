@@ -1,13 +1,10 @@
-# Migrate the Rider-Auto-WS component to Fuse Integration Services (SpringBoot)
+# Add a Config Map to your SpringBoot FIS project
 
-This project demonstrates the migration of a Karaf-based SOAP webservice from [Rider Auto](https://github.com/RedHatWorkshops/rider-auto-osgi/tree/master/rider-auto-ws) to the FIS SpringBoot image. 
+Sometimes you need to externalize environment variables like queue / host / port names in your Camel route.  SpringBoot and Kubernetes have a useful concept called Config Maps to address variables which can easily be updated at runtime.
 
 ### Prerequisites
 
-1. Ensure you have JBoss Developers Studio version 11.2 + with the latest Fuse Tooling
-2. Ensure AMQ 7.x is running locally
-3. Ensure you have CDK 3.3.x running locally
-4. Ensure you've upgraded your CDK to use the latest Fuse 7 image streams found [here](https://github.com/jboss-fuse/application-templates/blob/master/fis-image-streams.json).  You might need to update the `fis-image-streams.json` [in the OpenShift project, Images section] to make use of the following registry URL: **registry.access.redhat.com/jboss-fuse-7-tech-preview/**
+1. Ensure you have completed the previous FIS SpringBoot [project](./20-migrate-rider-auto-ws-fis.md).
 
 ### Procedure
 
