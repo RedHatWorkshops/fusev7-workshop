@@ -122,9 +122,9 @@ To begin, we need to create a Fuse SpringBoot project in JBDS.
 Notice we've updated the JMS endpoint to point to AMQ 7 using the AMQP protocol.
 
 8. Save the camel-context.xml file.
-9. Now we need to migrate the Order POJO and Endpoint. First, create a new source package called `org.fusesource.camel.model`. Copy `../10-artifacts/Order.java` to the new package.
-10.  Do the same for `../10-artifacts/OrderEndpoint.java`, except paste it into a new package called `org.fusesource.camel.ws`.
-11. Create a new package structure under `src/main/resources/org/fusesource/camel/model/`.  Copy `../10-artifacts/jaxb.index` to the new package.
+9. Now we need to migrate the Order POJO and Endpoint. First, create a new source package called `org.fusesource.camel.model`. Copy [`../10-artifacts/Order.java`](https://raw.githubusercontent.com/joshdreagan/fusev7-workshop/master/labs/10-artifacts/Order.java) to the new package.
+10.  Do the same for [`../10-artifacts/OrderEndpoint.java`](https://raw.githubusercontent.com/joshdreagan/fusev7-workshop/master/labs/10-artifacts/OrderEndpoint.java), except paste it into a new package called `org.fusesource.camel.ws`.
+11. Create a new package structure under `src/main/resources/org/fusesource/camel/model/`.  Copy [`../10-artifacts/jaxb.index`](https://raw.githubusercontent.com/joshdreagan/fusev7-workshop/master/labs/10-artifacts/jaxb.index) to the new package.
 12. If everything compiles, try right-clicking on the `camel-context.xml` file and selecting "Run As" and then "Local Camel Context".
 
 ![Type Project Name](images/10-Step-12.png)
