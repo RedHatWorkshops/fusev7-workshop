@@ -34,6 +34,7 @@ To begin, we need to create a Fuse SpringBoot project in JBDS.
 ![Type Project Name](images/10-Step-3.png)
 
 4. Select Fuse 7 as the **Target Runtime**.
+ - Or select 2.21.0.000033-fuse-000001-redhat-1 as the **Camel Version**.
 
 ![Type Project Name](images/10-Step-4.png)
 
