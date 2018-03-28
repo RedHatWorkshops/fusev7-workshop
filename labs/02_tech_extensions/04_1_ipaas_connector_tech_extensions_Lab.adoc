@@ -16,15 +16,15 @@ This course includes at least one lab per module. Each lab is hands-on and typic
 * Test the integration
 
 .Pre-requisites
-*  Completion of *Integration Lab - Data Synchronization on the Cloud: Microservice to Flat File scenario*
+* Completion of *Integration Lab - Data Synchronization on the Cloud: Microservice to Flat File scenario* in Module 2
+* Apache Maven must be installed on your local PC
+** Download link:https://maven.apache.org/download.html[Apache Maven].
+** Complete the installation by following this https://maven.apache.org/install.html[guide].
 
-Your organization intends to launch a demand generation campaign for a new product.
-A promotional flyer has to be sent over social media channels as a tweet.
-You have been asked to design an integration solution which this campaign will depend on.
+This lab involves an enhancement to an existing integration: the _Microservice to File_ integration from Module 2.
+The enhancement involves adding a technical extension that adds loop cycles to the synchronization process.
 
-In order to meet your organization's requirements for a demand generation campaign, you plan to utilize 2 connectors: a AWS S3 connector and a Twitter connector, as well as a pre-packaged technical extension `log`, which writes a message to the log stream. You will create a custom step using this pre-packaged technical extension and then utilize the custom step in a new integration, using Red Hat Fuse Ignite.
-
-//architecture diagram
+image::images/arch-microservice-loop-file.png[]
 
 :numbered:
 
@@ -219,7 +219,7 @@ The technical extension, that you have just imported, is now available for use w
 You will add the newly imported technical extension as a custom step to an integration.
 
 . In the left-hand pane of Fuse Ignite console, click *Integrations*.
-. Select the _Microservice to File_ integration. If you have not completed the pre-requisite lab, this will be the time to do so.
+. Select the _Microservice to File_ integration. If you have not completed the lab in Module 2, this will be the time to do so.
 . Click on the *Edit Integration* button on the top right hand corner of the console.
 . On the *Integration Editor* page, move your mouse cursor over the Data Mapper custom step, between the *Start Connection* and the *Finish Connection*.
 . Click on the icon of the trash bin. The custom step is deleted.
@@ -250,6 +250,14 @@ You will test the integration and validate the results.
 . Logon back to your remote hosting service. This time validate that the file containing the product catalog data is present.
 
 
+=== (Optional) Replace loop extension with other extensions
+
+You will experiment with the use of other connector extensions.
+
+. Replace the existing *Loop* connector extension with other link:https://github.com/syndesisio/syndesis-extensions[extensions] from the upstream community project
+. Test the integration upon implementing each extension and observe the various results.
+* *Question:* Does the behavior of the integration change, and can you compile a list of the behavioral changes - referencing each extension used?
+
 === Housekeeping
 
 You will clean up the integration. as a housekeeping best practice.
@@ -270,5 +278,71 @@ The next few steps are optional. Use them only when you are certain that the int
 You have successfully implemented and tested a connector extension as a custom step in an integration.
 
 ifdef::showscript[]
+
+=== Examine existing technical extensions
+
+Next, register Fuse Ignite as a client application for the online Twitter service. With this accomplished, any number of integrations connecting Twitter can be created.
+
+. At the Fuse Ignite console, copy the Fuse Ignite URL from URL field in the web browser.
+. On the left-hand panel of the Fuse Ignite console, click *Settings*.
+. On the *OAuth Application Management* webpage, notice the _Twitter_ icon.
+. On the left of the _Twitter_ icon, click the *Register* button.
+. Notice both the *Client ID* and *Client Secret* fields are displayed.
+. Launch another web browser window, and type `http://apps.twitter.com` in the URL field.
+. After typing, hit the *Enter* button on your keyboard.
+. When the login page is fully loaded, log into your *Twitter* account.
+. Click *Create New App*.
+. In the _Name_ field, provide the name of this new app.
++
+NOTE: The app name must be unique among all other apps registered using your *Twitter* account.
++
+. In the _Description_ field, enter helpful information. Twitter requires some input in this field.
+
+. In both the _Website_ and _Callback URL_ fields, paste your Fuse Ignite URL (which you copied earlier into the clipboard) .
+
+. Remove the URI suffix `dashboard` from the end of the value in the _Callback URL_ field.
+. Append the string `api/v1/credentials/callback` to the value in the _Callback URL_ field.
++
+NOTE: For example: https://app-proj9128.7b63.fuse-ignite.openshiftapps.com/api/v1/credentials/callback.
++
+. Click *Yes*, and thereby agreeing to the terms and conditions of the *Twitter* developer agreement.
+. Click *Create your Twitter application*.
+. Select the *Keys and Access Tokens* tab.
+. The `Consumer Key` appears on the web page. Copy it.
+. In the other web browser window, select the *Settings* tab on the Fuse Ignite console.
+. Paste the *Twitter* `Consumer Key` into the *Twitter Client ID* field.
+. In the web browser window for your Twitter account, locate the *Twitter Keys and Access Tokens* tab.
+. Copy the `Consumer Secret`.
+. Paste the string into the *Twitter Client Secret* field in the Fuse Ignite console.
+. Click *Save*. followed by clicking *OK*.
+
+You have completed the setup of Fuse Ignite as a Twitter client application.
+
+=== Create Salesforce Connection
+
+Before an integration can be created, a connection has to be created for each cloud service endpoint that will be integrated. These cloud services have to support the link:https://oauth.net/2[OAuth protocol].
+
+. On the Fuse Ignite console, click the *Connections* tab.
+
+=== Create Twitter Connection
+
+. On the Fuse Ignite console, click the *Connections* tab.
+
+=== Create Integration between Salesforce and Twitter
+
+The integration starts by accessing the Salesforce application from which data is retrieved from.
+
+. Select the Salesforce connection. This is the *start* connection point of the integration you are creating.
+. Select the *action* that the *start* connection has to perform.
+. As an option (and this varies among connections), provide configuration information to the *start* connection. For instance, indicate if the action involves either a Salesforce lead or a Salesforce opportunity.
+. Select the Twitter connection. This is the *finish* connection which accesses the application that consumes the data retrieved by the *start* connection, thereby completing the integration.
+. Select the *action* that the *finish* connection is required to perform. Similarly to the earlier *action* selected, this *action* can involve data update.
+. As an option, provide configuration information to the *finish* connection.
+. Click *Publish* to begin testing the integration.
++
+NOTE: As the business use case evolves, additional connections to other applications can be introduced as part of the integration. These connections can exist anywhere between the *start* connection and the *finish* connection.
++
+. OPTIONAL: Add new connections into the integration.
+. OPTIONAL: Add several steps in order to manipulate the data used in the integration. _Data filtering and _data mapping_ are recommended steps to introduce.
 
 endif::showscript[]
