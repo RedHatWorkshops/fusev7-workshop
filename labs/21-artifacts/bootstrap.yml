@@ -1,0 +1,11 @@
+# Startup configuration of Spring-cloud-kubernetes
+spring:
+  application:
+    name: camel-config
+  cloud:
+    kubernetes:
+      reload:
+        # Enable live reload on ConfigMap change (disabled for Secrets by default)
+        enabled: true
+      secrets:
+        paths: /etc/secrets/camel-config
