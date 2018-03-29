@@ -1,0 +1,10 @@
+apiVersion: "v1"
+kind: "RoleBinding"
+metadata:
+  name: "qs-camel-config"
+roleRef:
+  # Add the view role to the service account
+  name: "view"
+subjects:
+  - kind: "ServiceAccount"
+    name: "qs-camel-config"
