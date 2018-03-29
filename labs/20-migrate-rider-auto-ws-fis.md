@@ -117,7 +117,7 @@ To begin, we need to create a FIS SpringBoot project in JBDS.
 
 Now let's try running our SpringBoot container on Minishift.
 
-16. Copy both [`../20-artifacts/route.yml`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/route.yml) and [`../20-artifacts/services.yml`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/services.yml) to the `src/main/fabric8` directory.
+16. Copy both [`../20-artifacts/route.yml`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/route.yml) and [`../20-artifacts/services.yml`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/service.yml) to the `src/main/fabric8` directory.
 17. Uncomment the `amq.host=192.168.1.64` in the `src/main/resources/application.properties` file so that your local AMQ environment can be reached from Minishift.  Comment out the `amq.host=localhost` property and save the file.
 18. Startup minishift / CDK.
 19. Login via the CLI using `oc login -u developer`.
