@@ -93,10 +93,10 @@ To begin, we need to create a FIS SpringBoot project in JBDS.
 ```
 
 8. Save the camel-context.xml file.
-9. Now we need to migrate the Order POJO and Endpoint.  Copy `../20-artifacts/Order.java` to your new rider-auto-ws project, and paste it into a new source package called `org.fusesource.camel.model`.
-10.  Do the same for `../20-artifacts/OrderEndpoint.java`, except paste it into a new package called `org.fusesource.camel.ws`.
-11. Create a new package structure under `src/main/resources/org/fusesource/camel/model/`.  Copy `../20-artifacts/jaxb.index` to the new package.
-12. Copy `../20-artifacts/application.properties` to `src/main/resources` and override the existing file.
+9. Now we need to migrate the Order POJO and Endpoint.  Copy [`../20-artifacts/Order.java`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/Order.java) to your new rider-auto-ws project, and paste it into a new source package called `org.fusesource.camel.model`.
+10.  Do the same for [`../20-artifacts/OrderEndpoint.java`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/OrderEndpoint.java), except paste it into a new package called `org.fusesource.camel.ws`.
+11. Create a new package structure under `src/main/resources/org/fusesource/camel/model/`.  Copy [`../20-artifacts/jaxb.index`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/jaxb.index) to the new package.
+12. Copy [`../20-artifacts/application.properties`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/application.properties) to `src/main/resources` and override the existing file.
 13. Copy the following block to `src/main/java/org/mycompany/Application.java`:
 
 ```
@@ -117,7 +117,7 @@ To begin, we need to create a FIS SpringBoot project in JBDS.
 
 Now let's try running our SpringBoot container on Minishift.
 
-16. Copy both `../20-artifacts/route.yml` and `../20-artifacts/services.yml` to the `src/main/fabric8` directory.
+16. Copy both [`../20-artifacts/route.yml`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/route.yml) and [`../20-artifacts/services.yml`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/services.yml) to the `src/main/fabric8` directory.
 17. Uncomment the `amq.host=192.168.1.64` in the `src/main/resources/application.properties` file so that your local AMQ environment can be reached from Minishift.  Comment out the `amq.host=localhost` property and save the file.
 18. Startup minishift / CDK.
 19. Login via the CLI using `oc login -u developer`.
