@@ -1,4 +1,4 @@
-#Running Camel in EAP
+# Running Camel in EAP
 
 ### Prerequisites
 
@@ -112,5 +112,5 @@ curl http://localhost:8080/camel-test-spring?name=YOUR_NAME
 and server will reply ***Hello YOUR_NAME***
 
 - To stop the EAP server in Servers view, right click on the *Red Hat JBoss Enterprise Application Platform 7.1* and select Stop.
-- 
+
 ![Add project name](ismages/60-Step-11.png)
