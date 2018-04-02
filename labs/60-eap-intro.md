@@ -4,6 +4,7 @@
 
 1. Ensure you have JBoss Developers Studio version 11.2 + with the latest Fuse Tooling
 2. Ensure Fuse 7.x is unzipped to a local directory
+3. Download EAP 7.1 from [here](https://developers.redhat.com)
 
 ### Procedure
 
