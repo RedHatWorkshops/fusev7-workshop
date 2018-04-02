@@ -97,8 +97,10 @@ When used in conjunction with the camel-cdi component, Java EE annotations can m
 
 ```
 xmlns:jee="http://www.springframework.org/schema/jee"
+xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 
 http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 ```
 
 So it looks like this
@@ -106,30 +108,35 @@ So it looks like this
 ```
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:camel="http://camel.apache.org/schema/spring"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xmlns:jee="http://www.springframework.org/schema/jee"
-    xsi:schemaLocation="
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd        
-    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd	
     http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
-    ">
+    http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 ```
 
 Look up the DataSource in the Camel Context, by adding the following configuration in *my-camel-context.xml*  
 
 ```
 <jee:jndi-lookup id="myCamelDS" jndi-name="java:jboss/datasources/ExampleDS"/>
+<jdbc:initialize-database data-source="myCamelDS">
+	<jdbc:script location="classpath:db-init.sql"/>
+</jdbc:initialize-database>
 ```
 
-Add a new route to the Camel file
+Add a new route to the Camel file:
 
-```
-<route id="_route2">
-	<from id="_from2" uri="direct:database"/>
-	<to id="_sql2" uri="sql:select name from information_schema.users?dataSource=#myCamelDS"/>
-	<log message="${body}" />
-</route>
-```
+First add a new Route from dragging from right Palette and add the SQL select content in route.
+
+- 
+	- **Direct** URI as *direct:database*
+	- **SQL** URI as *sql:select name from information_schema.users?dataSource=#myCamelDS*
+	- **Log** message as *${body}*
+	- **setBody** Expression as *Hello ${body.RETURNNAME}* and Language as *simple*
+
+![CXF](images/60-lab01-Step-13.png)
 
 Add the another REST endpoint to the camel context
 
@@ -139,3 +146,23 @@ Add the another REST endpoint to the camel context
 </get>
 ```
 
+## Deploy application
+
+You should be able to deploy this application by now. Go back to the previous intro lab if you are not sure how to do it. 
+
+
+## Test the application
+
+When deploy successfully, you should be able to execute following CURL command and get the returned response. 
+
+```
+curl http://localhost:8080/say/default
+
+#Hello World
+```
+
+```
+curl http://localhost:8080/say/db/1
+
+#Hello James
+```
