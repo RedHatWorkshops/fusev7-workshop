@@ -141,7 +141,7 @@ First add a new Route from dragging from right Palette and add the SQL select co
 Add the another REST endpoint to the camel context
 
 ```
-<get uri="/{dbno}">
+<get uri="/db/{dbno}">
 	<to uri="direct:database"/>
 </get>
 ```
