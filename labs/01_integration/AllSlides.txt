@@ -1,5 +1,0 @@
-include::02_ipaas_integration_title.adoc[]
-include::02_ipaas_integration_02.adoc[]
-include::02_ipaas_integration_03.adoc[]
-include::02_ipaas_integration_04.adoc[]
-include::02_ipaas_integration_05.adoc[]

@@ -1,4 +1,0 @@
-include::04_ipaas_tech_extensions_title.adoc[]
-include::04_ipaas_tech_extensions_02.adoc[]
-include::04_ipaas_tech_extensions_03.adoc[]
-include::04_ipaas_tech_extensions_04.adoc[]
