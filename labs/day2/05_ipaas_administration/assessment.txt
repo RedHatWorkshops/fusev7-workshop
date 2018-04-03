@@ -1,0 +1,5 @@
+QUESTIONBANKCODE|QUESTIONCODE|QUESTIONTYPE|QUESTIONTEXT|QUESTIONTEXTFORMAT|QUESTIONFEEDBACK|OPTION|RIGHTOPTION|OPTIONFEEDBACK|ISCORRECT|OPTIONWEIGHT|ISCASESENSITIVE|RANDOMIZEOPTIONS|STATUS
+IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid user role in Red Hat Fuse Ignite?|||Manager|||0|0|||
+IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid user role in Red Hat Fuse Ignite?|||Expert Integrator|||0|0|||
+IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid user role in Red Hat Fuse Ignite?|||User|||1|100|||
+IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid user role in Red Hat Fuse Ignite?|||Developer|||0|0|||

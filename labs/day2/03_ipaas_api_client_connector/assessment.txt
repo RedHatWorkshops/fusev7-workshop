@@ -1,0 +1,5 @@
+QUESTIONBANKCODE|QUESTIONCODE|QUESTIONTYPE|QUESTIONTEXT|QUESTIONTEXTFORMAT|QUESTIONFEEDBACK|OPTION|RIGHTOPTION|OPTIONFEEDBACK|ISCORRECT|OPTIONWEIGHT|ISCASESENSITIVE|RANDOMIZEOPTIONS|STATUS
+IGNITE_DEV|IGNITE_FDS0301|1|What is needed for Red Hat Fuse Ignite to create a connector for REST APIs?|||Project Object Model|||0|0|||
+IGNITE_DEV|IGNITE_FDS0301|1|What is needed for Red Hat Fuse Ignite to create a connector for REST APIs?|||XSLT Style Sheet|||0|0|||
+IGNITE_DEV|IGNITE_FDS0301|1|What is needed for Red Hat Fuse Ignite to create a connector for REST APIs?|||CamelContext|||0|0|||
+IGNITE_DEV|IGNITE_FDS0301|1|What is needed for Red Hat Fuse Ignite to create a connector for REST APIs?|||Swagger Specification|||1|100|||
