@@ -23,6 +23,9 @@
     <version.wildfly.maven.plugin>1.2.0.Final</version.wildfly.maven.plugin>
     <maven.compiler.source>1.8</maven.compiler.source>
     <version.maven.war.plugin>3.0.0</version.maven.war.plugin>
+    <!--<fabric8.maven.plugin.version>3.5.33.fuse-000031</fabric8.maven.plugin.version>-->
+    <!--<fabric8.maven.plugin.version>3.5.38</fabric8.maven.plugin.version>-->
+    <fabric8.maven.plugin.version>3.5.38</fabric8.maven.plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -130,6 +133,20 @@
               <skip>true</skip>
             </configuration>
           </plugin>
+          <plugin>
+	        <groupId>io.fabric8</groupId>
+	        <artifactId>fabric8-maven-plugin</artifactId>
+	        <version>${fabric8.maven.plugin.version}</version>
+	        
+	        <executions>
+	          <execution>
+	            <goals>
+	              <goal>resource</goal>
+	              <goal>build</goal>
+	            </goals>
+	          </execution>
+	        </executions>
+	      </plugin>
         </plugins>
       </build>
     </profile>
