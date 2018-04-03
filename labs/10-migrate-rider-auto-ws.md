@@ -135,3 +135,25 @@ Notice we've updated the JMS endpoint to point to AMQ 7 using the AMQP protocol.
 
 ![Type Project Name](images/10-Step-14.png)
 
+## Optional Challenge
+
+Create a new project called **rider-auto-rs** that exposes a RESTful HTTP interface using [Camel RestDSL](http://camel.apache.org/rest-dsl.html).  A user should be able to submit the following JSON:
+
+```
+{
+	"order" : {
+      "name" : "Simon",
+      "amount" : "3"
+	}
+}
+```
+
+and receive the following response:
+
+```
+{
+	"orderResponse" : "OK"
+}
+```
+
+
