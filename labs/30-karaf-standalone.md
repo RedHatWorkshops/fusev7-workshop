@@ -115,7 +115,7 @@ To begin, we need to create a Fuse Karaf project in JBDS using one of the fabulo
 
 ![Type Project Name](images/30-Step-3.png)
 
-4. Manually enter the latest Camel version (2.20.2).  Click "Next".
+4. Select Fuse 7 as the **Target Runtime**, or select **2.21.0.000033-fuse-000001-redhat-1** as the **Camel Version**. Click "Next".
 
 ![Type Project Name](images/30-Step-4.png)
 
