@@ -50,7 +50,7 @@ To create a Fuse EAP project in JBDS.
 
 ![Create Fuse Project](images/60-Step-2.png)
 
-- Type in the project name "currency-exchange-eap".  Click "Next".
+- Type in the project name "lab01".  Click "Next".
 
 ![Add project name](images/60-Step-3.png)
 
@@ -111,5 +111,5 @@ curl http://localhost:8080/camel-test-spring?name=YOUR_NAME
 and server will reply ***Hello YOUR_NAME***
 
 - To stop the EAP server in Servers view, right click on the *Red Hat JBoss Enterprise Application Platform 7.1* and select Stop.
-- 
-![Add project name](ismages/60-Step-11.png)
+
+![Add project name](images/60-Step-11.png)
