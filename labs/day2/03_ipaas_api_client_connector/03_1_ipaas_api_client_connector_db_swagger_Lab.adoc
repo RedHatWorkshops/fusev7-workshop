@@ -5,7 +5,7 @@
 :coursevm:
 
 
-== API Client Connector Lab - Database to RESTful Service Scenario
+= API Client Connector Lab - Database to RESTful Service Scenario
 
 This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
 
@@ -22,7 +22,7 @@ image::images/01-Step-01.png[]
 
 :numbered:
 
-=== Logon to Red Hat Fuse Ignite
+== Logon to Red Hat Fuse Ignite
 
 . Check your email inbox for the same email you received earlier, containing a link to Red Hat Fuse Ignite.
 +
@@ -32,7 +32,7 @@ CAUTION: Red Hat Fuse Ignite is supported for the following web browsers: Google
 
 . Log in using your OPENTLC account. The Fuse Ignite console page appears.
 
-=== Access To Do App
+== Access To Do App
 
 You will access the web application that will trigger the Fuse Ignite integration.
 
@@ -49,7 +49,7 @@ Data posted from the *To Do App* will be persisted in the PostgresDB embedded in
 +
 image::images/01-Step-03.png[]
 
-=== Access Customer Billing Portal
+== Access Customer Billing Portal
 
 You will access the CoolWater Inc. customer billing portal, which is exposed using REST APIs as well.
 
@@ -61,7 +61,8 @@ image::images/01-Step-37.png[]
 [NOTE]
 Note that the results expire every three hour interval.
 
-=== Create an API Client Connector
+
+== Create an API Client Connector
 
 Next, create an API Client Connector using an existing Swagger document.
 
@@ -109,7 +110,7 @@ image::images/01-Step-09.png[]
 You have created an API client connector to a RESTful service, using a Swagger document.
 
 
-=== Create a connection using the API Client Connector to a RESTful service
+== Create a connection using the API Client Connector to a RESTful service
 
 You will create a connection using the *Pay Water Bill* connector. This will provide access to the hosted RESTful service _Customer Billing Portal_.
 
@@ -139,11 +140,11 @@ image::images/01-Step-14.png[]
 This indicates that the *PayBill* connection is ready for use as part of an integration. In the same manner, you can create a wide variety of connections and access them via their respective icons on the *Connections* page.
 
 
-=== Create an Integration between the PostgresDB connection and the PayBill connection
+== Create an Integration between the PostgresDB connection and the PayBill connection
 
 You will create an integration that involves the PostgresDB database and the _Customer Billing Portal_ REST Service.
 
-==== Add the PostgresDB connection to the Integration
+=== Add the PostgresDB connection to the Integration
 
 . Select the *Integrations* tab on the left-hand pane of the Fuse Ignite console.
 +
@@ -169,12 +170,13 @@ image::images/01-Step-17.png[]
 +
 ----
 SQL Statement: SELECT TASK FROM TODO WHERE TASK LIKE 'reoccurring%';
-Period: 30000
+Period: 30000 Milliseconds
 ----
 +
 image::images/01-Step-18.png[]
 
-==== Add the PayBill Connection to the Integration
+
+=== Add the PayBill Connection to the Integration
 
 . On the *Choose a Finish Connection* page, select the *PayBill* icon. *PayBill* is assigned as the *FINISH* connection of the integration.
 +
@@ -184,7 +186,8 @@ image::images/01-Step-19.png[]
 +
 image::images/01-Step-20.png[]
 
-==== Add a data mapping step
+
+=== Add a data mapping step
 
 . In the left panel, move your mouse cursor over the *+* sign between the *PERIODIC SQL INVOCATION* connection and the *PAYMENT* connection.
 . In the pop-up window that appears, click *Add a step*.
@@ -236,7 +239,8 @@ image::images/01-Step-30.png[]
 +
 . Once the integration is published, click *Done*.
 
-=== Test the integration
+
+== Test the integration
 
 You will test the integration.
 
@@ -265,7 +269,8 @@ image::images/01-Step-35.png[]
 
 *QUESTION:* What conclusions can you make from all the sets of test results you have collected? Can you think of other use cases that also require this integration design?
 
-=== Housekeeping
+
+== Housekeeping
 
 You will clean up the integration. as a housekeeping best practice.
 

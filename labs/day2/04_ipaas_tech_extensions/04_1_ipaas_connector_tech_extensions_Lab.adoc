@@ -5,7 +5,7 @@
 :coursevm:
 
 
-== Connector Technical Extensions Lab - Customize and implement an existing technical extension as a connector
+= Connector Technical Extensions Lab - Customize and implement an existing technical extension as a connector
 
 This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
 
@@ -26,9 +26,15 @@ The enhancement involves adding a technical extension that adds loop cycles to t
 
 image::images/arch-microservice-loop-file.png[]
 
+An application developer can build a technical extension which serves as the implementation for a custom step. The application developer then transfers the technical extension, as a .jar archive, over to the citizen developer, who proceeds to upload the technical extension into the Fuse Ignite project environment. The citizen developer then creates a custom step using this technical extension, and reuses it in multiple integrations.
+
+[NOTE]
+Learn how a technical extension is developed with the link:https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/tooling_user_guide/igniteextension/[JBoss Fuse Tooling Guide]. You will appreciate from this guide that certain conventions regarding a custom developed technical extension’s JSON file contents must be observed.
+
 :numbered:
 
-=== Logon to Red Hat Fuse Ignite
+
+== Logon to Red Hat Fuse Ignite
 
 You will proceed to utilize the Fuse Ignite environment.
 
@@ -40,16 +46,10 @@ CAUTION: Red Hat Fuse Ignite is supported for the following web browsers: Google
 
 . Log in using your OPENTLC account. The Fuse Ignite console page appears.
 
-=== Compile the technical extension
 
-You will compile a pre-developed technical extension as part of the integration.
+== [OPTIONAL] Compile Syndesis code
 
-//include an image of a Application Developer handing over a technical extension to a Citizen Developer
-
-An application developer can build a technical extension which serves as the implementation for a custom step. The application developer then transfers the technical extension, as a .jar archive, over to the citizen developer, who proceeds to upload the technical extension into the Fuse Ignite project environment. The citizen developer then creates a custom step using this technical extension, and reuses it in multiple integrations.
-
-[NOTE]
-Learn how a technical extension is developed with the link:https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/tooling_user_guide/igniteextension/[JBoss Fuse Tooling Guide]. You will appreciate from this guide that certain conventions regarding a custom developed technical extension’s JSON file contents must be observed.
+In order to proceed with compilation of a technical extension, you need the compiled code base of the community project `Syndesis`.
 
 The community project for Fuse Ignite is called `Syndesis`. Extension archetype dependencies of the `io.syndesis.extension.api` package have to be compiled prior to the compilation and use of technical extensions within a Fuse Ignite integration.
 
@@ -65,26 +65,50 @@ public class LoopAction implements Step {
 
 ----
 
-. Using a command-line terminal window, clone a repository containing the code base for `Syndesis` into a working directory which is referred to here as `$lab_dir`
+As an optional exercise, in this section you will compile the code base for the community project `Syndesis`. If you wish, you may skip this section, as the code base is provided for you to use in the next lab section.
+
+. link:https://raw.githubusercontent.com/gpe-mw-training/fuse-ipaas-labs/master/04_technical_extensions/settings.xml[Download] the Apache Maven `settings.xml` file while contains references to the Apache Maven repositories.
+. Copy the `settings.xml` file into your ``~/.m2` directory, where at least one local Maven repository will reside.
+. Open `~/.m2/settings.xml` for edit, using your favorite editor.
+. Validate that the contents within the *<repositories>* *</repositories>* tags resemble:
 +
 ----
-$ cd $lab_dir
-$ git clone https://github.com/gpe-mw-training/syndesis
+<repository>
+  <id>maven-redhat</id>
+  <name>Repository for Maven builds</name>
+  <url>https://maven.repository.redhat.com/earlyaccess/all</url>
+  <layout>default</layout>
+</repository>
+<repository>
+  <id>maven-central</id>
+  <name>Central Repository for Maven builds</name>
+  <url>http://central.maven.org/maven2/</url>
+  <layout>default</layout>
+</repository>
+<repository>
+  <id>maven-redhat</id>
+  <name>Repository for Maven builds</name>
+  <url>https://repository.jboss.org/nexus/content/groups/ea/</url>
+  <layout>default</layout>
+</repository>
 ----
 +
+[NOTE]
+These are the Maven repositories where the Maven archetypes used for the compilation of Fuse Ignite is located. For future development work involving Fuse Ignite technical extensions, these Maven repositories will play a key role in the build process.
++
+. Close the `~/.m2/settings.xml` file without making or saving any changes.
+. Using a command-line terminal window, link:https://github.com/syndesisio/syndesis/releases/tag/syndesis-1.3.4.fuse-000002[download] the code base for `Syndesis` in zip format, into a working directory which is referred to here as `$lab_dir`
+. Expand the zip archive.
 . In the terminal window, navigate to the subdirectory called `/syndesis/tools/bin` and execute the command to compile the `Syndesis` code:
 +
 ----
 $ cd $lab_dir/syndesis/tools/bin
-$ ./syndesis build
+$ ./syndesis build -f
 ----
 +
 . A successful compilation will result in the following messages:
 +
 ----
-[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ ui ---
-[INFO] Installing /hong/syndesis/app/ui/pom.xml to /root/.m2/repository/io/syndesis/ui/ui/1.3-SNAPSHOT/ui-1.3-SNAPSHOT.pom
-[INFO] Installing /hong/syndesis/app/ui/target/ui-1.3-SNAPSHOT-dist.tar.gz to /root/.m2/repository/io/syndesis/ui/ui/1.3-SNAPSHOT/ui-1.3-SNAPSHOT-dist.tar.gz
 [INFO] ------------------------------------------------------------------------
 [INFO] Reactor Summary:
 [INFO]
@@ -161,7 +185,23 @@ $ ./syndesis build
 [INFO] Final Memory: 420M/878M
 [INFO] ------------------------------------------------------------------------
 ----
-+
+
+
+== Setup of Maven Repository for Syndesis
+
+You will complete this section, if you previously have not compiled the code for `Syndesis`.
+
+. link:https://drive.google.com/open?id=1_t1RTZMwddl7AbvMbB-fX6Su9HHLe3ns[Download] an Apache Maven Repository (in zipped archive format) that has previously compiled Maven archetypes that will be used in the compilation of `Syndesis`.
+. Copy or move the zip archive to the working directory `$lab_dir`, then unzip the contents.
+. Open `~/.m2/settings.xml` for edit, using your favorite editor.
+. Replace references to the directory `/tmp` tags with `/$lab_dir/maven-syndesis-extension-1.0.0.fuse-000018`, where `$lab_dir` is the path of your working directory.
+. Save the `~/.m2/settings.xml` file.
+
+
+== [OPTIONAL] Compile a technical extension
+
+You will compile a technical extension as part of the integration. Note that this lab is optional, as a pre-compiled technical extension is provided for your use in subsequent lab sections.
+
 . Using a new web browser, download the latest technical extensions link:https://github.com/syndesisio/syndesis-extensions/releases[*release*] for Fuse Ignite.
 . Extract the archive, containing the technical extensions, into the working directory `$lab_dir`.
 . Using a command-line terminal window, navigate to the subdirectory containing the code for the technical extension `syndesis-extension-loop`.
@@ -174,41 +214,42 @@ $ mvn -N install
 . A successful compilation of the technical extension results in the following message:
 +
 ----
-Downloading from oss-sonatype-snapshots: https://oss.sonatype.org/content/repositories/snapshots/io/syndesis/extension/extension-converter/1.3-SNAPSHOT/maven-metadata.xml
-[INFO] Looking in for annotated classes in: /hong/syndesis-extensions-master/syndesis-extension-loop/target/generated-sources/annotations
-[INFO] Loading annotations properties from: /hong/syndesis-extensions-master/syndesis-extension-loop/target/generated-sources/annotations/io/syndesis/extension/loop/LoopAction-loop.json
-[INFO] HV000001: Hibernate Validator 5.3.5.Final
-[INFO] Looking for configuration to override at Maven Plugin configuration level.
-[INFO] Created file /hong/syndesis-extensions-master/syndesis-extension-loop/target/classes/META-INF/syndesis/syndesis-extension-definition.json
-[INFO]
-[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ syndesis-extension-loop ---
-[INFO] Building jar: /hong/syndesis-extensions-master/syndesis-extension-loop/target/syndesis-extension-loop-1.0.0.jar
-[INFO]
-[INFO] --- extension-maven-plugin:1.3-SNAPSHOT:repackage-extension (default) @ syndesis-extension-loop ---
-[INFO] Resolving artifact io.syndesis.extension:extension-bom:pom:1.3-SNAPSHOT from [central (https://repo.maven.apache.org/maven2, default, releases)]
-[INFO]
-[INFO] --- maven-install-plugin:2.4:install (default-install) @ syndesis-extension-loop ---
-[INFO] Installing /hong/syndesis-extensions-master/syndesis-extension-loop/target/syndesis-extension-loop-1.0.0.jar to /root/.m2/repository/io/syndesis/extensions/syndesis-extension-loop/1.0.0/syndesis-extension-loop-1.0.0.jar
-[INFO] Installing /hong/syndesis-extensions-master/syndesis-extension-loop/pom.xml to /root/.m2/repository/io/syndesis/extensions/syndesis-extension-loop/1.0.0/syndesis-extension-loop-1.0.0.pom
+Downloaded: file:///Users/nandanjoshi/partnertraining/maven-syndesis-extension-1.0.0.fuse-000018/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.pom (8 KB at 1773.2 KB/sec)
+Downloading: file:///Users/nandanjoshi/partnertraining/maven-syndesis-extension-1.0.0.fuse-000018/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar
+Downloading: file:///Users/nandanjoshi/partnertraining/maven-syndesis-extension-1.0.0.fuse-000018/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar
+Downloaded: file:///Users/nandanjoshi/partnertraining/maven-syndesis-extension-1.0.0.fuse-000018/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar (12 KB at 1930.0 KB/sec)
+Downloaded: file:///Users/nandanjoshi/partnertraining/maven-syndesis-extension-1.0.0.fuse-000018/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar (226 KB at 22504.6 KB/sec)
+[INFO] Installing /Users/nandanjoshi/partnertraining/syndesis-extensions-syndesis-extensions-1.0.0.fuse-000018/syndesis-extension-loop/target/syndesis-extension-loop-1.0.0.fuse-000018.jar to /Users/nandanjoshi/.m2/repository/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000018/syndesis-extension-loop-1.0.0.fuse-000018.jar
+[INFO] Installing /Users/nandanjoshi/partnertraining/syndesis-extensions-syndesis-extensions-1.0.0.fuse-000018/syndesis-extension-loop/pom.xml to /Users/nandanjoshi/.m2/repository/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000018/syndesis-extension-loop-1.0.0.fuse-000018.pom
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 8.539 s
-[INFO] Finished at: 2018-03-22T00:13:23+08:00
-[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 8.580 s
+[INFO] Finished at: 2018-04-03T09:47:31-07:00
+[INFO] Final Memory: 37M/502M
 ----
++
+. Locate the *syndesis-extension-loop-1.0.0.fuse-000018.jar* file in the `target` subdirectory of the directory named `syndesis-extension-loop`. This is the JAR archive file containing the `syndesis-extension-loop` technical extension.
++
+[TIP]
+You can either move or copy this JAR archive file to a directory with a shorter naming convention (like `/tmp`). That will help speed up import of the technical extension at the next lab section.
 
-=== Import the technical extension
 
-You will import the compiled technical extension into Fuse Ignite, which will form a part of the integration that you will develop.
+== Import the technical extension
 
+You will import the compiled technical extension into Fuse Ignite, which will form a part of the integration that you will enhance.
+
+. If you have not completed the previous section, locate the pre-compiled technical extension by navigating to the `$lab_dir/maven-syndesis-extension-1.0.0.fuse-000018/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000018` directory. The JAR archive *syndesis-extension-loop-1.0.0.fuse-000018.jar* contains the `syndesis-extension-loop` technical extension.
 . Click on the *Customizations* tab on the left-hand pane of the Red Hat Fuse Ignite console.
 . Select the *Extensions* tab located on the top of the console.
 . Click the *Import Extension* button.
-. Click *Browse* and select the JAR file containing the `syndesis-extension-loop` technical extension.
++
+image::images/import-extensions.png[]
++
+. Click *Browse* and select the JAR archive file containing the `syndesis-extension-loop` technical extension.
 +
 [TIP]
-Should import of an archive file containing an extension fail, it is likely that the extension contains invalid code that causes the validation (by the rules contained in the *Meta* OpenShift pod ) to fail. Analyze and debug the code in the JBoss Developer Studio tooling before attempting the import process again.
+Should import of an archive file containing a technical extension fail, it is likely that the extension contains invalid code that causes the validation (by the rules contained in the *Meta* OpenShift pod ) to fail. Analyze and debug the code using link:https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/tooling_user_guide/igniteextension/[JBoss Developer Studio] before attempting the import process again.
 +
 image::images/import-extension.png[]
 +
@@ -220,13 +261,24 @@ image::images/extension-details.png[]
 On the Fuse Ignite console, the name, ID, type, description and time of last update of the technical extension are listed. In addition, the supported steps (the objective of the extension) and the integrations using this extension are indicated in the *Extension Details* page.
 +
 . Click the *Update* button.
-. In the left-hand pane, click *Integrations*.
+. In the left-hand pane, click *Customizations -> Extensions*.
 . Note the details of the *Loop* technical extension displayed, which includes the function of the step as well as the name of the extension.
 
 The technical extension, that you have just imported, is now available for use with any integration.
 
 
-=== Adding a custom step
+== Test the integration without a custom step
+
+You will test the integration and validate the results.
+
+. Logon to your remote hosting service and delete the previous file containing the product catalog data.
+. Logoff from the remote hosting service.
+. Wait for a few seconds.
+. Logon back to your remote hosting service. This time validate that the file containing the product catalog data is present.
+. Repeat this test as many times as you can. With each test, record the time it took for the file to re-appear on the remote hosting service.
+
+
+== Adding a custom step
 
 You will add the newly imported technical extension as a custom step to an integration.
 
@@ -252,25 +304,32 @@ image::images/configure-loop.png[]
 Once the integration is active (a green checkbox appears and the state of the integration becomes *Published*), testing of the integration can proceed.
 
 
-=== Test the integration
+== Test the integration with the new custom step
 
 You will test the integration and validate the results.
 
 . Logon to your remote hosting service and delete the previous file containing the product catalog data.
 . Logoff from the remote hosting service.
-. Wait for a few minutes.
+. Wait for a minute or more.
 . Logon back to your remote hosting service. This time validate that the file containing the product catalog data is present.
+. Repeat this test as many times as you can. With each test, record the time it took for the file to re-appear on the remote hosting service.
+
+*QUESTION:* What are your observations made regarding the time differences in the testing of two editions of the _Microservice to File_ integration - one without the custom step implemented by `loop` extension and one with the custom step?
 
 
-=== (Optional) Replace loop extension with other extensions
+== [OPTIONAL] Replace loop extension with other extensions
 
 You will experiment with the use of other connector extensions.
 
 . Replace the existing *Loop* connector extension with other link:https://github.com/syndesisio/syndesis-extensions[extensions] from the upstream community project
 . Test the integration upon implementing each extension and observe the various results.
-* *Question:* Does the behavior of the integration change, and can you compile a list of the behavioral changes - referencing each extension used?
 
-=== Housekeeping
+*QUESTION 1:* Does the behavior of the integration change, and can you compile a list of the behavioral changes - referencing each extension used?
+
+*QUESTION 2:* Which technical extension augments the test results in time difference between the editions of the _Microservice to File_ integration - one without a custom step, and one with a custom step ?
+
+
+== Housekeeping
 
 You will clean up the integration. as a housekeeping best practice.
 

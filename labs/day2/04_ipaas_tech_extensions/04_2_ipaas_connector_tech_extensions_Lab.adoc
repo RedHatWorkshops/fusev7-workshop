@@ -5,33 +5,38 @@
 :coursevm:
 
 
-== Connector Technical Extensions Lab - utilize a technical extension in a marketing campaign use case
+= Connector Technical Extensions Lab - a digital image file replication solution for a marketing campaign
 
 This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
 
 .Goals
-* Create an integration using AWS S3 and Twitter connectors
+* Create an integration using both AWS S3 and FTP connectors
 * Create a custom step in Red Hat Fuse Ignite using a `syndesis-extension-log-body` technical extension
 * Introduce the custom step into the integration
 
 .Requirements
+* Completion of Lab 2 of Module 1 - *Integration Lab - Product Data Synchronization: Microservice to Flat File scenario*
 * Completion of Lab 1 of Module 4 - *Connector Technical Extensions Lab - Customize and implement an existing technical extension as a connector*
-* Completion of Lab 2 of Module 2 - *Twitter to Salesforce Lab*
-* Registered for a Twitter account
 * Registered for a AWS account
 * JDK 1.8 installed
 
-`Coolstore` marketing department intends to launch a demand generation campaign for a new product.
-A promotional flyer has to be sent over social media channels as a tweet.
-You have been asked to design an integration solution which this campaign will depend on.
+`Coolstore` marketing department intends to launch a demand generation campaign regarding new promotions. Therefore, they have signed a contract with an advertising services vendor, responsible for broadcast advertising of `Coolstore` latest promotions.
+`Coolstore` marketing department will design a promotional flyer which will be "handed over" to the advertising services vendor for  multi-channel broadcast use (eg: social media, print advertising and (e)mailers.)
 
-In order to meet your organization's requirements for a demand generation campaign, your Fuse Ignite integration design will utilize 2 connectors: a AWS S3 connector and a Twitter connector, as well as a pre-packaged technical extension `log`, which writes a message to the log stream. You will create a custom step using this pre-packaged technical extension and then utilize the custom step in a new integration, using Red Hat Fuse Ignite.
+You have been tasked to design the file replication solution, responsible for the transfer of the digital image of a promotional flyer, which this campaign will depend on.
 
-image::images/arch-aws-log-twitter.png[]
+In order to meet the marketing department's requirements for a demand generation campaign, your Fuse Ignite integration design will utilize 2 connectors: a AWS S3 connector and a FTP connector, as well as a pre-packaged technical extension `log`, which writes a message to the log stream. You will create a custom step using this pre-packaged technical extension and then utilize the custom step in a new integration, using Red Hat Fuse Ignite.
+
+image::images/arch-s3-to-ftp.png[]
+
+The marketing flyer resides on an AWS S3 bucket which is replicated, using a Fuse Ignite integration, to a staging server where the flyer will be retrieved for multiple broadcast use.
+You will also implement a custom step in the Fuse Ignite integration, through the use of a Fuse Ignite technical extension.
+The purpose of this custom step will be log a notification regarding the availability of the promotional flyer.
+`Coolstore` marketing department will like every notification to be recorded and sent to the advertising services vendor, every time the marketing flyer is successfully replicated and hosted on the staging server infrastructure of the vendor.
 
 :numbered:
 
-=== Logon to Red Hat Fuse Ignite
+== Logon to Red Hat Fuse Ignite
 
 You will proceed to utilize the Fuse Ignite environment.
 
@@ -44,15 +49,13 @@ CAUTION: Red Hat Fuse Ignite is supported for the following web browsers: Google
 . Log in using your OPENTLC account. The Fuse Ignite console page appears.
 
 
-=== Compile a technical extension
+== [OPTIONAL] Compile a technical extension
 
-You will implement a custom step in a Fuse Ignite integration, through the use of a logging mechanism, developed as a Fuse Ignite technical extension.
-`Coolstore` marketing department will like every notification to be recorded every time the marketing flyer is delivered by Twitter.
-
-You will now compile the code for a pre-developed technical extension, `syndesis-extension-log-body` that will perform recording of marketing notifications.
+You will now compile the code for a technical extension, `syndesis-extension-log-body` that will perform recording of marketing notifications.
+Note that this lab is optional, as the pre-compiled technical extension is provided for your use in subsequent lab sections.
 
 . Using a command-line terminal window, navigate to the subdirectory `syndesis-extension-log-body` located in the directory containing technical extensions.
-. Within the subdirectory `syndesis-extension-loop`, compile the technical extension, using the command:
+. Within the subdirectory `syndesis-extension-log-body`, compile the technical extension, using the command:
 +
 ----
 $ mvn -N install
@@ -85,29 +88,39 @@ Downloading from oss-sonatype-snapshots: https://oss.sonatype.org/content/reposi
 [INFO] Finished at: 2018-03-27T18:09:41+08:00
 [INFO] ------------------------------------------------------------------------
 ----
++
+. Locate the *syndesis-extension-log-body-1.0.0.fuse-000018.jar* file in the `target` subdirectory of the directory named `syndesis-extension-log-body`. This is the JAR archive file containing the `syndesis-extension-log-body` technical extension.
++
+[TIP]
+You can either move or copy this JAR archive file to a directory with a shorter naming convention (like `/tmp`). That will help speed up import of the technical extension at the next lab section.
 
-=== Import the technical extension
+
+== Import the technical extension
 
 You will now import into Fuse Ignite, a pre-developed technical extension, `syndesis-extension-log-body` that will perform this recording of marketing notifications.
+At the completion of the previous lab, the code base for the community project `Syndesis` resides in the working directory `$lab_dir`.
 
+. If you have not completed the previous section on compilation of the technical extension, locate the pre-compiled technical extension by navigating to the `$lab_dir/maven-syndesis-extension-1.0.0.fuse-000018/io/syndesis/extensions/syndesis-extension-log-body/1.0.0.fuse-000018` directory.
++
+[NOTE]
+The JAR archive *syndesis-extension-log-body-1.0.0.fuse-000018.jar* contains the `syndesis-extension-log-body` technical extension.
++
 . Using a command-line terminal window, navigate to the subdirectory `syndesis-extension-log-body` located in the directory containing extensions.
-
-//screenshots of Fuse Ignite Console
-
 . Select the *Customizations* tab on the left-hand pane of Red Hat Fuse Ignite Console.
-
 . Select the *Extensions* tab.
-
++
+image::images/import-extensions.png[]
++
 . Click the *Import Extension* button.
-
 . Click *Browse* and select the JAR file containing the `syndesis-extension-log-body` technical extension.
 +
 [NOTE]
 The archive file containing the `syndesis-extension-log-body` technical extension is validated and extracted. On the Fuse Ignite console, the technical extension’s name, ID, and description are listed, additionally `syndesis-extension-log-body` is indicated as the custom step that the technical extension defines.
-
++
 . Click *Import*. This custom step becomes available for use in any integration, with the details of the technical extension displayed.
 
-=== Create a AWS S3 Bucket
+
+== Create a AWS S3 Bucket
 
 You will create an AWS S3 Bucket that will host the promotional image that will be broadcasted over social media.
 
@@ -119,7 +132,8 @@ You will create an AWS S3 Bucket that will host the promotional image that will 
 .. Secret Key
 .. Region.
 
-=== Create a connection using the Fuse Ignite AWS S3 connector
+
+== Create a connection using the Fuse Ignite AWS S3 connector
 
 You will create a connection to your AWS S3 bucket.
 
@@ -130,43 +144,50 @@ You will create a connection to your AWS S3 bucket.
 . Provide *AWS-S3* as the name of the connection.
 . Click *Done* to make the configuration changes to the connection final.
 
-=== Create an integration using the AWS S3 connection and the Twitter connection
 
-You will create an integration using two connections you have created.
+== Create an integration using the AWS S3 connection and the FTP connection
+
+You will create an integration using the two connections you have already created. The FTP connection was created in Lab 1 of Module 2.
 
 . On the left-hand panel of the Fuse Ignite console, click *Integrations*. The Integration creation wizard is displayed.
 . Select on the left-hand panel, the *Start Connection*.
 . Click on the *AWS-S3* connection.
 . Click *Next* and then *Done* to complete the setup of the *Start* connection.
 . Select on the left-hand panel, the *Finish Connection*.
-. Click on the *Twitter* connection.
-//. Select the *mention* option from the dropdown box.
-//. Provide *Fuse Ignite* as the value in the *Keyword* field.
+. Click on the *FTP* connection.
+. Specify the value of the *File name expression* field, as `coolstore-flyer.png`.
+. Specify the value of the *FTP Directory* field, as `./htdocs`.
 . Click *Next* and then *Done* to complete the setup of the *Finish* connection.
 . Move your pointer cursor over the *+* sign, which is wedged between the *Start* connection and the *Finish* connection.
 . Select *Add a step* located on the callout, next to the *+* sign.
 . Select from the drop down box, the `syndesis-extension-log-body` technical extension that you should just created.
-. Provide the value *Flyer was sent* in the message field for the custom step.
+. Provide the value *Flyer is ready on staging server* in the message field for the custom step.
 . Click *Done*. The custom step has been added to the integration.
-. Name the integration _AWS S3 to Twitter_.
+. Name the integration _AWS S3 to FTP_.
 . Click *Publish*. The integration will be deployed.
 
-=== Test the integration
+*QUESTION:* What changes have to be made, to either the FTP connection or its setup as part of the integration, if now there are multiple promotional flyers, of a wide variety of file formats, to be staged on the vendor's server? Are there also necessary changes that have to made to the AWS S3 connection and its setup during integration design?
+
+
+== Test the integration
 
 You will test the integration by initiating a demand generation campaign.
 
 . On the left-hand panel of the Fuse Ignite console, click *Integrations*.
-. Once the state of the _AWS S3 to Twitter_ integration changes to *Published*, proceed to test it.
-. Upload to your AWS S3 bucket, the image containing the promotional flyer found in the link:https://github.com/gpe-mw-training/fuse-ipaas-labs[lab assets].
-. Check the log of the OpenShift Pod _AWS S3 to Twitter_ for log entries containing the string *Flyer was sent*.
-. Logon to your Twitter account and validate that the image of the promotional flyer appears in a tweet that was recently sent.
+. Once the state of the _AWS S3 to FTP_ integration changes to *Published*, proceed to test it.
+. Upload to your AWS S3 bucket, the link:https://github.com/gpe-mw-training/fuse-ipaas-labs/04_technical_extensions/coolstore-flyer.png[digital image] that is the promotional flyer.
+. Check the log of the OpenShift Pod _AWS S3 to FTP_ for log entries containing the string *Flyer is ready on staging server*.
+. Logon to your remote hosting account and validate that the digital image (aka. promotional flyer) appears in the `htdocs` directory.
 
-=== Housekeeping
+*QUESTION:* Imagine that access to OpenShift pod logs by both members of the `Coolstore` marketing department and their advertising services vendor is no longer a viable option - due to enhanced corporate security restrictions. What alternative means of both logging and log retrieval can you incorporate in your solution design to address this change in business expectations?
+
+
+== Housekeeping
 
 You will clean up the integration. as a housekeeping best practice.
 
 . In the left-hand pane, click *Integrations*.
-. Locate the entry for the _AWS S3 to Twitter_ integration.
+. Locate the entry for the _AWS S3 to FTP_ integration.
 . Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
 . Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
 * If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
@@ -174,78 +195,12 @@ You will clean up the integration. as a housekeeping best practice.
 [NOTE]
 The next few steps are optional. Use them only when you are certain that the integration will never be required again.
 +
-. Locate the entry for the _AWS S3 to Twitter_ integration.
+. Locate the entry for the _AWS S3 to FTP_ integration.
 . Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
 . Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
 
 You have completed, tested and cleaned up your integration in Fuse Ignite.
 
 ifdef::showscript[]
-
-=== Examine existing technical extensions
-
-Next, register Fuse Ignite as a client application for the online Twitter service. With this accomplished, any number of integrations connecting Twitter can be created.
-
-. At the Fuse Ignite console, copy the Fuse Ignite URL from URL field in the web browser.
-. On the left-hand panel of the Fuse Ignite console, click *Settings*.
-. On the *OAuth Application Management* webpage, notice the _Twitter_ icon.
-. On the left of the _Twitter_ icon, click the *Register* button.
-. Notice both the *Client ID* and *Client Secret* fields are displayed.
-. Launch another web browser window, and type `http://apps.twitter.com` in the URL field.
-. After typing, hit the *Enter* button on your keyboard.
-. When the login page is fully loaded, log into your *Twitter* account.
-. Click *Create New App*.
-. In the _Name_ field, provide the name of this new app.
-+
-NOTE: The app name must be unique among all other apps registered using your *Twitter* account.
-+
-. In the _Description_ field, enter helpful information. Twitter requires some input in this field.
-
-. In both the _Website_ and _Callback URL_ fields, paste your Fuse Ignite URL (which you copied earlier into the clipboard) .
-
-. Remove the URI suffix `dashboard` from the end of the value in the _Callback URL_ field.
-. Append the string `api/v1/credentials/callback` to the value in the _Callback URL_ field.
-+
-NOTE: For example: https://app-proj9128.7b63.fuse-ignite.openshiftapps.com/api/v1/credentials/callback.
-+
-. Click *Yes*, and thereby agreeing to the terms and conditions of the *Twitter* developer agreement.
-. Click *Create your Twitter application*.
-. Select the *Keys and Access Tokens* tab.
-. The `Consumer Key` appears on the web page. Copy it.
-. In the other web browser window, select the *Settings* tab on the Fuse Ignite console.
-. Paste the *Twitter* `Consumer Key` into the *Twitter Client ID* field.
-. In the web browser window for your Twitter account, locate the *Twitter Keys and Access Tokens* tab.
-. Copy the `Consumer Secret`.
-. Paste the string into the *Twitter Client Secret* field in the Fuse Ignite console.
-. Click *Save*. followed by clicking *OK*.
-
-You have completed the setup of Fuse Ignite as a Twitter client application.
-
-=== Create Salesforce Connection
-
-Before an integration can be created, a connection has to be created for each cloud service endpoint that will be integrated. These cloud services have to support the link:https://oauth.net/2[OAuth protocol].
-
-. On the Fuse Ignite console, click the *Connections* tab.
-
-=== Create Twitter Connection
-
-. On the Fuse Ignite console, click the *Connections* tab.
-
-=== Create Integration between Salesforce and Twitter
-
-The integration starts by accessing the Salesforce application from which data is retrieved from.
-
-. Select the Salesforce connection. This is the *start* connection point of the integration you are creating.
-. Select the *action* that the *start* connection has to perform.
-. As an option (and this varies among connections), provide configuration information to the *start* connection. For instance, indicate if the action involves either a Salesforce lead or a Salesforce opportunity.
-. Select the Twitter connection. This is the *finish* connection which accesses the application that consumes the data retrieved by the *start* connection, thereby completing the integration.
-. Select the *action* that the *finish* connection is required to perform. Similarly to the earlier *action* selected, this *action* can involve data update.
-. As an option, provide configuration information to the *finish* connection.
-. Click *Publish* to begin testing the integration.
-+
-NOTE: As the business use case evolves, additional connections to other applications can be introduced as part of the integration. These connections can exist anywhere between the *start* connection and the *finish* connection.
-+
-. OPTIONAL: Add new connections into the integration.
-. OPTIONAL: Add several steps in order to manipulate the data used in the integration. _Data filtering and _data mapping_ are recommended steps to introduce.
 
 endif::showscript[]

@@ -5,7 +5,7 @@
 :coursevm:
 
 
-== API Client Connector Lab - AMQ to RESTful Service Scenario
+= API Client Connector Lab - AMQ to RESTful Service Scenario
 
 This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
 
@@ -28,7 +28,7 @@ image::images/01-Step-37.png[]
 
 :numbered:
 
-=== Logon to Red Hat Fuse Ignite
+== Logon to Red Hat Fuse Ignite
 
 . Check your email inbox for the same email you received earlier, containing a link to the OpenShift Management Console for the PaaS environment, where Red Hat Fuse Ignite is installed.
 +
@@ -44,7 +44,7 @@ image::images/01-Step-52.png[]
 . Access the Red Hat Fuse Ignite login page, using a separate browser tab.
 . Log in using your OPENTLC account. The Fuse Ignite console page appears.
 
-=== Configure the AMQ console
+== Configure the AMQ console
 
 You will start the AMQ broker provided as part of the Fuse Ignite installation.
 
@@ -79,7 +79,7 @@ image::images/01-Step-57.png[]
 +
 image::images/01-Step-58.png[]
 +
-. Select *ActiveMQ8 from the left-hand panel.
+. Select *ActiveMQ* from the left-hand panel.
 . Provide the following values to these fields:
 +
 ----
@@ -124,7 +124,7 @@ image::images/01-Step-64.png[]
 +
 image::images/01-Step-65.png[]
 
-=== Create the integration
+== Create the integration
 
 . In the left-hand panel of the Fuse Ignite console, select *Integrations*.
 . Click on *Create Integration*
@@ -162,7 +162,17 @@ image::images/01-Step-68a.png[]
 +
 image::images/01-Step-68b.png[]
 +
-. Select *JSON* as the *Payload Format* and click *Send message*.
+. Select *JSON* as the *Payload Format* and populate the textbox field with this message:
++
+----
+{
+“id”: 1,
+“name”: “Billy Joel”,
+“bonus”: 1250
+}
+----
++
+. Click *Send message*.
 +
 [NOTE]
 This step is essential in providing the source payload, in order for the Data Mapper tool in Fuse Ignite to visualize the source data types.
@@ -225,7 +235,7 @@ image::images/01-Step-77.png[]
 +
 image::images/01-Step-78.png[]
 
-==== Test the integration
+== Test the integration
 
 . At the AMQ console menu bar, click *Send*. The *Compose* page is displayed.
 . Enter `pay` in the *Payload format*.
@@ -241,8 +251,7 @@ image::images/01-Step-80.png[]
 +
 image::images/01-Step-81.png[]
 
-
-=== Housekeeping
+== Housekeeping
 
 You will clean up the integration. as a housekeeping best practice.
 
@@ -260,7 +269,6 @@ The next few steps are optional. Use them only when you are certain that the int
 . Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
 
 You have completed, tested and cleaned up your integration in Fuse Ignite.
-
 
 ifdef::showscript[]
 

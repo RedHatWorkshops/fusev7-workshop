@@ -5,7 +5,7 @@
 :coursevm:
 
 
-== Integration Lab - Twitter to Salesforce scenario
+= Integration Lab - Twitter to Salesforce scenario
 
 This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
 
@@ -26,7 +26,7 @@ In this lab, you will integrate two popular cloud services: Twitter and Salesfor
 
 :numbered:
 
-=== Logon to Red Hat Fuse Ignite
+== Logon to Red Hat Fuse Ignite
 
 . Check your email inbox for the same email you received earlier, containing a link to Red Hat Fuse Ignite.
 +
@@ -54,7 +54,7 @@ image::images/fuseignite_dashboard.png[]
 [QUESTION]
 What does it mean to have 247 days 8 hours 15 minutes of Uptime, 350 Total Messages, 2 Integration and 4 Connections displayed on the Fuse Ignite Dashboard?
 
-=== Register Fuse Ignite as a client for Twitter service
+== Register Fuse Ignite as a client for Twitter service
 
 This section assumes that you have a Twitter account setup. If you have not done so, complete the _Register for a Twitter account_ portion of the *Appendix* section of this lab first.
 
@@ -106,7 +106,7 @@ image::images/oauth-app-management-twitter-credentials.png[]
 
 Your Red Hat Fuse Ignite instance is now registered as a Twitter client application.
 
-=== Create a Twitter Connection on Fuse Ignite
+== Create a Twitter Connection on Fuse Ignite
 
 Before an integration can be created, a connection has to be created for each cloud service endpoint that will be integrated. These cloud services have to support the link:https://oauth.net/2[OAuth protocol].
 
@@ -134,7 +134,7 @@ image::images/create_connection_twitter_name.png[]
 
 The Twitter connection in your Fuse Ignite project has been setup and can be reused in multiple integrations.
 
-=== Register Fuse Ignite as a client for Salesforce
+== Register Fuse Ignite as a client for Salesforce
 
 This section assumes that you have a Salesforce account setup. If you have not done so, complete the _Register for a Salesforce account_ portion of the *Appendix* section of this lab first.
 
@@ -195,7 +195,7 @@ image::images/oauth_app_mgt_salesforce.png[]
 
 Red Hat Fuse Ignite is now registered as a Salesforce client application.
 
-=== Create a Salesforce Connection on Fuse Ignite
+== Create a Salesforce Connection on Fuse Ignite
 
 . On the Fuse Ignite console, click the *Connections* tab.
 . Click *Create Connection* to display Fuse Ignite connectors.
@@ -219,13 +219,13 @@ In the event this error appears:  `error=redirect_uri_mismatch&error_description
 
 You have created a Salesforce connection, which can be used in multiple integrations.
 
-=== Create an Integration between Twitter and Salesforce
+== Create an Integration between Twitter and Salesforce
 
 Next, create an integration that monitors Twitter feeds for any mention of your Twitter account name. An identified mention triggers the first step in the integration, which will create new Salesforce records with the Twitter feed information.
 
 image::images/fuseignite_connections.png[]
 
-==== Add Connections to the Integration
+=== Add Connections to the Integration
 
 . On the left-hand pane of the Fuse Ignite console, select the *Integrations* tab. The available connections, including the ones for Salesforce and Twitter which you just created, are displayed.
 +
@@ -257,7 +257,7 @@ image::images/add_to_integration.png[]
 
 *Optional activity:* provide configuration information to both the Twitter and Salesforce connections. What will be the suitable configuration changes that comes to mind?
 
-==== Add Steps to the Integration
+=== Add Steps to the Integration
 
 Part of every integration are steps. A step operates on data obtained, from either a connection or a step, and makes it available to either the next connection or step.
 
@@ -346,7 +346,7 @@ image::images/configure_mapper_statustext_description.png[]
 +
 image::images/configure_mapper_grid.png[]
 
-==== Complete the Integration setup
+=== Complete the Integration setup
 
 Now that you have completed the Integration, deploy and test it.
 
@@ -381,7 +381,7 @@ image::images/salesforce_lead_summary.png[]
 [NOTE]
 Verify that the text from your tweet is captured in the *Description* field, while your Twitter handle is captured in the *Title* field.
 
-=== Integration clean-up
+== Integration clean-up
 
 . In the left-hand pane of the Fuse Ignite console, click *Integrations*.
 . Select the _Twitter to Salesforce_  integration.
@@ -400,13 +400,12 @@ Practice good housekeeping: delete integrations that are no longer needed. This 
 
 You have completed, tests and cleaned up your first integration in Fuse Ignite.
 
+ifdef::showscript[]
+
 === Appendix
 
 ==== Register for a Twitter Account
 
 ==== Register for a Salesforce Account
-
-ifdef::showscript[]
-
 
 endif::showscript[]

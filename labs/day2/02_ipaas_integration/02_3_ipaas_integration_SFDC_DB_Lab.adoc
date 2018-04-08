@@ -5,7 +5,7 @@
 :coursevm:
 
 
-== Integration Lab - Salesforce to PostgresDB scenario
+= Integration Lab - Salesforce to PostgresDB scenario
 
 This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
 
@@ -24,7 +24,7 @@ In this lab, you will integrate two popular technology products: Salesforce and 
 
 :numbered:
 
-=== Logon to Red Hat Fuse Ignite
+== Logon to Red Hat Fuse Ignite
 
 . Check your email inbox for the same email you received earlier, containing a link to Red Hat Fuse Ignite.
 +
@@ -42,19 +42,19 @@ image::images/fuseignite_oauth.png[]
 +
 NOTE: This authorization page will appear only once. The next time you log in, the console for Fuse Ignite appears instead of this authorization page.
 
-=== Register Fuse Ignite as a client for Salesforce
+== Register Fuse Ignite as a client for Salesforce
 
 In the earlier lab *Integration Lab - Twitter to Salesforce scenario* you have registered Fuse Ignite with Salesforce.
 
 If you have not completed that lab, complete the section in that lab titled *Register Fuse Ignite as a client for Salesforce* before proceeding to the next section of this lab.
 
-=== Create a Salesforce Connection on Fuse Ignite
+== Create a Salesforce Connection on Fuse Ignite
 
 In the earlier lab *Integration Lab - Twitter to Salesforce scenario* you have created a Salesforce connection. Since you already have a Salesforce connection, you can reuse it the next integration to be created.
 
 If you have not completed that lab, complete the section in that lab titled *Create a Salesforce Connection on Fuse Ignite* before proceeding to the next section of this lab.
 
-=== Create an Integration between Salesforce and PostgresDB database
+== Create an Integration between Salesforce and PostgresDB database
 
 . On the left-hand pane of Fuse Ignite console, click *Integrations*.
 . Click *Create Integration*.
@@ -70,7 +70,7 @@ image::images/configure_on_create_lead.png[]
 +
 NOTE: The Integration monitors for a notification arising from the creation of a Salesforce lead record. Data from this new lead is immediately passed to the next step within the integration. The *finish connection will be created next, followed by the creation of this step.
 
-=== Add the PostgresDB connection to the Integration
+== Add the PostgresDB connection to the Integration
 
 . In the Fuse Ignite console, select the *Finish Connection* page.
 +
@@ -89,7 +89,7 @@ image::images/choose_an_action_sql.png[]
 +
 image::images/invoke_sql_add_lead.png[]
 
-=== Add a data mapping step
+== Add a data mapping step
 
 To complete the integration, Salesforce fields have to be mapped to respective PostgresDB fields through the use of a _data mapping_ step.
 
@@ -158,7 +158,7 @@ image::images/fuse_ignite_console_integrations_2.png[]
 
 Now, testing of the integration can proceed.
 
-=== Test the _Salesforce to PostgresDB_ Integration
+== Test the _Salesforce to PostgresDB_ Integration
 
 . Click *Integrations*, in the left-hand pane of the Fuse Ignite console.
 . Select the _Salesforce to PostgresDB_ integration.
@@ -192,15 +192,24 @@ image::images/todo_lead_notification.png[]
 If you are using the Fuse Ignite Technology Preview release, exactly one integration at a time can be active.
 Though you can create another sample integration, you cannot publish it while another integration is active.
 
-=== [OPTIONAL] Query PostgresDB to locate the replicated data
+== [OPTIONAL] Query PostgresDB to locate the replicated data
 
 You can perform a lookup of the table in PostgresDB that contains the data that was just replicated from Salesforce using Fuse Ignite.
 The following instructions applies to the infrastructure of Fuse Ignite, and should be good learning material if you intend to access data using command line.
 
-. In a command-line terminal, type this command:
+. In a command-line terminal, type this command to login to your OpenShift environment:
 +
 ----
-$oc get pods
+$ oc login https://master.<$guid>.openshift.opentlc.com:443 -u <$your-OPENTLC-ID>
+----
++
+[TIP]
+Substitute the `<$guid>` with the GUID that was sent to you by email, and <$your-OPENTLC-ID> with your OPENTLC ID.
++
+. Type this command to retrieve details of the OpenShift pods for Fuse Ignite:
++
+----
+$ oc get pods
 
 NAME                          READY     STATUS      RESTARTS   AGE
 i-sfdc-db-1-build             0/1       Completed   0          18m
@@ -220,7 +229,7 @@ todo-1-qdnm8                  1/1       Running     0          3d
 . In the terminal, type this command, substituting the name of the pod used in this example, with the name of the pod in your Fuse Ignite environment.
 +
 ----
-$oc rsh syndesis-db-1-k2gzd
+$ oc rsh syndesis-db-1-k2gzd
 ----
 +
 . At the shell prompt, type the following:
@@ -274,7 +283,7 @@ sampledb=> \q
 sh-4.2$ exit
 ----
 
-=== Integration clean-up
+== Integration clean-up
 
 . In the left-hand pane, click *Integrations*.
 . Select the entry for the _Salesforce to PostgresDB_ integration.

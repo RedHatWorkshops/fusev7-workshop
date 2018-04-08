@@ -32,7 +32,7 @@ It contains a pom.xml file and its directory path should contain `../ipaas-<vers
 This course provides an OpenShift environment in the cloud.
 This OpenShift environment is also pre-provisioned with the following:
 
-. Fuse Ignite
+. Fuse Ignite (release tag *fuse-ignite-1.3*)
 . _Product Catalog_ service that exposes a RESTful API with swagger documentation.
 +
 This _Product Catalog_ service will support several labs in this course.
@@ -123,22 +123,15 @@ image::images/fi_home.png[]
 
 === Coolstore product catalog microservice
 
-In addition to _Fuse Ignite_, your lab environment is also provisioned with a _product catalog_ service that exposes a RESTful API.
+. Construct the URL for the *Coolstore Product Catalog Microservice*, by replacing the prefix `fuse` in the URL for the Fuse Ignite project, with `catalog-service` instead. Therefore, the URL for your Microservice should resemble `http://catalog-service-fuse-ignite-<$GUID>.<$Environment_ID>.openshift.opentlc.com`
+. Open another web browser window on your host machine and navigate to the URL for the *Coolstore Product Catalog Microservice* identified from the confirmation email.
+. Notice the JSON output from the Microservice, displayed in the web browser window.
+. You now have a working Fuse Ignite lab environment from which to conduct labs. In addition, you can use the Microservice for your labs.
 
-This catalog service will be of later use in this lab.
-In the meantime, execute the following to become familiar with it:
-
-. Once you have navigated to your Fuse Ignite project in your OpenShift web console, navigate to: `Applications -> Routes`
-. Click the link associated with the _catalog-service_ route:
-+
-image::images/catalog-service-route.png[]
-. Your browser will automatically be redirected to the Swagger documentation pertaining to the RESTful of your catalog service:
-+
-image::images/catalog-service-swagger.png[]
-
-. The raw YAML representation of the swagger documentation is available at a similar URL.
-+
-In the URL of your browser, replace `index.html` with: `coolstore-catalog-microservice-swagger.yaml` .
+There is a total two software applications hosted on the OPENTLC OpenShift Container Platform lab environment:
+1. Fuse Ignite - for Integration tooling
+[NOTE]
+2. Coolstore Product Catalog Microservice - for specific integration lab use
 
 === Cloud services account registration
 
