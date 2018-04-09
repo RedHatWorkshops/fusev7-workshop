@@ -380,6 +380,10 @@ image::images/salesforce_lead_summary.png[]
 +
 [NOTE]
 Verify that the text from your tweet is captured in the *Description* field, while your Twitter handle is captured in the *Title* field.
++
+. [Optional] Recreate your integration, this time use the *Search criteria* functionality of *Twitter Connect* and the criteria for tweets to be captured as leads should be the phrase `#FuseIgniteRocks`.
++
+*Question:* What are the rest of the changes that you have to make in order to complete this integration?
 
 == Integration clean-up
 

@@ -304,17 +304,20 @@ image::images/configure-loop.png[]
 Once the integration is active (a green checkbox appears and the state of the integration becomes *Published*), testing of the integration can proceed.
 
 
-== Test the integration with the new custom step
+== Test and monitor the integration with the new custom step
 
 You will test the integration and validate the results.
 
+. Access the Hawtio Console embedded in the integration pod, which you have previously done so as part of *Integration Lab - Data Synchronization on the Cloud: Microservice to Flat File scenario* in Module 2.
+. Through the use of the Hawtio Console, monitor the various statistics of this edition of the integration.
+. Compare and analyse both sets of statistical results - the first set before the custom step was added, and the latest set with the custom step added.
 . Logon to your remote hosting service and delete the previous file containing the product catalog data.
 . Logoff from the remote hosting service.
 . Wait for a minute or more.
 . Logon back to your remote hosting service. This time validate that the file containing the product catalog data is present.
 . Repeat this test as many times as you can. With each test, record the time it took for the file to re-appear on the remote hosting service.
 
-*QUESTION:* What are your observations made regarding the time differences in the testing of two editions of the _Microservice to File_ integration - one without the custom step implemented by `loop` extension and one with the custom step?
+*QUESTION:* What are observations can be made regarding the performance results of both editions of the _Microservice to File_ integration - one without the custom step and one with the custom step?
 
 
 == [OPTIONAL] Replace loop extension with other extensions
@@ -349,71 +352,5 @@ The next few steps are optional. Use them only when you are certain that the int
 You have successfully implemented and tested a connector extension as a custom step in an integration.
 
 ifdef::showscript[]
-
-=== Examine existing technical extensions
-
-Next, register Fuse Ignite as a client application for the online Twitter service. With this accomplished, any number of integrations connecting Twitter can be created.
-
-. At the Fuse Ignite console, copy the Fuse Ignite URL from URL field in the web browser.
-. On the left-hand panel of the Fuse Ignite console, click *Settings*.
-. On the *OAuth Application Management* webpage, notice the _Twitter_ icon.
-. On the left of the _Twitter_ icon, click the *Register* button.
-. Notice both the *Client ID* and *Client Secret* fields are displayed.
-. Launch another web browser window, and type `http://apps.twitter.com` in the URL field.
-. After typing, hit the *Enter* button on your keyboard.
-. When the login page is fully loaded, log into your *Twitter* account.
-. Click *Create New App*.
-. In the _Name_ field, provide the name of this new app.
-+
-NOTE: The app name must be unique among all other apps registered using your *Twitter* account.
-+
-. In the _Description_ field, enter helpful information. Twitter requires some input in this field.
-
-. In both the _Website_ and _Callback URL_ fields, paste your Fuse Ignite URL (which you copied earlier into the clipboard) .
-
-. Remove the URI suffix `dashboard` from the end of the value in the _Callback URL_ field.
-. Append the string `api/v1/credentials/callback` to the value in the _Callback URL_ field.
-+
-NOTE: For example: https://app-proj9128.7b63.fuse-ignite.openshiftapps.com/api/v1/credentials/callback.
-+
-. Click *Yes*, and thereby agreeing to the terms and conditions of the *Twitter* developer agreement.
-. Click *Create your Twitter application*.
-. Select the *Keys and Access Tokens* tab.
-. The `Consumer Key` appears on the web page. Copy it.
-. In the other web browser window, select the *Settings* tab on the Fuse Ignite console.
-. Paste the *Twitter* `Consumer Key` into the *Twitter Client ID* field.
-. In the web browser window for your Twitter account, locate the *Twitter Keys and Access Tokens* tab.
-. Copy the `Consumer Secret`.
-. Paste the string into the *Twitter Client Secret* field in the Fuse Ignite console.
-. Click *Save*. followed by clicking *OK*.
-
-You have completed the setup of Fuse Ignite as a Twitter client application.
-
-=== Create Salesforce Connection
-
-Before an integration can be created, a connection has to be created for each cloud service endpoint that will be integrated. These cloud services have to support the link:https://oauth.net/2[OAuth protocol].
-
-. On the Fuse Ignite console, click the *Connections* tab.
-
-=== Create Twitter Connection
-
-. On the Fuse Ignite console, click the *Connections* tab.
-
-=== Create Integration between Salesforce and Twitter
-
-The integration starts by accessing the Salesforce application from which data is retrieved from.
-
-. Select the Salesforce connection. This is the *start* connection point of the integration you are creating.
-. Select the *action* that the *start* connection has to perform.
-. As an option (and this varies among connections), provide configuration information to the *start* connection. For instance, indicate if the action involves either a Salesforce lead or a Salesforce opportunity.
-. Select the Twitter connection. This is the *finish* connection which accesses the application that consumes the data retrieved by the *start* connection, thereby completing the integration.
-. Select the *action* that the *finish* connection is required to perform. Similarly to the earlier *action* selected, this *action* can involve data update.
-. As an option, provide configuration information to the *finish* connection.
-. Click *Publish* to begin testing the integration.
-+
-NOTE: As the business use case evolves, additional connections to other applications can be introduced as part of the integration. These connections can exist anywhere between the *start* connection and the *finish* connection.
-+
-. OPTIONAL: Add new connections into the integration.
-. OPTIONAL: Add several steps in order to manipulate the data used in the integration. _Data filtering and _data mapping_ are recommended steps to introduce.
 
 endif::showscript[]

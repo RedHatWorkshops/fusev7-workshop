@@ -140,7 +140,7 @@ image::images/configure_mapper_mapping_details_lastname.png[]
 |`Rating`|`rating`
 |=======
 +
-. Click the *Done* button located on the upper right of the Fuse Ignite console.
+. Click the *Next* button located on the upper right of the Fuse Ignite console.
 +
 image::images/configure_mapper_all_mapped.png[]
 +
@@ -166,7 +166,11 @@ Now, testing of the integration can proceed.
 +
 image::images/salesforce_to_postgresdb_integration_summary.png[]
 +
-. Create a new lead in Salesforce. The lead should be complete with these fields:
+. On your Salesforce console, click on the *Home* tab, followed by the *New Lead* from the appropriate drop-down box (shown below).
++
+image::images/salesforce_new_lead.png[]
++
+. Create a new lead in Salesforce and click the *Create* button. The lead should be complete with these fields:
 .. Company
 .. Email
 .. First Name
@@ -181,7 +185,7 @@ image::images/salesforce_lead_create.png[]
 . Launch a new web browser window.
 . In front of the URL of the Fuse Ignite installation, append the string `todo-`. For instance: https://todo-fuse-fuse9123.apps.dev.openshift.opentlc.com/ will be the new URL.
 +
-NOTE: This is the URL for the *To Do App* which captures notifications of new leads created in Salesforce. It does so by reading, from the PostgresDB database, the records created by the Integration.
+*NOTE:* This is the URL for the *To Do App* which captures notifications of new leads created in Salesforce. The app serves as a web interface for the embedded PostgresDB database in Fuse Ignite, which contains a replica of the Salesforce lead information, replicated using the _Salesforce to PostgresDB_ integration.
 +
 . Access the *To Do App* at its URL using the web browser.
 . Observe that a notification is displayed in the *To Do App* regarding a new Salesforce lead.
@@ -263,20 +267,18 @@ Expanded display is on.
 . Proceed to type this SQL query:
 +
 ----
-sampledb=> SELECT * FROM contact LIMIT 10;
--[ RECORD 1 ]-----------
-first_name  | Joe
-last_name   | Jackson
-company     | Red Hat
-lead_source | db
-create_date | 2018-03-30
+sampledb=> SELECT * FROM todo LIMIT 10;
+-[ RECORD 1 ]-----------------------------------------------------------------------------------------------------------------
+id        | 1
+task      | Open - Not Contacted Lead: Please contact Jay Boss from A Red Hat Business Partner via phone: +1-565-7823-159 via email: info@rhbp.io. .
+completed | 0
 ----
 +
 [NOTE]
-The `contact` database contains the data replicated from Salesforce.
+The `todo` database contains the data replicated from Salesforce, using the  _Salesforce to PostgresDB_ integration in Fuse Ignite.
 +
-. Validate that the data is the same as the case data observed in Salesforce.
-. Leave the PostgresDB shell as well as the OpenShift pod shell, using these commands:
+. Validate that the data is the same as the lead data you have created in Salesforce.
+. Exit the PostgresDB shell as well as the OpenShift pod shell, using these commands:
 +
 ----
 sampledb=> \q
