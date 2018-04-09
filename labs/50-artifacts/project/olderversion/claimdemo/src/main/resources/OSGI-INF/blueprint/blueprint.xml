@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:camel="http://camel.apache.org/schema/blueprint"
+    xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+    xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+            http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd        
+            http://camel.apache.org/schema/blueprint/cxf http://camel.apache.org/schema/blueprint/cxf/camel-cxf.xsd        
+            http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+            http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+    <cm:property-placeholder persistent-id="com.redhat.demo.result" update-strategy="reload">
+    	<cm:default-properties>
+            <cm:property name="fuse.version" value="six"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+    <cxf:rsServer address="/status" id="statusEndpoint" serviceClass="org.blogdemo.claimdemo.StatusService"/>
+    <bean class="org.blogdemo.claimdemo.ClaimProcessor" id="claimProcessor"/>
+    <camelContext id="blueprintContext" trace="false" xmlns="http://camel.apache.org/schema/blueprint">
+        <route id="applyRoute">
+            <from id="_from2" uri="direct:apply"/>
+            <bean id="_bean1" method="process" ref="claimProcessor"/>
+        </route>
+        <route id="cancelRoute">
+            <from id="_from3" uri="direct:cancel"/>
+            <bean id="_bean2" method="cancel" ref="claimProcessor"/>
+        </route>
+        <route id="_route1">
+            <from id="_from4" uri="cxfrs:bean:statusEndpoint"/>
+            <log id="_log2" message="${header.operationName}"/>
+            <setHeader headerName="fusevresion">
+			    <simple>{{fuse.version}}</simple>        
+			</setHeader>
+            <log id="_log3" message="fuse.vresion----------- ${headers.fusevresion}"/>
+            <log id="_log4" message="id----------- ${body}"/>
+            <choice id="_choice1">
+                <when id="_when1">
+                    <simple>${header.operationName} == "status"</simple>
+                    <bean id="_bean3" method="status(${body},${headers.fusevresion})" ref="claimProcessor"/>
+                    <marshal id="_marshal1">
+                        <json library="Jackson" prettyPrint="true"/>
+                    </marshal>
+                </when>
+            </choice>
+        </route>
+    </camelContext>
+</blueprint>

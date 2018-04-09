@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: camel-config
+data:
+  application.properties: |-
+    fuse.version=seven.zero

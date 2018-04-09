@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd             http://camel.apache.org/schema/spring       http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean class="org.blogdemo.claimdemo.ClaimProcessor" id="claimProcessor"/>
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+        <restConfiguration bindingMode="json"
+            component="undertow" contextPath="/migration" port="8080" />
+            
+        <rest path="/cxf">
+            <post uri="apply">
+                <description>Applying Claim</description>
+                <to uri="direct:apply"/>
+            </post>
+            <get uri="cancel">
+                <description>Cancel</description>
+                <to uri="direct:cancel"/>
+            </get>
+            <get uri="/custId/{id}">
+                <description>Cancel</description>
+                <to uri="direct:status"/>
+            </get>
+        </rest>
+        <route id="applyRoute">
+            <from id="_from2" uri="direct:apply"/>
+            <bean id="_bean1" method="process" ref="claimProcessor"/>
+        </route>
+        <route id="cancelRoute">
+            <from id="_from3" uri="direct:cancel"/>
+            <bean id="_bean2" method="cancel" ref="claimProcessor"/>
+        </route>
+        <route id="_route1">
+            <from id="_from4" uri="direct:status"/>
+            <log id="_log2" message="${header.operationName}"/>
+            <log id="_log3" message="endpoints.enabled ------ {{endpoints.enabled}}"/>
+            <log id="_log4" message="fabric.version ------ {{fabric.version}}"/>
+            <choice id="_choice1">
+                <when id="_when1">
+                    <simple>${header.operationName} == "status"</simple>
+                    <bean id="_bean3"
+                        method="status(${headers.id},{{fabric.version}})" ref="claimProcessor"/>
+                </when>
+            </choice>
+            <!--<marshal id="_marshal1">
+                <json library="Jackson" prettyPrint="true"/>
+            </marshal>-->
+        </route>
+    </camelContext>
+</beans>
