@@ -27,6 +27,48 @@ This demonstrated an overview flow of how to migrate from Fuse Fabric to Fuse on
 
 ## Profiles → Fuse projects
 
+### Applications
+
+Updates on POM file, update the BOM. 
+
+
+#### Spring-boot
+
+Update the POM version!
+
+```
+	<dependencies>
+      <dependency>
+        <groupId>io.fabric8</groupId>
+        <artifactId>fabric8-project-bom-camel-spring-boot</artifactId>
+        <version>${jboss.fuse.bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+    
+```
+
+#### Karaf
+
+Update the POM version!
+
+
+```
+<dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jboss.fuse</groupId>
+        <artifactId>jboss-fuse-parent</artifactId>
+        <version>${jboss.fuse.bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+```
+
+
 ### Fuse 6.x
 In Fuse 6.x, a profile is a description of how a logical group of containers needs to be provisioned. It could possibly contain: 
 
