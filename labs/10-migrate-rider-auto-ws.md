@@ -18,7 +18,7 @@ This project demonstrates the migration of a Karaf-based SOAP webservice from [R
 ### Prerequisites
 
 1. Ensure you have JBoss Developers Studio version 11.2 + with the latest Fuse Tooling
-2. Ensure AMQ 7.x is running locally
+2. Ensure AMQ 7.x is running locally.  Download [here](https://drive.google.com/open?id=18P6iEDpezGLAmocsTTfQYwZJexf-zAL7).
 
 ### Procedure
 
