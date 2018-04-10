@@ -83,9 +83,9 @@ image::images/01-Step-58.png[]
 . Provide the following values to these fields:
 +
 ----
-Activemq user name: ignite
+Activemq user name: amq
 
-Activemq password: ignite
+Activemq password: topSecret
 ----
 +
 . And click the *Done* button on the left panel.
@@ -152,6 +152,16 @@ image::images/01-Step-68.png[]
 [NOTE]
 With this type *JSON Instance* explictly stated, at this stage of the connection configuration, the AMQ Connection will recognise the document, sent from the *To Do App* to the AMQ Broker, as a JSON document.
 +
+. Specify the following in the *Definition* field:
++
+----
+{
+"id": 1,
+"name": "Billy Joel",
+"bonus": 1250
+}
+----
++
 . Click *Done*.
 +
 image::images/01-Step-68a.png[]
@@ -164,9 +174,9 @@ image::images/01-Step-68b.png[]
 +
 ----
 {
-“id”: 1,
-“name”: “Billy Joel”,
-“bonus”: 1250
+"id": 1,
+"name": "Billy Joel",
+"bonus": 1250
 }
 ----
 +
@@ -240,9 +250,9 @@ image::images/01-Step-78.png[]
 +
 ----
 {
-“id”: 1,
-“name”: “Billy Joel”,
-“bonus”: 1250
+"id": 1,
+"name": "Billy Joel",
+"bonus": 1250
 }
 ----
 

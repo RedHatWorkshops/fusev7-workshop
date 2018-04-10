@@ -199,6 +199,7 @@ $ ./syndesis build -f
 
 You will complete this section, if you previously have not compiled the code for `Syndesis`.
 
+. If you have not done so, link:https://raw.githubusercontent.com/gpe-mw-training/fuse-ipaas-labs/master/04_technical_extensions/settings.xml[download] the Apache Maven `settings.xml` file while contains references to the Apache Maven repositories.
 . link:https://drive.google.com/open?id=1_t1RTZMwddl7AbvMbB-fX6Su9HHLe3ns[Download] an Apache Maven Repository (in zipped archive format) that has previously compiled Maven archetypes that will be used in the compilation of `Syndesis`.
 . Copy or move the zip archive to the working directory `$lab_dir`, then unzip the contents.
 . Open `~/.m2/settings.xml` for edit, using your favorite editor.
