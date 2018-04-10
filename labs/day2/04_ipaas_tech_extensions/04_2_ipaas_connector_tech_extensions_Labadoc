@@ -175,7 +175,7 @@ You will test the integration by initiating a demand generation campaign.
 
 . On the left-hand panel of the Fuse Ignite console, click *Integrations*.
 . Once the state of the _AWS S3 to FTP_ integration changes to *Published*, proceed to test it.
-. Upload to your AWS S3 bucket, the link:https://github.com/gpe-mw-training/fuse-ipaas-labs/04_technical_extensions/coolstore-flyer.png[digital image] that is the promotional flyer.
+. Upload to your AWS S3 bucket, the link:https://raw.githubusercontent.com/gpe-mw-training/fuse-ipaas-labs/master/04_technical_extensions/coolstore-flyer.png[digital image] that is the promotional flyer.
 . Check the log of the OpenShift Pod _AWS S3 to FTP_ for log entries containing the string *Flyer is ready on staging server*.
 . Logon to your remote hosting account and validate that the digital image (aka. promotional flyer) appears in the `htdocs` directory.
 
