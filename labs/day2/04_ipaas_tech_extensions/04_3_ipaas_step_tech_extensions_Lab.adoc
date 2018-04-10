@@ -251,10 +251,10 @@ You will create a REST API connection to the *Todo App* that will be used in thi
 
 . On the left-hand panel of the Fuse Ignite console, click *Home*.
 . Copy the URL for the Fuse Ignite console.
-. At the end of the URL, replace the URI path `/dashboard` with `/swagger.json`. You now have a URL for the Swagger specification for the *Todo App* in the form:
+. At the front of the URL, insert `todo-` and at the end of the URL, append `/swagger.json`. You now have a URL for the Swagger specification for the *Todo App* in the form:
 +
 ----
-http://todo-app-<guid>.fuse-ignite.openshift.opentlc.com/swagger.json
+https://todo-app-<guid>.fuse-ignite.openshift.opentlc.com/swagger.json
 ----
 +
 . In the Ignite navigation panel, click *Customizations*.
@@ -267,11 +267,8 @@ http://todo-app-<guid>.fuse-ignite.openshift.opentlc.com/swagger.json
 specification without the `swagger.json`. For instance:
 +
 ----
-http://todo-app-<guid>.fuse-ignite.openshift.opentlc.com
+https://todo-app-<guid>.fuse-ignite.openshift.opentlc.com
 ----
-+
-[TIP]
-Ensure that the protocol for the URL is *HTTP* and not *HTTPS*.
 +
 . Click *Create Connector*. Notice the *API Client Connectors* tab contains a `Todo App API` which was just created.
 
@@ -304,23 +301,17 @@ You will create an integration using two connections you have created.
 . Select on the left-hand panel, the *Finish Connection*.
 . Click on the *Todo App API Client* connection.
 . Click *Next* and then *Done* to complete the setup of the *Finish* connection.
-. Move your pointer cursor over the *+* sign, which is wedged between the *Start* connection and the *Finish* connection.
-. Select *Add a step* located on the callout, next to the *+* sign.
-. Select from the drop down box, the `log-body` technical extension that you previously created.
-. Provide the value *Damage Report Generated* in the message field for the custom step.
-. Click *Done*. The custom step has been added to the integration.
-. Name the integration _Damage Reporting_.
-. Click *Publish*. The integration will be deployed.
+
 
 == Implement a custom step in the integration
 
 //include custom step screenshot
 
-You will add the custom step using *Damage Reporter*.
+You will add the custom step using the *Damage Reporter* application.
 
 . In the center of the console, click *Add a Step*.
 . On the *Choose a Step* page, click *Damage Reporter*.
-. In the left panel, hover over the `+` sign between the damage reporter step and the finish
+. In the left panel, hover over the `+` sign between the *Damage Reporter* step and the *Finish*
 connection to display a pop-up in which you click Add a Step .
 . On the *Choose a Step* page, click *Data Mapper*.
 +
@@ -330,7 +321,15 @@ right displays the fields in the database that the *To Do App API* accesses.
 +
 . In the *Sources* panel, click the *task* field.
 . In the *Target* panel, expand the *body* field and click *task*.
-. Click Done.
+. Click *Done*. The custom step has been added to the integration.
+
+
+== Complete integration creation process
+
+. Name the integration _Damage Reporting_.
+. Click *Publish*. The integration will be deployed.
+
+*QUESTION:* At this stage, are you able to visualize the objective of the integration based on its design, and anticipate the results?
 
 
 == Test the integration
@@ -338,7 +337,7 @@ right displays the fields in the database that the *To Do App API* accesses.
 You will test the integration.
 
 . On the Fuse Ignite console, click *Integrations*.
-. Confirm that your *Damage Reporting* integration is *Published* and active.
+. Validate that your *Damage Reporting* integration is *Published* and active, before proceeding.
 . In a new web browser window, go to the *To Do app* display by appending *todo-* in front of the URL
 for your Fuse Ignite installation. The resulting URL should resemble:
 +
