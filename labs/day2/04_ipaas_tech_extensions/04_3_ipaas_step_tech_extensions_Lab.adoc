@@ -220,6 +220,8 @@ Now, create such a custom step using a pre-developed technical extension, that w
 
 . Click the *Import Extension* button.
 
+. link:https://github.com/gpe-mw-training/fuse-ipaas-labs/blob/master/04_technical_extensions/damage-reporter-1.3.4.jar?raw=true[Download] the Damage Reporter app that is built using the latest Syndesis dependecies.
+
 . Click *Browse* and select the JAR file containing the *Damage Reporter* technical extension.
 +
 [NOTE]
