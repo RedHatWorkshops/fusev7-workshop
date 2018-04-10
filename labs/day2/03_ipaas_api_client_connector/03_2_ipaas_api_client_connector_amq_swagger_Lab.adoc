@@ -48,7 +48,7 @@ image::images/01-Step-52.png[]
 
 You will start the AMQ broker provided as part of the Fuse Ignite installation.
 
-. Using the OpenShift Management Console, click on the active OpenShift pod icon, right of the `Syndesis-AMQ` deployment.
+. Using the OpenShift Management Console, click on the active OpenShift pod icon, right of the `broker-amq` deployment.
 +
 image::images/01-Step-53.png[]
 +
@@ -236,7 +236,16 @@ image::images/01-Step-78.png[]
 == Test the integration
 
 . At the AMQ console menu bar, click *Send*. The *Compose* page is displayed.
-. Enter `pay` in the *Payload format*.
+. Select *JSON* as the *Payload Format* and populate the textbox field with this message:
++
+----
+{
+“id”: 1,
+“name”: “Billy Joel”,
+“bonus”: 1250
+}
+----
+
 . Click the *Send message* button.
 +
 image::images/01-Step-79.png[]
