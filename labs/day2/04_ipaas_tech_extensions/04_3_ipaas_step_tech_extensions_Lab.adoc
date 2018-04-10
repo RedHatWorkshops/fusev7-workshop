@@ -235,9 +235,9 @@ If you have not done so already, you will create an AMQ connection. If you have 
 . On the left-hand panel of the Fuse Ignite console, click *Connections*.
 . Select the *AMQ* connector. The *AMQ* connection creation page loads.
 . Configure the connection by entering:
-.. In the *Broker URL* field, enter `tcp://syndesis-amq-tcp:61616` where the messages are delivered and resides.
-.. In the *Username* field, enter `ignite` as authorized user account.
-.. In the *Password* field, enter `ignite` as the password.
+.. In the *Broker URL* field, enter `tcp://broker-amq-tcp:61616` where the messages are delivered and resides.
+.. In the *Username* field, enter `amq` as authorized user account.
+.. In the *Password* field, enter `topSecret` as the password.
 . Leaving all other fields alone, click *Validate*.
 . When validation is successful, click Next.
 . In the *Connection Name* field, enter `AMQ Broker`.

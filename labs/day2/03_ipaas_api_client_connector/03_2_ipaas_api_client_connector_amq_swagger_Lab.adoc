@@ -104,11 +104,9 @@ image::images/01-Step-61.png[]
 . Enter the following values:
 +
 ----
-Base URL: tcp://syndesis-amq-tcp:61616
-
-User Name: ignite
-
-Password: ignite
+tcp://broker-amq-tcp:61616
+user: amq
+password: topSecret
 ----
 +
 . Click *Validate*.
@@ -271,5 +269,11 @@ The next few steps are optional. Use them only when you are certain that the int
 You have completed, tested and cleaned up your integration in Fuse Ignite.
 
 ifdef::showscript[]
+
+Base URL: tcp://syndesis-amq-tcp:61616
+
+User Name: ignite
+
+Password: ignite
 
 endif::showscript[]

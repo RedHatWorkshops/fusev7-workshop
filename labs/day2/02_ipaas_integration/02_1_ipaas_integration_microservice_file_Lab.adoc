@@ -51,6 +51,7 @@ NOTE: This authorization page will appear only once. The next time you log in, t
 You will setup a connection to the Microservice that provides Product Catalog data in JSON format.
 
 . On the left-hand pane of Fuse Ignite console, click *Connections*.
+. Click the *Create Connection* button.
 . Select the Connector named *HTTP*. The *Configure Connection* page loads.
 . Provide the URL to the *Coolstore Product Catalog Microservice* as earlier identified in the *Fuse Ignite Environment Setup Lab* of Module 1.
 . Click *Validate* and observe the successful result.
