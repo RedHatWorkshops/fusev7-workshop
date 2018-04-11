@@ -1,0 +1,194 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: hawtio-online
+parameters:
+- name: ROUTE_HOSTNAME
+  description: The externally-reachable host name that routes to the Hawtio Online service
+- name: OPENSHIFT_MASTER
+  description: The OpenShift master URL used to obtain OAuth access tokens
+  required: true
+message: |-
+  Hawtio Online is deployed.
+objects:
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: hawtio-online
+  data:
+    hawtconfig.json: |
+      {
+        "about": {
+          "title": "Hawtio OpenShift Console",
+          "productInfo": [],
+          "additionalInfo": "The Hawtio OpenShift Console eases the discovery and management of 'hawtio-enabled' applications deployed on OpenShift.",
+          "copyright": ""
+        },
+        "branding": {
+          "appName": "Hawtio OpenShift Console",
+          "appLogoUrl": "img/hawtio-logo.svg"
+        },
+        "disabledRoutes": []
+      }
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: hawtio-integration
+  data:
+    hawtconfig.json: |
+      {
+        "about": {
+          "title": "Hawtio Integration Console",
+          "productInfo": [],
+          "additionalInfo": "The Hawtio Integration Console enables introspecting Java applications.",
+          "copyright": ""
+        },
+        "branding": {
+          "appName": "Hawtio Integration Console",
+          "appLogoUrl": "img/hawtio-logo.svg"
+        },
+        "disabledRoutes": []
+      }
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: hawtio-online
+    labels:
+      app: hawtio
+      component: online
+  spec:
+    tags:
+    - from:
+        kind: DockerImage
+        name: docker.io/hawtio/online:latest
+      importPolicy:
+        scheduled: true
+      name: latest
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: hawtio
+      component: online
+    name: hawtio-online
+  spec:
+    replicas: 1
+    selector:
+      app: hawtio
+      component: online
+      deploymentconfig: hawtio-online
+    strategy:
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        labels:
+          app: hawtio
+          component: online
+          deploymentconfig: hawtio-online
+      spec:
+        containers:
+        - image: 'hawtio/online'
+          imagePullPolicy: Always
+          name: hawtio-online
+          ports:
+          - name: nginx
+            containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /online
+              port: nginx
+            periodSeconds: 10
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /online
+              port: nginx
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 1
+          env:
+          - name: OPENSHIFT_MASTER
+            value: ${OPENSHIFT_MASTER}
+          - name: HAWTIO_ONLINE_MODE
+            value: namespace
+          - name: HAWTIO_ONLINE_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          resources:
+            requests:
+              cpu: 0.2
+              memory: 32Mi
+            limits:
+              cpu: 1.0
+              memory: 32Mi
+          volumeMounts:
+          - name: hawtio-online
+            mountPath: /usr/share/nginx/html/online/hawtconfig.json
+            subPath: hawtconfig.json
+          - name: hawtio-integration
+            mountPath: /usr/share/nginx/html/integration/hawtconfig.json
+            subPath: hawtconfig.json
+        volumes:
+        - name: hawtio-online
+          configMap:
+            name: hawtio-online
+        - name: hawtio-integration
+          configMap:
+            name: hawtio-integration
+    triggers:
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - hawtio-online
+        from:
+          kind: ImageStreamTag
+          name: hawtio-online:latest
+      type: ImageChange
+    - type: ConfigChange
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: hawtio
+      component: online
+    name: hawtio-online
+  spec:
+    ports:
+    - port: 80
+      protocol: TCP
+      targetPort: nginx
+    selector:
+      app: hawtio
+      component: online
+- apiVersion: v1
+  kind: Route
+  metadata:
+    labels:
+      app: hawtio
+      component: online
+    name: hawtio-online
+  spec:
+    host: ${ROUTE_HOSTNAME}
+    to:
+      kind: Service
+      name: hawtio-online
+    tls:
+      insecureEdgeTerminationPolicy: Redirect
+      termination: edge
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    name: hawtio-online
+    labels:
+      app: hawtio-online
+    annotations:
+      # All HTTPS ingresses for the Hawtio Online route
+      serviceaccounts.openshift.io/oauth-redirecturi.route: https://
+      serviceaccounts.openshift.io/oauth-redirectreference.route: '{"kind": "OAuthRedirectReference", "apiVersion": "v1", "reference": {"kind": "Route", "name": "hawtio-online"}}'

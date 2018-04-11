@@ -275,7 +275,7 @@ Monitoring indiviual Camel routes are basically the same in both version.
 
 Use what you have learnt so far, and migrate the application from 6.3 to 7,
 
-You will be able to find the project under [50-artifact/project/oldversion/claimdemo](50-artifact/project/oldversion/claimdemo)
+You will be able to find the project under [50-artifacts/project/oldversion/claimdemo](./50-artifacts/project/olderversion/claimdemo)
 
 
 ###To see an successful migrated version. 
@@ -284,7 +284,7 @@ Create a new Project in OpenShift.
 Go to 50-artifacts/project
 
 ```
-oc new-project sample
+oc new-project sample<USERID>
 ```
 
 Deploy the example migration into the project
@@ -302,3 +302,6 @@ And you should be able to access the application via URL below:
 ```
 curl http://claimdemo-sample.<YOUR_ROUTE>o/migration/cxf/custId/A12345678?operationName=status
 ```
+
+##TODO
+Add Transaction updates details
