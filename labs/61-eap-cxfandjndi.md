@@ -61,7 +61,7 @@ Create an Camel file, under *webapp/META-INF* called *my-camel-context.xml* this
  
 ![Camel eap cdi](images/61-Step-08.png)
 
-- In the Design view, start with *direct* by draging the **Direct** component from the Palette. And in the properties view below, enter ***direct:start*** in the uri property.
+- In the Design view, start with *direct* by draging the **Direct** component from the Palette. And in the properties view below, enter ***direct:default*** in the uri property.
 
 ![Camel eap cdi](images/61-Step-09.png)
 ![Camel eap cdi](images/61-Step-10.png)
