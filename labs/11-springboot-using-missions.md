@@ -43,7 +43,7 @@ To begin, we need to download the booster-circuitbreaker project from OpenShift.
 
 ![Type Project Name](images/11-Step-8.png)
 
-9. Try running the default project as a standalone SpringBoot project, by following the instructions in the **README.adoc** found in the `booster-circuit-breaker-fuse` folder.  You should be able to view the simple console that prints our someone's name (found at http://localhost:8080), plus the Hystrix Dashboard for the name and greetings service.  Experiment by killing the name-service and monitoring the behavior on the Hystrix Dashboard.  You should notice the Circuit Break opening and shutting, depending on whether the service is running or not.
+9. Try running the default project as a standalone SpringBoot project (right-click on the camel-context.xml and select **Run As > Local Camel Context**.  You should be able to view the simple console that prints our someone's name (found at http://localhost:8080), plus the Hystrix Dashboard for the name and greetings service.  Experiment by killing the name-service and monitoring the behavior on the Hystrix Dashboard.  You should notice the Circuit Break opening and shutting, depending on whether the service is running or not.
 
 #### Add Swagger Docs
 
