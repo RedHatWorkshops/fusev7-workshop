@@ -100,7 +100,7 @@ Fuse 7 introduces a new version of the Karaf OSGi container, Karaf 4.  One of th
 ### Prerequisites
 
 1. Ensure you have JBoss Developers Studio version 11.2 + with the latest Fuse Tooling
-2. Ensure Fuse 7.x is unzipped to a local directory
+2. Ensure [Fuse 7.x](https://drive.google.com/open?id=1oQJm9gAfEVvOheppanGadoji0J7aK3dj) is unzipped to a local directory
 
 ### Procedure
 
