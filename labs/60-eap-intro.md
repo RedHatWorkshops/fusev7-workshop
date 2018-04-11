@@ -3,8 +3,8 @@
 ### Prerequisites
 
 1. Ensure you have JBoss Developers Studio version 11.2 + with the latest Fuse Tooling
-2. Ensure Fuse 7.x is unzipped to a local directory
-3. Download EAP 7.1 from [here](https://developers.redhat.com)
+2. Download EAP 7.1 from [here](https://drive.google.com/open?id=1PaK_NjBvKeLFxs2yb7zJAqKIe2gibJ5v)
+3. Fuse EAP installer from [here](https://drive.google.com/open?id=1yuxvwQyWFAZaGk6pj30iuOBJszXYqbPd)
 
 ### Procedure
 
@@ -51,7 +51,7 @@ To create a Fuse EAP project in JBDS.
 
 ![Create Fuse Project](images/60-Step-2.png)
 
-- Type in the project name "currency-exchange-eap".  Click "Next".
+- Type in the project name "lab6".  Click "Next".
 
 ![Add project name](images/60-Step-3.png)
 
@@ -113,4 +113,4 @@ and server will reply ***Hello YOUR_NAME***
 
 - To stop the EAP server in Servers view, right click on the *Red Hat JBoss Enterprise Application Platform 7.1* and select Stop.
 
-![Add project name](ismages/60-Step-11.png)
+![Add project name](images/60-Step-11.png)
