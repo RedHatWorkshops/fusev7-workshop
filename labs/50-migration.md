@@ -7,7 +7,7 @@ Start Fuse 6.3 version, by pulling from an existing docker image.
 ```
 docker pull weimeilin/fusefabric:naenablement
 
-docker run -it -p 8181:8181 -p 8182:8182 -p 8184:8184 fusefabric
+docker run -it -p 8181:8181 -p 8182:8182 -p 8184:8184 weimeilin/fusefabric:naenablement
 
 # Sometimes, the process will stop, just re-run the fuse server to start up the root instance. 
 sh jboss-fuse/bin/fuse

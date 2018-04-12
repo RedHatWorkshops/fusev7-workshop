@@ -61,7 +61,7 @@ Create an Camel file, under *webapp/META-INF* called *my-camel-context.xml* this
  
 ![Camel eap cdi](images/61-Step-08.png)
 
-- In the Design view, start with *direct* by draging the **Direct** component from the Palette. And in the properties view below, enter ***direct:start*** in the uri property.
+- In the Design view, start with *direct* by draging the **Direct** component from the Palette. And in the properties view below, enter ***direct:default*** in the uri property.
 
 ![Camel eap cdi](images/61-Step-09.png)
 ![Camel eap cdi](images/61-Step-10.png)
@@ -134,7 +134,7 @@ First add a new Route from dragging from right Palette and add the SQL select co
 	- **Direct** URI as *direct:database*
 	- **SQL** URI as *sql:select name from information_schema.users?dataSource=#myCamelDS*
 	- **Log** message as *${body}*
-	- **setBody** Expression as *Hello ${body.RETURNNAME}* and Language as *simple*
+	- **setBody** Expression as *Hello ${body[0][NAME]}* and Language as *simple*
 
 ![CXF](images/61-Step-13.png)
 
