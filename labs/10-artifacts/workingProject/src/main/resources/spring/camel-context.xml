@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd    ">
+    <bean class="org.apache.qpid.jms.JmsConnectionFactory" id="jmsConnectionFactory">
+        <property name="remoteURI" value="amqp://localhost:5672"/>
+        <property name="username" value="admin"/>
+        <property name="password" value="admin"/>
+    </bean>
+    <bean class="org.apache.camel.component.amqp.AMQPComponent" id="amqp">
+ <property name="connectionFactory" ref="jmsConnectionFactory" />
+
+    </bean>
+    <cxf:cxfEndpoint address="http://localhost:8183/cxf/order"
+        id="orderEndpoint" serviceClass="org.fusesource.camel.ws.OrderEndpoint"/>
+    <camelContext id="rider-auto-ws" trace="true" xmlns="http://camel.apache.org/schema/spring">
+        <route customId="true" id="ws-to-jms">
+            <from id="_from1" uri="cxf:bean:orderEndpoint"/>
+            <setBody id="_setBody1">
+                <simple>${in.body[0]}</simple>
+            </setBody>
+            <marshal id="_marshal1">
+                <jaxb contextPath="org.fusesource.camel.model"/>
+            </marshal>
+            <inOnly id="_inOnly1" uri="amqp:incomingOrders"/>
+            <transform id="_transform1">
+                <constant>OK</constant>
+            </transform>
+        </route>
+    </camelContext>
+</beans>
