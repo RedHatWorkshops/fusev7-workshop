@@ -64,7 +64,7 @@
         redhat-techpreview
         jboss-ce
         brew-root`
-** Download the following `settings.xml` file to replace your own `~/.m2/settings.xml` file
+** Download link:https://github.com/RedHatWorkshops/fusev7-workshop/blob/master/labs/setup/settings.xml[this] `settings.xml` file to replace your own `~/.m2/settings.xml` file
 ** Build your Apache Maven project using `mvn clean install`.
 ** Notice in the maven build output that it is pulling from your local Nexus.
 ** Delete the Maven repository: `rm -rf ~/.m2/repository`
