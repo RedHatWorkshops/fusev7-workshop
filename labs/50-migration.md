@@ -1,6 +1,6 @@
 # Fabric Migration
 
-##Example in Fuse 6.3
+## Example in Fuse 6.3
 
 Start Fuse 6.3 version, by pulling from an existing docker image. 
 
@@ -19,7 +19,7 @@ curl http://localhost:8182/cxf/status/status/custId/123
 ```
 
 
-##Migration Flow Chart
+## Migration Flow Chart
 
 This demonstrated an overview flow of how to migrate from Fuse Fabric to Fuse on OpenShift. Remember there are no strict rules on migration, the intention of this flow chart is to get you started on what could be the possible steps of migration, not the final answer.
 
@@ -156,9 +156,9 @@ Adding all to OpenShift Project
 oc new-project migration
 ```
 
-##Container Creation → OpenShift s2i
+## Container Creation → OpenShift s2i
 
-###Fuse 6.x
+### Fuse 6.x
 Child containers refers to an Apache Karaf concept of child containers; which basically means a separate child process on the same machine as a root container; with the root container starting and stopping the child containers and the children sharing some disk space (installation jars etc) with the root container to minimise disk footprint.
 
 Child containers are the most common containers you'll probably use since you'll probably start playing with fabric8 on your laptop. e.g. if you enable the Auto Scaler and define some requirements then the fabric you spin up on your laptop will automatically create some child containers (i.e. child processes).
@@ -166,7 +166,7 @@ Child containers are the most common containers you'll probably use since you'll
 Traditionally child containers were Karaf only; but now we support child Process Containers and child Java Containers.
 
 
-###Fuse 7
+### Fuse 7
 
 OpenShift refers running container as Pods. To build the pods for Fuse, we use the Source-To-Image (S2I) strategy.
 A build configuration is defined by a BuildConfig. [See Detail](https://docs.openshift.com/enterprise/3.2/dev_guide/builds.html)
@@ -175,9 +175,9 @@ A build configuration is defined by a BuildConfig. [See Detail](https://docs.ope
 
 
 
-##Provisioning → OpenShift Kubernetes 
+## Provisioning → OpenShift Kubernetes 
 
-###Fuse 6.x 
+### Fuse 6.x 
 - Versioning
 Fabric allows you to co-ordinate and manage the provision and running of child containers. It uses bundle, features and profile to define what is running on the containers. The actual application are stored in the internal maven repositoy. You can specify what version of application that you want to deploy. 
 
@@ -191,7 +191,7 @@ In Scale tab, you will be able to define max/min of instance to support the cont
 
 
 
-###Fuse 7.x 
+### Fuse 7.x 
 
 OpenShift Kubernetes is for container orchestration and management of containers (Pods). It uses Docker images and containers for applications. The internal container repository stores all the versions of avaliable containers.
 
@@ -210,9 +210,9 @@ Scaling can be configured in deployment configuration.
 
 
 
-##Insight → OpenShift EFK
+## Insight → OpenShift EFK
 
-###Fuse 6.x
+### Fuse 6.x
 Fuse is built for distributed deployments: distributed across container, VMs & datacentres. Each container logs & gathers metrics which is great, but viewing those logs & metrics across a distributed deployment isn't going to be easy. So Fabric8 provides a consolidated view on logs & metrics collected in your fabric, making it easy to know exactly what's going on in your entire deployment.
 
 Logs & Metrics
@@ -220,11 +220,11 @@ Insight collects logs & metrics separately, allowing you to choose what you want
 
 ![Fuse 6.3 Insight](images/50-Step-02.png)
 
-###Fuse 7.x
+### Fuse 7.x
 Aggregating Container Logs. You can deploy the EFK stack to aggregate logs for a range of OpenShift Container Platform services. Application developers can view the logs of the projects for which they have view access. The EFK stack aggregates logs from hosts and applications, whether coming from multiple containers or even deleted pods.
 
 
-##Gateway → OpenShift Kubernetes Router and Services
+## Gateway → OpenShift Kubernetes Router and Services
 
 ### Fuse 6.x
 The Fabric Gateway provides a TCP and HTTP/HTTPS gateway for discovery, load balancing and failover of services running within a Fabric8. This allows simple HTTP URLs to be used to access any web application or web service running withing a Fabric.
@@ -236,7 +236,7 @@ Services are assigned an IP address and port pair that, when accessed, proxy to 
 
 
 
-##Configuration Management → ConfigMap
+## Configuration Management → ConfigMap
 
 - **Config Properties in Profile**
 
@@ -264,21 +264,21 @@ data:
 
 ```
  
-##Monitoring → OpenShift HawtIO
+## Monitoring → OpenShift HawtIO
 
 Monitoring indiviual Camel routes are basically the same in both version.
 ![Fuse 6.x Profiles](images/50-Step-03.png)
 
 
 
-##Lab - Migrate the example in Fuse 6.3 to Fuse 7
+## Lab - Migrate the example in Fuse 6.3 to Fuse 7
 
 Use what you have learnt so far, and migrate the application from 6.3 to 7,
 
 You will be able to find the project under [50-artifacts/project/oldversion/claimdemo](./50-artifacts/project/olderversion/claimdemo)
 
 
-###To see an successful migrated version. 
+### To see an successful migrated version. 
 
 Create a new Project in OpenShift. 
 Go to 50-artifacts/project
@@ -303,5 +303,5 @@ And you should be able to access the application via URL below:
 curl http://claimdemo-sample.<YOUR_ROUTE>o/migration/cxf/custId/A12345678?operationName=status
 ```
 
-##TODO
+## TODO
 Add Transaction updates details
