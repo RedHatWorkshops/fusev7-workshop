@@ -397,7 +397,7 @@ Verify that the text from your tweet is captured in the *Description* field, whi
 +
 *Question:* What are the rest of the changes that you have to make in order to complete this integration?
 
-== Integration clean-up
+== Housekeeping
 
 . In the left-hand pane of the Fuse Ignite console, click *Integrations*.
 . Select the _Twitter to Salesforce_  integration.
@@ -407,21 +407,10 @@ image::images/integrations_twitter_salesforce.png[]
 . Click *Stop Integration*, followed by clicking *OK* in the the integration summary. This will deactivate the integration.
 +
 image::images/integration_summary_stop.png[]
-+
-. Select the inactive integration _Twitter to Salesforce_.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
-+
-[TIP]
-Practice good housekeeping: delete integrations that are no longer needed. This will release resources used by the deleted integrations, back to the Fuse Ignite system resource pool.
 
 You have completed, tests and cleaned up your first integration in Fuse Ignite.
 
 ifdef::showscript[]
 
-=== Appendix
-
-==== Register for a Twitter Account
-
-==== Register for a Salesforce Account
 
 endif::showscript[]
