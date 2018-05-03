@@ -51,7 +51,7 @@ CAUTION: Red Hat Fuse Ignite is supported for the following web browsers: Google
 
 You will setup the _Microservice to Flat File_ integration again.
 
-. Reimport the _Microservice to Flat File_ integration which was backed up in an earlier lab.
+. If you have previously, deleted the _Microservice to Flat File_ integration, reimport it. It was backed up in an earlier lab.
 . Ensure that _Microservice to Flat File_ integration is published and active.
 
 
