@@ -16,6 +16,7 @@ This course includes at least one lab per module. Each lab is hands-on and typic
 
 CoolWater Inc. is a local water utility company. CoolWater Inc. requires you to implement a payment management system that extends an online service to their clients, for convenience of water bill payment.
 The design of the integration will involve capturing of input from a web application (called To Do App) in a PostgresDB database, which will then initiate a API REST connection to a web service that displays the payment information on the customer billing portal of CoolWater Inc.
+Implement this client use case that supports recurring billing for clients of CoolWater Inc.
 
 image::images/01-Step-01.png[]
 
@@ -120,11 +121,14 @@ image::images/01-Step-10.png[]
 +
 . Click the *Create Connection* button. The *Create Connection* page appears.
 . Select the *Pay Water Bill* icon. The *Pay Water Bill Configuration* page appears.
-. Enter "/" as the *Base path*.
 +
 image::images/01-Step-11.png[]
 +
+. Enter "/" as the *Base path*.
 . Take note of the fields and their values found on this page.
++
+image::images/pay_water_bill_config.png[]
++
 . Click the *Next* button.
 +
 image::images/01-Step-12.png[]
@@ -166,15 +170,18 @@ NOTE: Credentials defined with the PostgresDB database connection are used when 
 +
 image::images/01-Step-17.png[]
 +
-. Provide the following data for the fields:
+. Provide the following data for these fields:
 +
-----
-SQL Statement: SELECT TASK FROM TODO WHERE TASK LIKE 'reoccurring%';
-Period: 30000 Milliseconds
-----
+[.noredheader,cols="5,15",caption=""]
+|======
+|*Field Name*|*Value*
+|SQL Statement|SELECT TASK FROM TODO WHERE TASK LIKE 'recurring%';
+|Period|30000 Milliseconds
+|======
 +
 image::images/01-Step-18.png[]
-
++
+. Click *Done*.
 
 === Add the PayBill Connection to the Integration
 
@@ -212,8 +219,6 @@ image::images/01-Step-24.png[]
 +
 . Click the *Add Transformation* button.
 +
-image::images/01-Step-25.png[]
-+
 . In the *Target* section of the *Mapping Details* panel, enter _2_ in the *Separate Index* field.
 . Click the *Add Transformation* button and select *Trim* from the *Transformation* dropdown box.
 . Click the *Add Target* button.
@@ -229,7 +234,7 @@ image::images/01-Step-27.png[]
 image::images/01-Step-28.png[]
 +
 . Click *Save as Draft* to save this integration.
-. Name the integration *PayReoccurringBill* and provide a meaningful description.
+. Name the integration *PayRecurringBill* and provide a meaningful description.
 +
 image::images/01-Step-29.png[]
 +
@@ -245,7 +250,7 @@ image::images/01-Step-30.png[]
 You will test the integration.
 
 . Access the *To Do App*.
-. In the form, provide the value: *reoccurring `<name>` 200*, substituting `<name>` with a name that you have in mind.
+. In the form, provide the value: *recurring `<name>` 200*, substituting `<name>` with a name that you have in mind.
 +
 image::images/01-Step-31.png[]
 +
@@ -253,7 +258,7 @@ image::images/01-Step-31.png[]
 +
 image::images/01-Step-32.png[]
 +
-. In the form of the *To Do App*, provide another value: *reoccurring `<name>` 100*, substituting `<name>` with a different name that you have in mind.
+. On the form submission page of the *To Do App*, provide another value: *recurring `<name>` 100*, substituting `<name>` with a different name that you have in mind.
 +
 image::images/01-Step-33.png[]
 +
@@ -265,7 +270,7 @@ image::images/01-Step-34.png[]
 +
 image::images/01-Step-35.png[]
 +
-. Repeat the test, this time with multiple data entries made using the *To Do App*, some of which do not contain the word `reoccurring`. Record your observations.
+. Repeat the test, this time with multiple data entries made using the *To Do App*, some of which do not contain the word `recurring`. Record your observations.
 
 *QUESTION:* What conclusions can you make from all the sets of test results you have collected? Can you think of other use cases that also require this integration design?
 
@@ -275,7 +280,7 @@ image::images/01-Step-35.png[]
 You will clean up the integration. as a housekeeping best practice.
 
 . In the left-hand pane, click *Integrations*.
-. Locate the entry for the _PayReoccurringBill_ integration.
+. Locate the entry for the _PayRecurringBill_ integration.
 . Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
 . Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
 * If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
@@ -283,7 +288,7 @@ You will clean up the integration. as a housekeeping best practice.
 [NOTE]
 The next few steps are optional. Use them only when you are certain that the integration will never be required again.
 +
-. Locate the entry for the _PayReoccurringBill_ integration.
+. Locate the entry for the _PayRecurringBill_ integration.
 . Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
 . Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
 

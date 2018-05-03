@@ -3,3 +3,13 @@ IGNITE_DEV|IGNITE_FDS0301|1|What is needed for Red Hat Fuse Ignite to create a c
 IGNITE_DEV|IGNITE_FDS0301|1|What is needed for Red Hat Fuse Ignite to create a connector for REST APIs?|||XSLT Style Sheet|||0|0|||
 IGNITE_DEV|IGNITE_FDS0301|1|What is needed for Red Hat Fuse Ignite to create a connector for REST APIs?|||CamelContext|||0|0|||
 IGNITE_DEV|IGNITE_FDS0301|1|What is needed for Red Hat Fuse Ignite to create a connector for REST APIs?|||Swagger Specification|||1|100|||
+IGNITE_DEV|IGNITE_FDS0302|1|What are the correct sequence of steps in creating a specific API Client Connector?|||Review Swagger Actions, Specify Security, Upload a Swagger File|||0|0|||
+IGNITE_DEV|IGNITE_FDS0302|1|What are the correct sequence of steps in creating a specific API Client Connector?|||Specify Security, Upload a Swagger File, Review Swagger Actions|||0|0|||
+IGNITE_DEV|IGNITE_FDS0302|1|What are the correct sequence of steps in creating a specific API Client Connector?|||Upload a Swagger File, Specify Security, Review Swagger Actions|||0|0|||
+IGNITE_DEV|IGNITE_FDS0302|1|What are the correct sequence of steps in creating a specific API Client Connector?||| Upload a Swagger File, Review Swagger Actions, Specify Security|||1|100|||
+IGNITE_DEV|IGNITE_FDS0303|5|Each HTTP response of a RESTful service can be defined using a distinct schema file.|||TRUE|||1|100|||
+IGNITE_DEV|IGNITE_FDS0303|5|Each HTTP response of a RESTful service can be defined using a distinct schema file.|||FALSE|||0|0|||
+IGNITE_DEV|IGNITE_FDS0304|5|The API Client Connector wizard in Fuse Ignite recognizes Swagger documents both in YAML And JSON formats.|||TRUE|||1|100|||
+IGNITE_DEV|IGNITE_FDS0304|5|The API Client Connector wizard in Fuse Ignite recognizes Swagger documents both in YAML And JSON formats.|||FALSE|||0|0|||
+IGNITE_DEV|IGNITE_FDS0305|5|Constants, that are used in data mapping, can only be created in the Sources pane of the Data mapper.|||TRUE|||1|100|||
+IGNITE_DEV|IGNITE_FDS0305|5|Constants, that are used in data mapping, can only be created in the Sources pane of the Data mapper.|||FALSE|||0|0|||

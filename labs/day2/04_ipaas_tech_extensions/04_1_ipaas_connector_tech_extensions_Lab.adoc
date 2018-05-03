@@ -111,7 +111,7 @@ These are the Maven repositories where the Maven archetypes used for the compila
 +
 ----
 $ cd $lab_dir/syndesis/tools/bin
-$ ./syndesis build -f
+$ ./syndesis build -b -f -c
 ----
 +
 . A successful compilation will result in the following messages:

@@ -107,19 +107,20 @@ However, for the purpose of this lab, this out of the box {ignite_template} is s
 
 . Point your browser to the {ignite_sa} and save a copy to your local filesystem so that you can more easily study it.
 +
-[red]#TO-DO:  What does this SA actually do ?#
-
+[NOTE]
+Service accounts have access to limited basic user information (including checking of user access) and role-based privileges within the service account’s own namespace. Therefore, a service account can be used as a limited OAuth client.
++
 . Point your browser to the {ignite_template} and save a copy to your local filesystem so that you can more easily study it.
 . Open the template in a text editor and notice the following about it:
 .. The majority of the template consists of a list of `parameters` (starting at around line 19) and a list of template `objects` (starting at around line 132).
 .. There are two `DeploymentConfig` artifacts defined that when started will create two pods:
-... _syndesis-ui : Web application that provides Fuse Ignite web interface
+... _syndesis-ui : Web application that provides Fuse Ignite console interface
 ... _syndesis-db_ : A postgresql based database useful for integration use cases that may need use of a relational database
-... _syndesis-meta_ :
+... _syndesis-meta_ : Validator for all configurations
 ... _syndesis-oauthproxy_ : Interacts with the OAuth2 provider implementation of OpenShift to proxy authentication and authorization needs for the Fuse Ignite web application
 ... _syndesis-server_ : Red Hat JBoss Fuse server were camel based routes are executed at runtime
-... _todo_: Simple PHP based example web app that tracks todo items in the _syndesis-db_ postgresql database
-... _syndesis-prometheus_ :
+... _todo_: Simple PHP based example web app that tracks To-Do items in the _syndesis-db_ postgresql database
+... _syndesis-prometheus_ : log monitoring
 
 . Study the template and test your understanding of the template by answering the following questions:
 .. What is the name of the parameter to pass to this template that defines the memory limit assigned to the _syndesis-server_ container ?
@@ -128,14 +129,15 @@ However, for the purpose of this lab, this out of the box {ignite_template} is s
 ifdef::showscript[]
 
 Answers:
+parameter - SERVER_MEMORY_LIMIT
+no. of PVs - 3
 
 endif::showscript[]
 
 . One remaining artifact that is needed is a `Service Account` used by the _syndesis-oauth-client_ functionality.
-+
-[red]#TO-DO:  What does this do ?#
-
 . At this time save a copy of the {ignite_sa} to your local filesystem.
+. Edit the OAuth Client Service Account file, using your favorite text editor.
+. Notice the three annotations which specify redirect URLs. The `serviceaccounts.openshift.io/oauth-redirecturi.local` annotation specifies the static URL for the Fuse Ignite console interface (*syndesis-ui*), while the `serviceaccounts.openshift.io/oauth-redirectreference.route` annotation specifies the dynamic redirect URL for the syndesis route. All ingresses for the latter route are considered valid.
 
 == Provision
 
@@ -208,7 +210,7 @@ image::images/deployments_list.png[]
 
 . Check on the resultant pods by navigating to: `Applications -> Pods`.
 +
-With the exception of the _todo_ builder pod, all other pods should be in a status of `Runing` and there should not be a pod whose name has a suffix of: `*-deploy`
+With the exception of the _todo_ builder pod, all other pods should be in a status of `Running` and there should not be a pod whose name has a suffix of: `*-deploy`
 
 . Return to the page in the OpenShift web console that provides details of your quotas and limit ranges.
 +

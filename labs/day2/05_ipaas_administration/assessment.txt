@@ -1,5 +1,19 @@
 QUESTIONBANKCODE|QUESTIONCODE|QUESTIONTYPE|QUESTIONTEXT|QUESTIONTEXTFORMAT|QUESTIONFEEDBACK|OPTION|RIGHTOPTION|OPTIONFEEDBACK|ISCORRECT|OPTIONWEIGHT|ISCASESENSITIVE|RANDOMIZEOPTIONS|STATUS
-IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid user role in Red Hat Fuse Ignite?|||Manager|||0|0|||
-IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid user role in Red Hat Fuse Ignite?|||Expert Integrator|||0|0|||
-IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid user role in Red Hat Fuse Ignite?|||User|||1|100|||
-IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid user role in Red Hat Fuse Ignite?|||Developer|||0|0|||
+IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid deployment configuration in Red Hat Fuse Ignite?|||syndesis-meta|||0|0|||
+IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid deployment configuration in Red Hat Fuse Ignite?|||syndesis-prometheus|||0|0|||
+IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid deployment configuration in Red Hat Fuse Ignite?|||syndesis-server|||0|0|||
+IGNITE_DEV|IGNITE_FDS0501|1|Which is not a valid deployment configuration in Red Hat Fuse Ignite?|||syndesis-client|||1|100|||
+IGNITE_DEV|IGNITE_FDS0502|5|https://localhost:4200 is the static redirect URL for the Fuse Ignite console.|||TRUE|||1|100|||
+IGNITE_DEV|IGNITE_FDS0502|5|https://localhost:4200 is the static redirect URL for the Fuse Ignite console.|||FALSE|||0|0|||
+IGNITE_DEV|IGNITE_FDS0503|1|What parameter has to be passed during Fuse Ignite installation in order to change the memory limit for PostgreSQL Database?|||POSTGRESQL_MEMORY_LIMIT|||1|100|||
+IGNITE_DEV|IGNITE_FDS0503|1|What parameter has to be passed during Fuse Ignite installation in order to change the memory limit for PostgreSQL Database?|||PROMETHEUS_MEMORY_LIMIT|||0|0|||
+IGNITE_DEV|IGNITE_FDS0503|1|What parameter has to be passed during Fuse Ignite installation in order to change the memory limit for PostgreSQL Database?|||SERVER_MEMORY_LIMIT|||0|0|||
+IGNITE_DEV|IGNITE_FDS0503|1|What parameter has to be passed during Fuse Ignite installation in order to change the memory limit for PostgreSQL Database?|||DB_MEMORY_LIMIT|||0|0|||
+IGNITE_DEV|IGNITE_FDS0504|1|Which is not a valid Persistent Volume Claim in Fuse Ignite?|||syndesis-server|||1|100|||
+IGNITE_DEV|IGNITE_FDS0504|1|Which is not a valid Persistent Volume Claim in Fuse Ignite?|||syndesis-prometheus|||0|0|||
+IGNITE_DEV|IGNITE_FDS0504|1|Which is not a valid Persistent Volume Claim in Fuse Ignite?|||syndesis-meta|||0|0|||
+IGNITE_DEV|IGNITE_FDS0504|1|Which is not a valid Persistent Volume Claim in Fuse Ignite?|||syndesis-db|||0|0|||
+IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc get-token sa syndesis-oauth-client -n fuse-ignite-manual-provision-<your initials>|||0|0|||
+IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc sa get-token fuse-ignite-manual-provision-<your initials> -n syndesis-oauth-client|||0|0|||
+IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc sa get-token syndesis-oauth-client -n fuse-ignite-manual-provision-<your initials>|||1|100|||
+IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc get-token sa fuse-ignite-manual-provision-<your initials> -n syndesis-oauth-client|||0|0|||

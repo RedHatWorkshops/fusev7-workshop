@@ -188,6 +188,7 @@ image::images/damage-reporter-jbds-compile.png[]
 [INFO] ------------------------------------------------------------------------
 ----
 
+
 == Export the Damage Reporter application from JBDS
 
 You will export the `damage-reporter` project to your local working directory, as a JAR archive file.
@@ -202,6 +203,13 @@ image::images/jar-export.png[]
 image::images/export-file-system.png[]
 +
 . Click the *Finish* button.
+
+
+== [OPTIONAL] Download Pre-compiled Damage Reporter Application
+
+Perform this exercise, only if you have not been able to complete the earlier section.
+
+. link:https://github.com/gpe-mw-training/fuse-ipaas-labs/blob/master/04_technical_extensions/damage-reporter-1.3.4.jar?raw=true[Download] the Damage Reporter application that has been pre-compiled.
 
 
 == Import the Damage Reporter application into Fuse Ignite
@@ -219,8 +227,6 @@ Now, create such a custom step using a pre-developed technical extension, that w
 . Select the *Extensions* tab.
 
 . Click the *Import Extension* button.
-
-. link:https://github.com/gpe-mw-training/fuse-ipaas-labs/blob/master/04_technical_extensions/damage-reporter-1.3.4.jar?raw=true[Download] the Damage Reporter app that is built using the latest Syndesis dependecies.
 
 . Click *Browse* and select the JAR file containing the *Damage Reporter* technical extension.
 +
@@ -247,6 +253,24 @@ If you have not done so already, you will create an AMQ connection. If you have 
 . Click *Create* to begin connection creation. Notice the new AMQ connection on the Fuse Ignite console.
 
 
+== Unsecure the route for the Todo App
+
+. On the menu of the OpenShift Management Console for your OpenShift environment, navigate to *Applications -> Routes*.
++
+image:images/edit-todo-route.png[]
++
+. Click on the *Actions* button, and select *Edit*.
++
+image:images/secured-route-todo-app.png[]
++
+. Scroll to reveal the *Security* section, and locate the checkbox next to *Secure route*.
++
+image:images/unsecure-route-todo-app.png[]
++
+. Unsecure the route for the* Todo App* by removing the entry in the checkbox.
+. Scroll down and click *Save*.
+
+
 == Create a REST API connector
 
 You will create a REST API connection to the *Todo App* that will be used in this scenario as a message client.
@@ -256,7 +280,7 @@ You will create a REST API connection to the *Todo App* that will be used in thi
 . At the front of the URL, insert `todo-` and at the end of the URL, append `/swagger.json`. You now have a URL for the Swagger specification for the *Todo App* in the form:
 +
 ----
-https://todo-app-<guid>.fuse-ignite.openshift.opentlc.com/swagger.json
+http://todo-app-<guid>.fuse-ignite.openshift.opentlc.com/swagger.json
 ----
 +
 . In the Ignite navigation panel, click *Customizations*.
@@ -269,7 +293,7 @@ https://todo-app-<guid>.fuse-ignite.openshift.opentlc.com/swagger.json
 specification without the `swagger.json`. For instance:
 +
 ----
-https://todo-app-<guid>.fuse-ignite.openshift.opentlc.com
+http://todo-app-<guid>.fuse-ignite.openshift.opentlc.com
 ----
 +
 . Click *Create Connector*. Notice the *API Client Connectors* tab contains a `Todo App API` which was just created.
@@ -344,7 +368,7 @@ You will test the integration.
 for your Fuse Ignite installation. The resulting URL should resemble:
 +
 ----
-https://todo-app-<guid>.fuse-ignite.openshift.opentlc.com
+http://todo-app-<guid>.fuse-ignite.openshift.opentlc.com
 ----
 +
 . Using the *To Do app*, click *Show JMS Form* to display a field for a XML message.
