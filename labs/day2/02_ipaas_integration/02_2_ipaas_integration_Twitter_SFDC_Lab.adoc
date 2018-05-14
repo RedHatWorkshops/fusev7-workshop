@@ -56,7 +56,7 @@ What does it mean to have 247 days 8 hours 15 minutes of Uptime, 350 Total Messa
 
 == Register Fuse Ignite as a client for Twitter service
 
-This section assumes that you have a Twitter account setup. If you have not done so, complete the _Register for a Twitter account_ portion of the *Appendix* section of this lab first.
+This section assumes that you have a Twitter account setup. If you have not done so, complete the _Cloud services account registration_ section of Lab 1 first.
 
 Next, register Fuse Ignite as a client application for the online Twitter service. With this accomplished, any number of integrations connecting Twitter can be created.
 
@@ -136,7 +136,7 @@ The Twitter connection in your Fuse Ignite project has been setup and can be reu
 
 == Register Fuse Ignite as a client for Salesforce
 
-This section assumes that you have a Salesforce account setup. If you have not done so, complete the _Register for a Salesforce account_ portion of the *Appendix* section of this lab first.
+This section assumes that you have a Salesforce account setup. If you have not done so, complete the _Cloud services account registration_ section of Lab 1 first.
 
 You will register Fuse Ignite with Salesforce once, as a pre-requisite to creating a Salesforce connection.
 
@@ -397,7 +397,7 @@ Verify that the text from your tweet is captured in the *Description* field, whi
 +
 *Question:* What are the rest of the changes that you have to make in order to complete this integration?
 
-== Housekeeping
+== Integration clean-up
 
 . In the left-hand pane of the Fuse Ignite console, click *Integrations*.
 . Select the _Twitter to Salesforce_  integration.
@@ -407,6 +407,12 @@ image::images/integrations_twitter_salesforce.png[]
 . Click *Stop Integration*, followed by clicking *OK* in the the integration summary. This will deactivate the integration.
 +
 image::images/integration_summary_stop.png[]
++
+. Select the inactive integration _Twitter to Salesforce_.
+. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
++
+[TIP]
+Practice good housekeeping: delete integrations that are no longer needed. This will release resources used by the deleted integrations, back to the Fuse Ignite system resource pool.
 
 You have completed, tests and cleaned up your first integration in Fuse Ignite.
 

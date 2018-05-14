@@ -284,10 +284,81 @@ You will clean up the integration. as a housekeeping best practice.
 . Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
 . Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
 * If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
++
+[NOTE]
+The next few steps are optional. Use them only when you are certain that the integration will never be required again.
++
+. Locate the entry for the _PayRecurringBill_ integration.
+. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
+. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
 
 You have completed, tested and cleaned up your integration in Fuse Ignite.
 
 
 ifdef::showscript[]
+
+Next, register Fuse Ignite as a client application for the online Twitter service. With this accomplished, any number of integrations connecting Twitter can be created.
+
+. At the Fuse Ignite console, copy the Fuse Ignite URL from URL field in the web browser.
+. On the left-hand panel of the Fuse Ignite console, click *Settings*.
+. On the *OAuth Application Management* webpage, notice the _Twitter_ icon.
+. On the left of the _Twitter_ icon, click the *Register* button.
+. Notice both the *Client ID* and *Client Secret* fields are displayed.
+. Launch another web browser window, and type `http://apps.twitter.com` in the URL field.
+. After typing, hit the *Enter* button on your keyboard.
+. When the login page is fully loaded, log into your *Twitter* account.
+. Click *Create New App*.
+. In the _Name_ field, provide the name of this new app.
++
+NOTE: The app name must be unique among all other apps registered using your *Twitter* account.
++
+. In the _Description_ field, enter helpful information. Twitter requires some input in this field.
+
+. In both the _Website_ and _Callback URL_ fields, paste your Fuse Ignite URL (which you copied earlier into the clipboard) .
+
+. Remove the URI suffix `dashboard` from the end of the value in the _Callback URL_ field.
+. Append the string `api/v1/credentials/callback` to the value in the _Callback URL_ field.
++
+NOTE: For example: https://app-proj9128.7b63.fuse-ignite.openshiftapps.com/api/v1/credentials/callback.
++
+. Click *Yes*, and thereby agreeing to the terms and conditions of the *Twitter* developer agreement.
+. Click *Create your Twitter application*.
+. Select the *Keys and Access Tokens* tab.
+. The `Consumer Key` appears on the web page. Copy it.
+. In the other web browser window, select the *Settings* tab on the Fuse Ignite console.
+. Paste the *Twitter* `Consumer Key` into the *Twitter Client ID* field.
+. In the web browser window for your Twitter account, locate the *Twitter Keys and Access Tokens* tab.
+. Copy the `Consumer Secret`.
+. Paste the string into the *Twitter Client Secret* field in the Fuse Ignite console.
+. Click *Save*. followed by clicking *OK*.
+
+You have completed the setup of Fuse Ignite as a Twitter client application.
+
+=== Create Salesforce Connection
+
+Before an integration can be created, a connection has to be created for each cloud service endpoint that will be integrated. These cloud services have to support the link:https://oauth.net/2[OAuth protocol].
+
+. On the Fuse Ignite console, click the *Connections* tab.
+
+=== Create Twitter Connection
+
+. On the Fuse Ignite console, click the *Connections* tab.
+
+=== Create Integration between Salesforce and Twitter
+
+The integration starts by accessing the Salesforce application from which data is retrieved from.
+
+. Select the Salesforce connection. This is the *start* connection point of the integration you are creating.
+. Select the *action* that the *start* connection has to perform.
+. As an option (and this varies among connections), provide configuration information to the *start* connection. For instance, indicate if the action involves either a Salesforce lead or a Salesforce opportunity.
+. Select the Twitter connection. This is the *finish* connection which accesses the application that consumes the data retrieved by the *start* connection, thereby completing the integration.
+. Select the *action* that the *finish* connection is required to perform. Similarly to the earlier *action* selected, this *action* can involve data update.
+. As an option, provide configuration information to the *finish* connection.
+. Click *Publish* to begin testing the integration.
++
+NOTE: As the business use case evolves, additional connections to other applications can be introduced as part of the integration. These connections can exist anywhere between the *start* connection and the *finish* connection.
++
+. OPTIONAL: Add new connections into the integration.
+. OPTIONAL: Add several steps in order to manipulate the data used in the integration. _Data filtering and _data mapping_ are recommended steps to introduce.
 
 endif::showscript[]
