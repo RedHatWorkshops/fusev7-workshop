@@ -15,6 +15,7 @@ This course includes at least one lab per module. Each lab is hands-on and typic
 * Test the integration
 
 .Requirements
+* Completion of Lab 2 of Module 3 - API Client Connector Lab - AMQ to RESTful Service Scenario
 * Completion of Lab 2 of Module 4 - *Connector Technical Extensions Lab - utilize a technical extension in a marketing campaign use case*
 * JDK 1.8 installed
 
@@ -236,11 +237,47 @@ The archive file is validated and extracted. On the Fuse Ignite console, the tec
 . Click *Import*. The custom step becomes available for use in any integration, with the details of the technical extension displayed.
 
 
+== Configure the AMQ broker
+
+You will setup the AMQ broker provided as part of the Fuse Ignite installation.
+
+. Using the OpenShift Management Console, click on the active OpenShift pod icon, right of the `broker-amq` deployment.
++
+image::images/01-Step-53.png[]
++
+[NOTE]
+OpenShift pods are similar to virtual machine instances as far as a container is concerned. Each pod is allocated its own internal IP address, and containers within pods can share their local storage and networking.
++
+. Access the AMQ console by clicking on the *Open Java Console* link.
++
+image::images/01-Step-54.png[]
++
+. At the AMQ console, click on the *Create* tab, located on the horizontal menu bar.
++
+image::images/01-Step-56.png[]
++
+. Enter the following, then click the *Create Queue* button:
++
+----
+Queue name: inventoryReceived
+
+Destination Type: Queue
+----
++
+. On the left-hand panel, expand the *Queue* tab.
+. Validate that the queue `damagereport` is created.
+. Switch focus to the browser displaying the Fuse Ignite console.
+
+
 == Create an AMQ connection
 
-If you have not done so already, you will create an AMQ connection. If you have an AMQ connection from a previous lab, skip this section.
+If you have not done so already, you will create an AMQ connection. If you have created an AMQ connection in a previous lab, skip this section and proceed to complete the *Unsecure the route for the Todo App* section.
 
 . On the left-hand panel of the Fuse Ignite console, click *Connections*.
+. Click the *Create Connection* button.
++
+image:images/create-connection-amq.png[]
++
 . Select the *AMQ* connector. The *AMQ* connection creation page loads.
 . Configure the connection by entering:
 .. In the *Broker URL* field, enter `tcp://broker-amq-tcp:61616` where the messages are delivered and resides.
@@ -322,12 +359,25 @@ You will create an integration using two connections you have created.
 
 . On the left-hand panel of the Fuse Ignite console, click *Integrations*. The Integration creation wizard is displayed.
 . Select on the left-hand panel, the *Start Connection*.
-. Click on the *AMQ* connection.
+. Click on the *AMQ* connection that you have created. The *Choose an Action* screen appears.
++
+image:images/amq-broker-choose-an-action.png[]
++
+. Select the *Subscribe for messages* action. This action will set the *AMQ Broker* connection as a queue subscriber.
+. Populate these fields with the assigned values:
++
+----
+Destination Name: inventoryReceived
+
+Destination Type: Queue
+----
++
+image:images/amq-broker-subscribe-for-messages.png[]
++
 . Click *Next* and then *Done* to complete the setup of the *Start* connection.
 . Select on the left-hand panel, the *Finish Connection*.
 . Click on the *Todo App API Client* connection.
 . Click *Next* and then *Done* to complete the setup of the *Finish* connection.
-
 
 == Implement a custom step in the integration
 

@@ -152,7 +152,19 @@ You will create an integration using the two connections you have already create
 . On the left-hand panel of the Fuse Ignite console, click *Integrations*. The Integration creation wizard is displayed.
 . Select on the left-hand panel, the *Start Connection*.
 . Click on the *AWS-S3* connection.
-. Click *Next* and then *Done* to complete the setup of the *Start* connection.
++
+image::images/choose-an-action-poll-aws-s3.png[]
++
+. Click *Next* and then select the *Poll an Amazon S3 Bucket* action from the list of available actions.
++
+image::images/configuring-poll-aws-s3.png[]
++
+. On the *Poll an Amazon S3 Bucket* screen, examine the configurable fields.
++
+[NOTE]
+_Delay_ paramater determines the delay interval between polls of the S3 bucket. _Maximum Objects to Retrieve_ determines the maximum number of files in the S3 bucket to be polled and fetched. _Prefix_ is the criteria used by the filename filter, determining which file to fetch.
++
+. Click *Done* to complete the setup of the *Start* connection.
 . Select on the left-hand panel, the *Finish Connection*.
 . Click on the *FTP* connection.
 . Specify the value of the *File name expression* field, as `coolstore-flyer.png`.

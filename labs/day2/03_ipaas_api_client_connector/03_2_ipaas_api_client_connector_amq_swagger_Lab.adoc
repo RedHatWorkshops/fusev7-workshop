@@ -44,9 +44,9 @@ image::images/01-Step-52.png[]
 . Access the Red Hat Fuse Ignite login page, using a separate browser tab.
 . Log in using your OPENTLC account. The Fuse Ignite console page appears.
 
-== Configure the AMQ console
+== Configure the AMQ broker
 
-You will start the AMQ broker provided as part of the Fuse Ignite installation.
+You will setup the AMQ broker provided as part of the Fuse Ignite installation.
 
 . Using the OpenShift Management Console, click on the active OpenShift pod icon, right of the `broker-amq` deployment.
 +
@@ -92,7 +92,7 @@ Activemq password: topSecret
 +
 image::images/01-Step-59.png[]
 +
-. Switch to the browser tab for the Fuse Ignite console.
+. Switch focus to the browser displaying the Fuse Ignite console.
 . In the left-hand panel of the Fuse Ignite console, click *Connections*, and click on *Create Connection*.
 +
 image::images/01-Step-60.png[]
