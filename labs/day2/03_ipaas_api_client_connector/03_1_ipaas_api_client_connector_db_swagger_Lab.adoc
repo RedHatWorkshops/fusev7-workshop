@@ -175,7 +175,7 @@ image::images/01-Step-17.png[]
 [.noredheader,cols="5,15",caption=""]
 |======
 |*Field Name*|*Value*
-|SQL Statement|SELECT TASK FROM TODO WHERE TASK LIKE 'recurring%';
+|SQL Statement|SELECT TASK FROM TODO WHERE TASK LIKE &apos;recurring%&apos;;
 |Period|30000 Milliseconds
 |======
 +
