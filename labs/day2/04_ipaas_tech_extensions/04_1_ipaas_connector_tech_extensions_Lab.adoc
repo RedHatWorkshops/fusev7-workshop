@@ -31,6 +31,20 @@ An application developer can build a technical extension which serves as the imp
 [NOTE]
 Learn how a technical extension is developed with the link:https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/tooling_user_guide/igniteextension/[JBoss Fuse Tooling Guide]. You will appreciate from this guide that certain conventions regarding a custom developed technical extension’s JSON file contents must be observed.
 
+[NOTE]
+The community project for Fuse Ignite is called `Syndesis`. Apache Maven archetype dependencies in the `io.syndesis.extension.api` package are used in the technical extensions as part of a Fuse Ignite integration.
+
+Here is an example of a few import statements for these dependencies in a Connector Extension called *LoopAction*. The Extension extends the use of the `Step` class which has a dependency on `io.syndesis.extension.api.Step`:
+
+----
+import io.syndesis.extension.api.Step;
+import io.syndesis.extension.api.annotations.Action;
+import io.syndesis.extension.api.annotations.ConfigurationProperty;
+
+@Action(id = "loop", name = "Loop", description = "Add a loop to your exchange", tags = { "loop", "extension"})
+public class LoopAction implements Step {
+----
+
 :numbered:
 
 
@@ -55,38 +69,18 @@ You will setup the _Microservice to Flat File_ integration again.
 . Ensure that _Microservice to Flat File_ integration is published and active.
 
 
-== [OPTIONAL] Compile Syndesis code
+== Setup of Apache Maven Repository for Technical Extensions
 
-In order to proceed with compilation of a technical extension, you need the compiled code base of the community project `Syndesis`.
+You will setup the Apache Maven repository for use in the compilation of Technical Extensions.
 
-The community project for Fuse Ignite is called `Syndesis`. Extension archetype dependencies of the `io.syndesis.extension.api` package have to be compiled prior to the compilation and use of technical extensions within a Fuse Ignite integration.
-
-Here is an example of a few import statements for these dependencies in a Connector Extension *LoopAction*, followed by the use of `Step` which has a dependency on  `io.syndesis.extension.api.Step`:
-
-----
-import io.syndesis.extension.api.Step;
-import io.syndesis.extension.api.annotations.Action;
-import io.syndesis.extension.api.annotations.ConfigurationProperty;
-
-@Action(id = "loop", name = "Loop", description = "Add a loop to your exchange", tags = { "loop", "extension"})
-public class LoopAction implements Step {
-
-----
-
-As an optional exercise, in this section you will compile the code base for the community project `Syndesis`. If you wish, you may skip this section, as the code base is provided for you to use in the next lab section.
-
+. link:https://drive.google.com/open?id=11lJ0IFCxFJIcg9Ex_D8iYxZ7iZqhu1Zf[Download] an Apache Maven Repository (in zipped archive format) that has previously compiled Apache Maven archetypes that will be used in the compilation of the Fuse Ignite technical extensions.
+. Extract into the working directory `$lab_dir` the contents of the zip archive. Make a note of the directory path for this local Apache Maven Repository.
 . link:https://raw.githubusercontent.com/gpe-mw-training/fuse-ipaas-labs/master/04_technical_extensions/settings.xml[Download] the Apache Maven `settings.xml` file while contains references to the Apache Maven repositories.
-. Copy the `settings.xml` file into your ``~/.m2` directory, where at least one local Maven repository will reside.
+. Copy the `settings.xml` file into your ``~/.m2` directory, where at least one local Apache Maven repository will reside.
 . Open `~/.m2/settings.xml` for edit, using your favorite editor.
-. Validate that the contents within the *<repositories>* *</repositories>* tags resemble:
+. Validate that the contents within the *<repositories>* and *</repositories>* tags resemble:
 +
 ----
-<repository>
-  <id>maven-redhat</id>
-  <name>Repository for Maven builds</name>
-  <url>https://maven.repository.redhat.com/earlyaccess/all</url>
-  <layout>default</layout>
-</repository>
 <repository>
   <id>maven-central</id>
   <name>Central Repository for Maven builds</name>
@@ -96,118 +90,66 @@ As an optional exercise, in this section you will compile the code base for the 
 <repository>
   <id>maven-redhat</id>
   <name>Repository for Maven builds</name>
-  <url>https://repository.jboss.org/nexus/content/groups/ea/</url>
+  <url>https://maven.repository.redhat.com/earlyaccess/all</url>
   <layout>default</layout>
+</repository>
+<repository>
+  <id>redhat-ga-repository</id>
+  <name>Red Hat GA repository</name>
+  <url>http://maven.repository.redhat.com/ga/</url>
+  <releases>
+    <enabled>true</enabled>
+    <updatePolicy>never</updatePolicy>
+  </releases>
+  <snapshots>
+    <enabled>true</enabled>
+    <updatePolicy>daily</updatePolicy>
+  </snapshots>
+</repository>
+<repository>
+  <id>fuse-public-repository</id>
+  <name>FuseSource Community Release Repository</name>
+  <url>https://repo.fusesource.com/nexus/content/groups/public</url>
+  <snapshots>
+    <enabled>true</enabled>
+  </snapshots>
+  <releases>
+    <enabled>true</enabled>
+    <updatePolicy>never</updatePolicy>
+  </releases>
+</repository>
+<repository>
+  <id>fusesource-ea</id>
+  <name>JBoss Community Early Access Release Repository</name>
+  <url>https://repo.fusesource.com/nexus/content/groups/ea</url>
+  <snapshots>
+    <enabled>true</enabled>
+  </snapshots>
+  <releases>
+    <enabled>true</enabled>
+    <updatePolicy>never</updatePolicy>
+  </releases>
+  <repository>
+      <id>tech-extensions</id>
+      <name>Repository for Syndesis builds</name>
+      <url>file:///tmp/maven-syndesis-extension-1.0.0.fuse-000027</url>
+      <layout>default</layout>
+  </repository>
 </repository>
 ----
 +
 [NOTE]
-These are the Maven repositories where the Maven archetypes used for the compilation of Fuse Ignite is located. For future development work involving Fuse Ignite technical extensions, these Maven repositories will play a key role in the build process.
+These are the Apache Maven repositories where the Apache Maven archetypes used for the compilation of Fuse Ignite reside. These Apache Maven repositories will play a key role in the build process.
 +
-. Close the `~/.m2/settings.xml` file without making or saving any changes.
-. Using a command-line terminal window, link:https://github.com/syndesisio/syndesis/releases/tag/syndesis-1.3.4.fuse-000002[download] the code base for `Syndesis` in zip format, into a working directory which is referred to here as `$lab_dir`
-. Expand the zip archive.
-. In the terminal window, navigate to the subdirectory called `/syndesis/tools/bin` and execute the command to compile the `Syndesis` code:
+. Replace references to the directory `/tmp` with `/$lab_dir/maven-syndesis-extension-1.0.0.fuse-000027`, where `$lab_dir` is the path of your working directory.
 +
-----
-$ cd $lab_dir/syndesis/tools/bin
-$ ./syndesis build -b -f -c
-----
+[TIP]
+An example of a directory path for the local Apache Maven repository is `file:///fuseignite/maven-syndesis-extension-1.0.0.fuse-000027`
 +
-. A successful compilation will result in the following messages:
-+
-----
-[INFO] ------------------------------------------------------------------------
-[INFO] Reactor Summary:
-[INFO]
-[INFO] Syndesis ........................................... SUCCESS [  5.967 s]
-[INFO] Common ............................................. SUCCESS [  1.292 s]
-[INFO] Common :: Util ..................................... SUCCESS [ 56.218 s]
-[INFO] Common :: Model .................................... SUCCESS [ 36.371 s]
-[INFO] Extension .......................................... SUCCESS [  0.163 s]
-[INFO] Extension :: API ................................... SUCCESS [ 17.801 s]
-[INFO] Extension :: Annotation Processor .................. SUCCESS [ 15.057 s]
-[INFO] Extension :: Archetype :: Spring Boot .............. SUCCESS [ 16.070 s]
-[INFO] Extension :: Archetype :: Java ..................... SUCCESS [  1.857 s]
-[INFO] Extension :: Archetype :: Camel XML ................ SUCCESS [  1.407 s]
-[INFO] Extension :: Bill of Materials (BOM) ............... SUCCESS [  0.089 s]
-[INFO] Extension :: Converter ............................. SUCCESS [ 24.066 s]
-[INFO] Extension :: Maven Plugin .......................... SUCCESS [ 59.604 s]
-[INFO] Extension :: Example :: Log Step ................... SUCCESS [  4.359 s]
-[INFO] Integration ........................................ SUCCESS [  0.257 s]
-[INFO] Integration :: API ................................. SUCCESS [  8.266 s]
-[INFO] Integration :: Component Proxy ..................... SUCCESS [ 26.747 s]
-[INFO] Integration :: Runtime ............................. SUCCESS [ 54.052 s]
-[INFO] Integration :: Project Generator ................... SUCCESS [ 17.176 s]
-[INFO] Connector .......................................... SUCCESS [  8.055 s]
-[INFO] Connector :: Support :: Util ....................... SUCCESS [  6.197 s]
-[INFO] Connector :: Support :: Verifier ................... SUCCESS [  3.445 s]
-[INFO] Connector :: Support :: Maven Plugin ............... SUCCESS [  7.517 s]
-[INFO] Connector :: Twitter ............................... SUCCESS [  2.590 s]
-[INFO] Connector :: FTP ................................... SUCCESS [  2.008 s]
-[INFO] Connector :: SFTP .................................. SUCCESS [  1.636 s]
-[INFO] Connector :: DropBox ............................... SUCCESS [  7.517 s]
-[INFO] Connector :: AWS S3 ................................ SUCCESS [01:03 min]
-[INFO] Connector :: Support :: Test ....................... SUCCESS [  3.098 s]
-[INFO] Connector :: ActiveMQ .............................. SUCCESS [ 39.478 s]
-[INFO] Connector :: AMQP .................................. SUCCESS [ 11.485 s]
-[INFO] Connector :: SQL ................................... SUCCESS [01:22 min]
-[INFO] Connector :: MQTT .................................. SUCCESS [ 20.804 s]
-[INFO] Connector :: HTTP .................................. SUCCESS [  8.053 s]
-[INFO] Connector :: Salesforce ............................ SUCCESS [ 14.954 s]
-[INFO] Connector :: Slack ................................. SUCCESS [  2.755 s]
-[INFO] Connector :: Support :: Catalog .................... SUCCESS [  4.150 s]
-[INFO] Connector :: OData ................................. SUCCESS [  0.023 s]
-[INFO] Connector :: OData :: Model ........................ SUCCESS [ 13.588 s]
-[INFO] Connector :: OData :: Create ....................... SUCCESS [ 27.206 s]
-[INFO] Connector :: OData :: Retrieve ..................... SUCCESS [  8.018 s]
-[INFO] Connector :: OData :: Replace ...................... SUCCESS [  7.945 s]
-[INFO] Connector :: OData :: Update ....................... SUCCESS [  2.479 s]
-[INFO] Connector :: OData :: Delete ....................... SUCCESS [  2.424 s]
-[INFO] Connector :: REST Swagger .......................... SUCCESS [ 13.790 s]
-[INFO] Server ............................................. SUCCESS [  0.130 s]
-[INFO] Server :: DAO ...................................... SUCCESS [ 23.987 s]
-[INFO] Server :: Connector Generator ...................... SUCCESS [ 55.221 s]
-[INFO] Server :: OpenShift Services ....................... SUCCESS [ 21.559 s]
-[INFO] Server :: Controller ............................... SUCCESS [ 11.512 s]
-[INFO] Server :: Credential ............................... SUCCESS [ 32.745 s]
-[INFO] Server :: JsonDB ................................... SUCCESS [ 19.015 s]
-[INFO] Server :: Verifier ................................. SUCCESS [  8.684 s]
-[INFO] Server :: Inspector ................................ SUCCESS [ 11.952 s]
-[INFO] Server :: Endpoint ................................. SUCCESS [ 48.063 s]
-[INFO] Server :: Logging :: JsonDB ........................ SUCCESS [ 18.670 s]
-[INFO] Server :: FileStore ................................ SUCCESS [  9.780 s]
-[INFO] Server :: Metrics :: JsonDB ........................ SUCCESS [ 20.300 s]
-[INFO] Server :: Metrics :: Prometheus .................... SUCCESS [ 15.546 s]
-[INFO] Server :: Builder :: Maven Plugin .................. SUCCESS [ 13.601 s]
-[INFO] Server :: Runtime .................................. SUCCESS [07:09 min]
-[INFO] Server :: Builder :: Image Generator ............... SUCCESS [  7.863 s]
-[INFO] S2I ................................................ SUCCESS [ 16.589 s]
-[INFO] Meta ............................................... SUCCESS [ 22.880 s]
-[INFO] UI ................................................. SUCCESS [05:53 min]
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 31:08 min
-[INFO] Finished at: 2018-03-21T23:19:50+08:00
-[INFO] Final Memory: 420M/878M
-[INFO] ------------------------------------------------------------------------
-----
+. Review again the changes you have made and save the `~/.m2/settings.xml` file.
 
 
-== Setup of Maven Repository for Syndesis
-
-You will complete this section, if you previously have not compiled the code for `Syndesis`.
-
-. If you have not done so, link:https://raw.githubusercontent.com/gpe-mw-training/fuse-ipaas-labs/master/04_technical_extensions/settings.xml[download] the Apache Maven `settings.xml` file while contains references to the Apache Maven repositories.
-. link:https://drive.google.com/open?id=1_t1RTZMwddl7AbvMbB-fX6Su9HHLe3ns[Download] an Apache Maven Repository (in zipped archive format) that has previously compiled Maven archetypes that will be used in the compilation of `Syndesis`.
-. Copy or move the zip archive to the working directory `$lab_dir`, then unzip the contents.
-. Open `~/.m2/settings.xml` for edit, using your favorite editor.
-. Replace references to the directory `/tmp` tags with `/$lab_dir/maven-syndesis-extension-1.0.0.fuse-000018`, where `$lab_dir` is the path of your working directory.
-. Save the `~/.m2/settings.xml` file.
-
-
-== [OPTIONAL] Compile a technical extension
+== [OPTIONAL] Compile a Technical Extension
 
 You will compile a technical extension as part of the integration. Note that this lab is optional, as a pre-compiled technical extension is provided for your use in subsequent lab sections.
 
@@ -217,28 +159,25 @@ You will compile a technical extension as part of the integration. Note that thi
 . Within this subdirectory `syndesis-extension-loop`, compile the technical extension using the command:
 +
 ----
-$ mvn -N install
+$ mvn clean install
 ----
 +
 . A successful compilation of the technical extension results in the following message:
 +
 ----
-Downloaded: file:///Users/nandanjoshi/partnertraining/maven-syndesis-extension-1.0.0.fuse-000018/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.pom (8 KB at 1773.2 KB/sec)
-Downloading: file:///Users/nandanjoshi/partnertraining/maven-syndesis-extension-1.0.0.fuse-000018/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar
-Downloading: file:///Users/nandanjoshi/partnertraining/maven-syndesis-extension-1.0.0.fuse-000018/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar
-Downloaded: file:///Users/nandanjoshi/partnertraining/maven-syndesis-extension-1.0.0.fuse-000018/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar (12 KB at 1930.0 KB/sec)
-Downloaded: file:///Users/nandanjoshi/partnertraining/maven-syndesis-extension-1.0.0.fuse-000018/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar (226 KB at 22504.6 KB/sec)
-[INFO] Installing /Users/nandanjoshi/partnertraining/syndesis-extensions-syndesis-extensions-1.0.0.fuse-000018/syndesis-extension-loop/target/syndesis-extension-loop-1.0.0.fuse-000018.jar to /Users/nandanjoshi/.m2/repository/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000018/syndesis-extension-loop-1.0.0.fuse-000018.jar
-[INFO] Installing /Users/nandanjoshi/partnertraining/syndesis-extensions-syndesis-extensions-1.0.0.fuse-000018/syndesis-extension-loop/pom.xml to /Users/nandanjoshi/.m2/repository/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000018/syndesis-extension-loop-1.0.0.fuse-000018.pom
+[INFO]
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ syndesis-extension-loop ---
+[INFO] Installing /hong/syndesis-extensions-syndesis-extensions-1.0.0.fuse-000027/syndesis-extension-loop/target/syndesis-extension-loop-1.0.0.fuse-000027.jar to /root/.m2/repository/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000027/syndesis-extension-loop-1.0.0.fuse-000027.jar
+[INFO] Installing /hong/syndesis-extensions-syndesis-extensions-1.0.0.fuse-000027/syndesis-extension-loop/pom.xml to /root/.m2/repository/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000027/syndesis-extension-loop-1.0.0.fuse-000027.pom
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 8.580 s
-[INFO] Finished at: 2018-04-03T09:47:31-07:00
-[INFO] Final Memory: 37M/502M
+[INFO] Total time: 6.465 s
+[INFO] Finished at: 2018-05-16T21:50:19+08:00
+[INFO] ------------------------------------------------------------------------
 ----
 +
-. Locate the *syndesis-extension-loop-1.0.0.fuse-000018.jar* file in the `target` subdirectory of the directory named `syndesis-extension-loop`. This is the JAR archive file containing the `syndesis-extension-loop` technical extension.
+. Locate the *syndesis-extension-loop-1.0.0.fuse-000027.jar* file in the `target` subdirectory of the directory named `syndesis-extension-loop`. This is the JAR archive file containing the `syndesis-extension-loop` technical extension.
 +
 [TIP]
 You can either move or copy this JAR archive file to a directory with a shorter naming convention (like `/tmp`). That will help speed up import of the technical extension at the next lab section.
@@ -248,7 +187,7 @@ You can either move or copy this JAR archive file to a directory with a shorter 
 
 You will import the compiled technical extension into Fuse Ignite, which will form a part of the integration that you will enhance.
 
-. If you have not completed the previous section, locate the pre-compiled technical extension by navigating to the `$lab_dir/maven-syndesis-extension-1.0.0.fuse-000018/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000018` directory. The JAR archive *syndesis-extension-loop-1.0.0.fuse-000018.jar* contains the `syndesis-extension-loop` technical extension.
+. If you have not completed the previous section which involves compiling all the technical extensions, locate the pre-compiled technical extension by navigating to the `$lab_dir/maven-syndesis-extension-1.0.0.fuse-000027/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000027` directory. The JAR archive *syndesis-extension-loop-1.0.0.fuse-000027.jar* contains the `syndesis-extension-loop` technical extension.
 . Click on the *Customizations* tab on the left-hand pane of the Red Hat Fuse Ignite console.
 . Select the *Extensions* tab located on the top of the console.
 . Click the *Import Extension* button.
@@ -361,5 +300,117 @@ The next few steps are optional. Use them only when you are certain that the int
 You have successfully implemented and tested a connector extension as a custom step in an integration.
 
 ifdef::showscript[]
+
+
+== [OPTIONAL] Compile Syndesis code
+
+In order to proceed with compilation of a technical extension, you need the compiled code base of the community project `Syndesis`.
+
+The community project for Fuse Ignite is called `Syndesis`. Extension archetype dependencies of the `io.syndesis.extension.api` package have to be compiled prior to the compilation and use of technical extensions within a Fuse Ignite integration.
+
+Here is an example of a few import statements for these dependencies in a Connector Extension *LoopAction*, followed by the use of `Step` which has a dependency on  `io.syndesis.extension.api.Step`:
+
+----
+import io.syndesis.extension.api.Step;
+import io.syndesis.extension.api.annotations.Action;
+import io.syndesis.extension.api.annotations.ConfigurationProperty;
+
+@Action(id = "loop", name = "Loop", description = "Add a loop to your exchange", tags = { "loop", "extension"})
+public class LoopAction implements Step {
+
+----
+
+As an optional exercise, in this section you will compile the code base for the community project `Syndesis`. If you wish, you may skip this section, as the code base is provided for you to use in the next lab section.
+
+
+. Using a command-line terminal window, link:https://github.com/syndesisio/syndesis/releases/tag/syndesis-1.3.4.fuse-000002[download] the code base for `Syndesis` in zip format, into a working directory which is referred to here as `$lab_dir`
+. Expand the zip archive.
+. In the terminal window, navigate to the subdirectory called `/syndesis/tools/bin` and execute the command to compile the `Syndesis` code:
++
+----
+$ cd $lab_dir/syndesis/tools/bin
+$ ./syndesis build -b -f -c
+----
++
+. A successful compilation will result in the following messages:
++
+----
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO]
+[INFO] Syndesis ........................................... SUCCESS [  5.967 s]
+[INFO] Common ............................................. SUCCESS [  1.292 s]
+[INFO] Common :: Util ..................................... SUCCESS [ 56.218 s]
+[INFO] Common :: Model .................................... SUCCESS [ 36.371 s]
+[INFO] Extension .......................................... SUCCESS [  0.163 s]
+[INFO] Extension :: API ................................... SUCCESS [ 17.801 s]
+[INFO] Extension :: Annotation Processor .................. SUCCESS [ 15.057 s]
+[INFO] Extension :: Archetype :: Spring Boot .............. SUCCESS [ 16.070 s]
+[INFO] Extension :: Archetype :: Java ..................... SUCCESS [  1.857 s]
+[INFO] Extension :: Archetype :: Camel XML ................ SUCCESS [  1.407 s]
+[INFO] Extension :: Bill of Materials (BOM) ............... SUCCESS [  0.089 s]
+[INFO] Extension :: Converter ............................. SUCCESS [ 24.066 s]
+[INFO] Extension :: Maven Plugin .......................... SUCCESS [ 59.604 s]
+[INFO] Extension :: Example :: Log Step ................... SUCCESS [  4.359 s]
+[INFO] Integration ........................................ SUCCESS [  0.257 s]
+[INFO] Integration :: API ................................. SUCCESS [  8.266 s]
+[INFO] Integration :: Component Proxy ..................... SUCCESS [ 26.747 s]
+[INFO] Integration :: Runtime ............................. SUCCESS [ 54.052 s]
+[INFO] Integration :: Project Generator ................... SUCCESS [ 17.176 s]
+[INFO] Connector .......................................... SUCCESS [  8.055 s]
+[INFO] Connector :: Support :: Util ....................... SUCCESS [  6.197 s]
+[INFO] Connector :: Support :: Verifier ................... SUCCESS [  3.445 s]
+[INFO] Connector :: Support :: Maven Plugin ............... SUCCESS [  7.517 s]
+[INFO] Connector :: Twitter ............................... SUCCESS [  2.590 s]
+[INFO] Connector :: FTP ................................... SUCCESS [  2.008 s]
+[INFO] Connector :: SFTP .................................. SUCCESS [  1.636 s]
+[INFO] Connector :: DropBox ............................... SUCCESS [  7.517 s]
+[INFO] Connector :: AWS S3 ................................ SUCCESS [01:03 min]
+[INFO] Connector :: Support :: Test ....................... SUCCESS [  3.098 s]
+[INFO] Connector :: ActiveMQ .............................. SUCCESS [ 39.478 s]
+[INFO] Connector :: AMQP .................................. SUCCESS [ 11.485 s]
+[INFO] Connector :: SQL ................................... SUCCESS [01:22 min]
+[INFO] Connector :: MQTT .................................. SUCCESS [ 20.804 s]
+[INFO] Connector :: HTTP .................................. SUCCESS [  8.053 s]
+[INFO] Connector :: Salesforce ............................ SUCCESS [ 14.954 s]
+[INFO] Connector :: Slack ................................. SUCCESS [  2.755 s]
+[INFO] Connector :: Support :: Catalog .................... SUCCESS [  4.150 s]
+[INFO] Connector :: OData ................................. SUCCESS [  0.023 s]
+[INFO] Connector :: OData :: Model ........................ SUCCESS [ 13.588 s]
+[INFO] Connector :: OData :: Create ....................... SUCCESS [ 27.206 s]
+[INFO] Connector :: OData :: Retrieve ..................... SUCCESS [  8.018 s]
+[INFO] Connector :: OData :: Replace ...................... SUCCESS [  7.945 s]
+[INFO] Connector :: OData :: Update ....................... SUCCESS [  2.479 s]
+[INFO] Connector :: OData :: Delete ....................... SUCCESS [  2.424 s]
+[INFO] Connector :: REST Swagger .......................... SUCCESS [ 13.790 s]
+[INFO] Server ............................................. SUCCESS [  0.130 s]
+[INFO] Server :: DAO ...................................... SUCCESS [ 23.987 s]
+[INFO] Server :: Connector Generator ...................... SUCCESS [ 55.221 s]
+[INFO] Server :: OpenShift Services ....................... SUCCESS [ 21.559 s]
+[INFO] Server :: Controller ............................... SUCCESS [ 11.512 s]
+[INFO] Server :: Credential ............................... SUCCESS [ 32.745 s]
+[INFO] Server :: JsonDB ................................... SUCCESS [ 19.015 s]
+[INFO] Server :: Verifier ................................. SUCCESS [  8.684 s]
+[INFO] Server :: Inspector ................................ SUCCESS [ 11.952 s]
+[INFO] Server :: Endpoint ................................. SUCCESS [ 48.063 s]
+[INFO] Server :: Logging :: JsonDB ........................ SUCCESS [ 18.670 s]
+[INFO] Server :: FileStore ................................ SUCCESS [  9.780 s]
+[INFO] Server :: Metrics :: JsonDB ........................ SUCCESS [ 20.300 s]
+[INFO] Server :: Metrics :: Prometheus .................... SUCCESS [ 15.546 s]
+[INFO] Server :: Builder :: Maven Plugin .................. SUCCESS [ 13.601 s]
+[INFO] Server :: Runtime .................................. SUCCESS [07:09 min]
+[INFO] Server :: Builder :: Image Generator ............... SUCCESS [  7.863 s]
+[INFO] S2I ................................................ SUCCESS [ 16.589 s]
+[INFO] Meta ............................................... SUCCESS [ 22.880 s]
+[INFO] UI ................................................. SUCCESS [05:53 min]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 31:08 min
+[INFO] Finished at: 2018-03-21T23:19:50+08:00
+[INFO] Final Memory: 420M/878M
+[INFO] ------------------------------------------------------------------------
+----
+
 
 endif::showscript[]
