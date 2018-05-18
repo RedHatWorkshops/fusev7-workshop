@@ -43,7 +43,7 @@ Red Hat strongly recommends that you use this remote OpenShift environment for t
 . Identify your Red Hat OPENTLC username.
 +
 [TIP]
-If you are unsure of your Red Hat OPENTLC credentials, reset them from the link:https://www.opentlc.com/pwm/private/Login[OPENTLC Account Management^] page. If you continue to have problems, email `open-program@redhat.com`.
+If you are unsure of your Red Hat OPENTLC credentials, reset them from the link:https://www.opentlc.com/pwm/private/Login[OPENTLC Account Management^] page. If you continue to have problems, send an email to `open-program@redhat.com` requesting for assistance.
 
 . Using your OPENTLC credentials, log in to the link:https://labs.opentlc.com/[OPENTLC lab portal^]:
 +
@@ -61,16 +61,20 @@ image::images/cf_course_selection_elab.png[]
 . On the next page, click *Order*, and on the form that appears, click *Submit*.
 * Expect to receive an email from Red Hat with information about the course.
 
-. Check your email for a message from Red Hat similar to the following:
+. Check your email inbox for an email from *Red Hat OPENTLC* (with a sender's email address like `noreply@opentlc.com`). Contents of that email should resemble the following:
 +
 .Sample Email
 [source,text]
 -----
 You have been enrolled in the Red Hat OPENTLC FUSE IGNITE OpenShift environment.
-You can access your Fuse Ignite environment by going to https://master.<GUID>.openshift.opentlc.com and logging in using <YOUR OPENTLC ID>.
+You can access the OpenShift evironment, where Fuse Ignite is hosted, by going to https://master.<GUID>.openshift.opentlc.com and logging in using <YOUR OPENTLC ID>.
 
 NOTICE: Your environment will expire and be deleted in 14 day(s) at 2018-03-24 00:00:00 -0400. In order to conserve resources we cannot archive or restore any data in this environment. All data will be lost upon expiration.
 -----
++
+[TIP]
+For instance, the URL to the management console for a particular OpenShift instance could be `http://master.ap2.openshift.opentlc.com`
+
 
 == Connect
 
@@ -88,7 +92,11 @@ image::images/ocp_login.png[]
 . You should see a project whose name has the following convention:  `fuse-ignite-$GUID`  (where $GUID equals a unique identifier assigned to your project).
 +
 image::images/ocp_project.png[]
-
++
+[TIP]
+The URL for your Fuse Ignite application should resemble `http://fuse.fuse-ignite-<$GUID>.<$Environment_ID>.openshift.opentlc.com`
+For instance, the URL to a particular Fuse Ignite application could be `https://fuse.fuse-ignite-3824.apps.ap2.openshift.opentlc.com/`
++
 . Click on the link associated with your Fuse Ignite project.
 
 === Fuse Ignite web console
@@ -123,8 +131,13 @@ image::images/fi_home.png[]
 
 === Coolstore product catalog microservice
 
-. Construct the URL for the *Coolstore Product Catalog Microservice*, by replacing the prefix `fuse` in the URL for the Fuse Ignite project, with `catalog-service` instead. Therefore, the URL for your Microservice should resemble `http://catalog-service-fuse-ignite-<$GUID>.<$Environment_ID>.openshift.opentlc.com`
-. Open another web browser window on your host machine and navigate to the URL for the *Coolstore Product Catalog Microservice* identified from the confirmation email.
+. Construct the URL for the *Coolstore Product Catalog Microservice*, by replacing the first occurrence of `fuse` in the URL for the console of the Fuse Ignite project, with `catalog-service` instead.
++
+[TIP]
+The URL for your Microservice should resemble `http://catalog-service-fuse-ignite-<$GUID>.<$Environment_ID>.openshift.opentlc.com`
+For instance, the URL to a particular instance of this Microservice could be `http://catalog-service-fuse-ignite-3824.apps.ap2.openshift.opentlc.com`
++
+. Open another web browser window on your host machine and navigate to the URL for the *Coolstore Product Catalog Microservice* identified from the email from *Red Hat OPENTLC*.
 . Notice the JSON output from the Microservice, displayed in the web browser window.
 . You now have a working Fuse Ignite lab environment from which to conduct labs. In addition, you can use the Microservice for your labs.
 

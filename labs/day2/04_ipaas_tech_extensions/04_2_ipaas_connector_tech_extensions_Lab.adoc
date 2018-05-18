@@ -152,7 +152,19 @@ You will create an integration using the two connections you have already create
 . On the left-hand panel of the Fuse Ignite console, click *Integrations*. The Integration creation wizard is displayed.
 . Select on the left-hand panel, the *Start Connection*.
 . Click on the *AWS-S3* connection.
-. Click *Next* and then *Done* to complete the setup of the *Start* connection.
++
+image::images/choose-an-action-poll-aws-s3.png[]
++
+. Click *Next* and then select the *Poll an Amazon S3 Bucket* action from the list of available actions.
++
+image::images/configuring-poll-aws-s3.png[]
++
+. On the *Poll an Amazon S3 Bucket* screen, examine the configurable fields.
++
+[NOTE]
+_Delay_ paramater determines the delay interval between polls of the S3 bucket. _Maximum Objects to Retrieve_ determines the maximum number of files in the S3 bucket to be polled and fetched. _Prefix_ is the criteria used by the filename filter, determining which file to fetch.
++
+. Click *Done* to complete the setup of the *Start* connection.
 . Select on the left-hand panel, the *Finish Connection*.
 . Click on the *FTP* connection.
 . Specify the value of the *File name expression* field, as `coolstore-flyer.png`.
@@ -191,6 +203,13 @@ You will clean up the integration. as a housekeeping best practice.
 . Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
 . Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
 * If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
++
+[NOTE]
+The next few steps are optional. Use them only when you are certain that the integration will never be required again.
++
+. Locate the entry for the _AWS S3 to FTP_ integration.
+. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
+. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
 
 You have completed, tested and cleaned up your integration in Fuse Ignite.
 
