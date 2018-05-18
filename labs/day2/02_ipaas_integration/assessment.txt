@@ -3,3 +3,17 @@ IGNITE_DEV|IGNITE_FDS0201|1|Which is a component of Red Hat Fuse Ignite?|||RH SS
 IGNITE_DEV|IGNITE_FDS0201|1|Which is a component of Red Hat Fuse Ignite?|||Validator|||0|0|||
 IGNITE_DEV|IGNITE_FDS0201|1|Which is a component of Red Hat Fuse Ignite?|||Atlas Map|||1|100|||
 IGNITE_DEV|IGNITE_FDS0201|1|Which is a component of Red Hat Fuse Ignite?|||None of the above|||0|0|||
+IGNITE_DEV|IGNITE_FDS0202|5|A connector is a template from which multiple connections can be created.|||TRUE|||1|100|||
+IGNITE_DEV|IGNITE_FDS0202|5|A connector is a template from which multiple connections can be created.|||FALSE|||0|0|||
+IGNITE_DEV|IGNITE_FDS0203|1|Which is not a valid reason for exporting Fuse Ignite integrations?|||Fuse Ignite infrastructure upgrade|||0|0|||
+IGNITE_DEV|IGNITE_FDS0203|1|Which is not a valid reason for exporting Fuse Ignite integrations?|||Wildfly Swarm microservice creation|||1|100|||
+IGNITE_DEV|IGNITE_FDS0203|1|Which is not a valid reason for exporting Fuse Ignite integrations?|||Production code release|||0|0|||
+IGNITE_DEV|IGNITE_FDS0203|1|Which is not a valid reason for exporting Fuse Ignite integrations?|||Disaster recovery|||0|0|||
+IGNITE_DEV|IGNITE_FDS0204|1|Which is the easiest and most effective approach to monitoring the Camel route in an active Fuse Ignite integration?|||Connect JBoss Developer Studio to Fuse Ignite using a server connection|||0|0|||
+IGNITE_DEV|IGNITE_FDS0204|1|Which is the easiest and most effective approach to monitoring the Camel route in an active Fuse Ignite integration?|||Using Elasticsearch with Fluentd and Kibana, make a connection to Fuse Ignite|||0|0|||
+IGNITE_DEV|IGNITE_FDS0204|1|Which is the easiest and most effective approach to monitoring the Camel route in an active Fuse Ignite integration?|||Using the embedded Hawtio Console, accessible from the integration pod details page of the OpenShift console|||1|100|||
+IGNITE_DEV|IGNITE_FDS0204|1|Which is the easiest and most effective approach to monitoring the Camel route in an active Fuse Ignite integration?|||Tail the log file for syndesis-server pod|||0|0|||
+IGNITE_DEV|IGNITE_FDS0205|1|Which SQL stored procedure is available for use in the Salesforce Connector?|||update address|||0|0|||
+IGNITE_DEV|IGNITE_FDS0205|1|Which SQL stored procedure is available for use in the Salesforce Connector?|||delete contact|||0|0|||
+IGNITE_DEV|IGNITE_FDS0205|1|Which SQL stored procedure is available for use in the Salesforce Connector?|||create case|||0|0|||
+IGNITE_DEV|IGNITE_FDS0205|1|Which SQL stored procedure is available for use in the Salesforce Connector?|||add lead|||1|100|||

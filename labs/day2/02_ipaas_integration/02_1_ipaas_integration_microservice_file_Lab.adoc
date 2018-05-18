@@ -255,13 +255,6 @@ You will clean up the integration. as a housekeeping best practice.
 . Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
 . Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
 * If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
-+
-[NOTE]
-The next few steps are optional. Use them only when you are certain that the integration will never be required again.
-+
-. Locate the entry for the _Microservice to File_ integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
 
 You have completed, tested and cleaned up your integration in Fuse Ignite.
 

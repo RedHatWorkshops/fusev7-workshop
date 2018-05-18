@@ -1,0 +1,71 @@
+
+= Local Nexus Repository Manager in a Docker image
+
+== Summary
+* This local Docker image containing a Nexus server supports faster and less problematic Apache Maven builds.
+
+== Benefits
+* Java projects typically build and deploy using a lot of dependencies hosted on remote public Apache Maven repositories.
+* Making use of these dependencies (along with transitive dependencies) requires time and stable internet bandwidth.
+* The reality is that Internet bandwidth is a scarce resource and can be intermittent.
+* In addition, Apache Maven repositories can at times be slow and intermittent.
+* A best practice is to host a local Nexus server configured with necessary proxy repositories local to where all this Apache Maven project build activity is occurring.
+
+== Software Description
+* Prerequisite local OS:  Any RHEL variant with latest version of Docker - updated using the OS's package manager
+* Source of Nexus Repository Manager 3: https://hub.docker.com/r/honghua/nexus/
+* Nexus Repository Manager 3 server runs in a docker container
+* Nexus Repository Manager 3 server is seeded with proxy repository configurations for most common Apache Maven repositories for Red Hat products and related upstream projects.
+* Docker image, with Nexus Repository Manager 3 server installed, has to be used with a mounted filesystem volume on host machine
+
+== Setup Instructions
+
+* Create environmental variable, and change target directory to suit your local directory structure
+`$ NEXUS_BASE_DIR=/downloads`
+
+* Setup filesystem for Nexus Repository Manager
+`$ mkdir -p $NEXUS_BASE_DIR/nexus &&  sudo chown -R 200 $NEXUS_BASE_DIR/nexus/`
+
+* Start nexus with host volume at NEXUS_BASE_DIR/nexus
+`$ docker run -d \
+                    -p 8081:8081 \
+                    -p 5000:5000 \
+                    -v $NEXUS_BASE_DIR/nexus:/nexus-data \
+                    --restart always \
+                    --name nexus \
+                     honghua/nexus:final`
+
+* Check the log file of the new container and expect to see a statement at the end:
+
+`Started Sonatype Nexus OSS 3.10.0-04`
+
+* Study the Nexus Admin API.  Point your browser to:
+  `- http://localhost:8081/#admin/system/api
+    - login:  admin/admin123`
+
+* Pull down modified siamak/jorge script for auto configuring proxy repos
+`$ curl -o /tmp/nexus-functions \
+           -s https://raw.githubusercontent.com/jbride/pocs/master/nexus/nexus-functions`
+
+* Make the script executable
+`$ chmod 755 /tmp/nexus-functions`
+
+* Auto configure proxy repos in local nexus
+`$ source /tmp/nexus-functions; add_nexus3_redhat_repos admin admin123 http://localhost:8081`
+
+* Enable your Nexus as a Docker registry on port 5000:
+`$ source /tmp/nexus-functions; add_nexus3_docker_repo docker 5000 admin admin123 http://localhost:8081`
+
+* Verify your setup be navigating to the following URL: http://localhost:8081/#admin/repository/repositories
+** Authenticate using:  `admin /admin123`
+** Notice the configuration of various proxy repositories with the following names:
+       `redhat-ga
+        redhat-ea
+        redhat-techpreview
+        jboss-ce
+        brew-root`
+** Download link:https://github.com/RedHatWorkshops/fusev7-workshop/blob/master/labs/setup/settings.xml[this] `settings.xml` file to replace your own `~/.m2/settings.xml` file
+** Build your Apache Maven project using `mvn clean install`.
+** Notice in the maven build output that it is pulling from your local Nexus.
+** Delete the Maven repository: `rm -rf ~/.m2/repository`
+** Re-build your Apache Maven project. This second time around, the build should go much faster.

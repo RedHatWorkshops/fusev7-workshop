@@ -16,6 +16,7 @@ This course includes at least one lab per module. Each lab is hands-on and typic
 
 CoolWater Inc. is a local water utility company. CoolWater Inc. requires you to implement a payment management system that extends an online service to their clients, for convenience of water bill payment.
 The design of the integration will involve capturing of input from a web application (called To Do App) in a PostgresDB database, which will then initiate a API REST connection to a web service that displays the payment information on the customer billing portal of CoolWater Inc.
+Implement this client use case that supports recurring billing for clients of CoolWater Inc.
 
 image::images/01-Step-01.png[]
 
@@ -120,11 +121,14 @@ image::images/01-Step-10.png[]
 +
 . Click the *Create Connection* button. The *Create Connection* page appears.
 . Select the *Pay Water Bill* icon. The *Pay Water Bill Configuration* page appears.
-. Enter "/" as the *Base path*.
 +
 image::images/01-Step-11.png[]
 +
+. Enter "/" as the *Base path*.
 . Take note of the fields and their values found on this page.
++
+image::images/pay_water_bill_config.png[]
++
 . Click the *Next* button.
 +
 image::images/01-Step-12.png[]
@@ -166,15 +170,18 @@ NOTE: Credentials defined with the PostgresDB database connection are used when 
 +
 image::images/01-Step-17.png[]
 +
-. Provide the following data for the fields:
+. Provide the following data for these fields:
 +
-----
-SQL Statement: SELECT TASK FROM TODO WHERE TASK LIKE 'reoccurring%';
-Period: 30000 Milliseconds
-----
+[.noredheader,cols="5,15",caption=""]
+|======
+|*Field Name*|*Value*
+|SQL Statement|SELECT TASK FROM TODO WHERE TASK LIKE 'recurring%';
+|Period|30000 Milliseconds
+|======
 +
 image::images/01-Step-18.png[]
-
++
+. Click *Done*.
 
 === Add the PayBill Connection to the Integration
 
@@ -212,8 +219,6 @@ image::images/01-Step-24.png[]
 +
 . Click the *Add Transformation* button.
 +
-image::images/01-Step-25.png[]
-+
 . In the *Target* section of the *Mapping Details* panel, enter _2_ in the *Separate Index* field.
 . Click the *Add Transformation* button and select *Trim* from the *Transformation* dropdown box.
 . Click the *Add Target* button.
@@ -229,7 +234,7 @@ image::images/01-Step-27.png[]
 image::images/01-Step-28.png[]
 +
 . Click *Save as Draft* to save this integration.
-. Name the integration *PayReoccurringBill* and provide a meaningful description.
+. Name the integration *PayRecurringBill* and provide a meaningful description.
 +
 image::images/01-Step-29.png[]
 +
@@ -245,7 +250,7 @@ image::images/01-Step-30.png[]
 You will test the integration.
 
 . Access the *To Do App*.
-. In the form, provide the value: *reoccurring `<name>` 200*, substituting `<name>` with a name that you have in mind.
+. In the form, provide the value: *recurring `<name>` 200*, substituting `<name>` with a name that you have in mind.
 +
 image::images/01-Step-31.png[]
 +
@@ -253,7 +258,7 @@ image::images/01-Step-31.png[]
 +
 image::images/01-Step-32.png[]
 +
-. In the form of the *To Do App*, provide another value: *reoccurring `<name>` 100*, substituting `<name>` with a different name that you have in mind.
+. On the form submission page of the *To Do App*, provide another value: *recurring `<name>` 100*, substituting `<name>` with a different name that you have in mind.
 +
 image::images/01-Step-33.png[]
 +
@@ -265,7 +270,7 @@ image::images/01-Step-34.png[]
 +
 image::images/01-Step-35.png[]
 +
-. Repeat the test, this time with multiple data entries made using the *To Do App*, some of which do not contain the word `reoccurring`. Record your observations.
+. Repeat the test, this time with multiple data entries made using the *To Do App*, some of which do not contain the word `recurring`. Record your observations.
 
 *QUESTION:* What conclusions can you make from all the sets of test results you have collected? Can you think of other use cases that also require this integration design?
 
@@ -275,85 +280,14 @@ image::images/01-Step-35.png[]
 You will clean up the integration. as a housekeeping best practice.
 
 . In the left-hand pane, click *Integrations*.
-. Locate the entry for the _PayReoccurringBill_ integration.
+. Locate the entry for the _PayRecurringBill_ integration.
 . Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
 . Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
 * If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
-+
-[NOTE]
-The next few steps are optional. Use them only when you are certain that the integration will never be required again.
-+
-. Locate the entry for the _PayReoccurringBill_ integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
 
 You have completed, tested and cleaned up your integration in Fuse Ignite.
 
 
 ifdef::showscript[]
-
-Next, register Fuse Ignite as a client application for the online Twitter service. With this accomplished, any number of integrations connecting Twitter can be created.
-
-. At the Fuse Ignite console, copy the Fuse Ignite URL from URL field in the web browser.
-. On the left-hand panel of the Fuse Ignite console, click *Settings*.
-. On the *OAuth Application Management* webpage, notice the _Twitter_ icon.
-. On the left of the _Twitter_ icon, click the *Register* button.
-. Notice both the *Client ID* and *Client Secret* fields are displayed.
-. Launch another web browser window, and type `http://apps.twitter.com` in the URL field.
-. After typing, hit the *Enter* button on your keyboard.
-. When the login page is fully loaded, log into your *Twitter* account.
-. Click *Create New App*.
-. In the _Name_ field, provide the name of this new app.
-+
-NOTE: The app name must be unique among all other apps registered using your *Twitter* account.
-+
-. In the _Description_ field, enter helpful information. Twitter requires some input in this field.
-
-. In both the _Website_ and _Callback URL_ fields, paste your Fuse Ignite URL (which you copied earlier into the clipboard) .
-
-. Remove the URI suffix `dashboard` from the end of the value in the _Callback URL_ field.
-. Append the string `api/v1/credentials/callback` to the value in the _Callback URL_ field.
-+
-NOTE: For example: https://app-proj9128.7b63.fuse-ignite.openshiftapps.com/api/v1/credentials/callback.
-+
-. Click *Yes*, and thereby agreeing to the terms and conditions of the *Twitter* developer agreement.
-. Click *Create your Twitter application*.
-. Select the *Keys and Access Tokens* tab.
-. The `Consumer Key` appears on the web page. Copy it.
-. In the other web browser window, select the *Settings* tab on the Fuse Ignite console.
-. Paste the *Twitter* `Consumer Key` into the *Twitter Client ID* field.
-. In the web browser window for your Twitter account, locate the *Twitter Keys and Access Tokens* tab.
-. Copy the `Consumer Secret`.
-. Paste the string into the *Twitter Client Secret* field in the Fuse Ignite console.
-. Click *Save*. followed by clicking *OK*.
-
-You have completed the setup of Fuse Ignite as a Twitter client application.
-
-=== Create Salesforce Connection
-
-Before an integration can be created, a connection has to be created for each cloud service endpoint that will be integrated. These cloud services have to support the link:https://oauth.net/2[OAuth protocol].
-
-. On the Fuse Ignite console, click the *Connections* tab.
-
-=== Create Twitter Connection
-
-. On the Fuse Ignite console, click the *Connections* tab.
-
-=== Create Integration between Salesforce and Twitter
-
-The integration starts by accessing the Salesforce application from which data is retrieved from.
-
-. Select the Salesforce connection. This is the *start* connection point of the integration you are creating.
-. Select the *action* that the *start* connection has to perform.
-. As an option (and this varies among connections), provide configuration information to the *start* connection. For instance, indicate if the action involves either a Salesforce lead or a Salesforce opportunity.
-. Select the Twitter connection. This is the *finish* connection which accesses the application that consumes the data retrieved by the *start* connection, thereby completing the integration.
-. Select the *action* that the *finish* connection is required to perform. Similarly to the earlier *action* selected, this *action* can involve data update.
-. As an option, provide configuration information to the *finish* connection.
-. Click *Publish* to begin testing the integration.
-+
-NOTE: As the business use case evolves, additional connections to other applications can be introduced as part of the integration. These connections can exist anywhere between the *start* connection and the *finish* connection.
-+
-. OPTIONAL: Add new connections into the integration.
-. OPTIONAL: Add several steps in order to manipulate the data used in the integration. _Data filtering and _data mapping_ are recommended steps to introduce.
 
 endif::showscript[]

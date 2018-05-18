@@ -290,9 +290,6 @@ sh-4.2$ exit
 . In the left-hand pane, click *Integrations*.
 . Select the entry for the _Salesforce to PostgresDB_ integration.
 . Click *Stop Integration*, followed by clicking *OK* in the the integration summary. This will deactivate the integration.
-. When you require an integration, proceed to delete it.
-. Select the inactive integration _Salesforce to PostgresDB_.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
 
 You have completed, tests and cleaned up your integration in Fuse Ignite.
 

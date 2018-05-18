@@ -265,8 +265,10 @@ Different types of steps are available, including a basic filter step and a data
 A _basic filter_ step checks tweets that mention specific keywords. The integration continues only if that content is present.
 A data mapping step that correlates data captured from Twitter feeds with contact fields in Salesforce.
 
+==== Add a Basic Filter step
+
 . On the *Add to Integration* page, click the *Add a Step* button.
-. Add a basic filter step, by selecting *Basic Filter*.
+. Add a _basic filter_ step, by selecting *Basic Filter*.
 +
 image::images/add_a_step_basic_filter.png[]
 +
@@ -278,12 +280,14 @@ image::images/configure_rule_filter_text.png[]
 +
 . In the adjacent drop-down list, select *contains*. This will be the filter condition that has to be met in the integration.
 . Type *#FuseIgniteRocks* into the empty *Keywords..* field. A valid tweet will have to contain the text in this field.
-. Click *Next*. The _basic filter_ step has been created.
+. Click *Done*. The _basic filter_ step has been created.
 +
 image::images/configure_basic_filter_step.png[]
-+
-A _data mapping_ step that correlates Twitter mention fields to Salesforce contact fields is created next.
-+
+
+==== Add a Data Mapper step
+
+A _data mapper_ step that correlates Twitter mention fields to Salesforce contact fields is created next.
+
 . In the left-hand pane of Fuse Ignite, move your arrow icon over the plus sign *'+'* located between the _basic filter step_ and the _finish connection_ (ie: Salesforce connection).
 +
 image::images/add_filter_step.png[]
@@ -319,23 +323,27 @@ image::images/configure_mapper_username_firstname.png[]
 NOTE: Notice that the _data mapper_ step displays a line from the Twitter *name* field to the Salesforce *FirstName* field, as well as a line from the Twitter *name* field to the Salesforce *LastName* field. Line of current focus is indicated in blue.
 +
 image::images/configure_mapper_username_firstname_lastname.png[]
-+
-[CAUTION]
-Next, create a mapping from the Twitter *screenName* field to the Salesforce *Title* field.
-+
+
+
+==== Create a mapping from the Twitter *screenName* field to the Salesforce *Title* field
+
 . In the *Sources* column, scroll down the list of fields and click on the *screenName* field.
 . In the *Target* column, click the magnifying glass. Within the search field, enter the text *Title*.
 . Select the *Title* field which appears in the *Target* column.
 +
 NOTE: Like before, the _data mapper_ step displays a line from the Twitter *screenName* field to the Salesforce *Title* field.
+
+
+==== Create a mapping from the Twitter *text* field to the Salesforce *Description* field
+
+. In the *Sources* column, click the magnifying glass. In the search field located on the same column, enter the string *text*.
++
+image::images/source_column_text_field.png[]
++
+. With the *user* tab structure expanded, select the field *text* in the *Sources* column.
 +
 image::images/configure_mapper_userscreenname_title.png[]
 +
-[CAUTION]
-Create a mapping from the Twitter *text* field to the Salesforce *Description* field.
-+
-. . In the *Sources* column, click the magnifying glass. Enter text in the search field located in the same column.
-. Expand the *Status* tab, and select the field *text*.
 . Enter *Description* in the search field of the *Target* column. A field titled *Description* appears below.
 . Click the *Description* field to complete the data mapping creation.
 +
@@ -346,6 +354,7 @@ image::images/configure_mapper_statustext_description.png[]
 +
 image::images/configure_mapper_grid.png[]
 
+
 === Complete the Integration setup
 
 Now that you have completed the Integration, deploy and test it.
@@ -354,6 +363,9 @@ Now that you have completed the Integration, deploy and test it.
 . Click *Publish*. Deployment of the integration begins immediately and lasts several minutes.
 . Select *Integrations* tab.
 . Enter the name of the integration _Twitter to Salesforce_ in the left-hand pane, and validate that the integration is active.
++
+image::images/twitter_to_salesforce_integration.png[]
++
 . In addition, validate that the integration creates a Salesforce record only when you send a tweet that contains the specific keyword criteria defined in the _basic filter_ step.
 . Proceed with a negative test case, by sending a Twitter tweet which:
 .. Contains your Twitter handle with a `@` prefix
@@ -385,7 +397,7 @@ Verify that the text from your tweet is captured in the *Description* field, whi
 +
 *Question:* What are the rest of the changes that you have to make in order to complete this integration?
 
-== Integration clean-up
+== Housekeeping
 
 . In the left-hand pane of the Fuse Ignite console, click *Integrations*.
 . Select the _Twitter to Salesforce_  integration.
@@ -395,21 +407,10 @@ image::images/integrations_twitter_salesforce.png[]
 . Click *Stop Integration*, followed by clicking *OK* in the the integration summary. This will deactivate the integration.
 +
 image::images/integration_summary_stop.png[]
-+
-. Select the inactive integration _Twitter to Salesforce_.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
-+
-[TIP]
-Practice good housekeeping: delete integrations that are no longer needed. This will release resources used by the deleted integrations, back to the Fuse Ignite system resource pool.
 
 You have completed, tests and cleaned up your first integration in Fuse Ignite.
 
 ifdef::showscript[]
 
-=== Appendix
-
-==== Register for a Twitter Account
-
-==== Register for a Salesforce Account
 
 endif::showscript[]
