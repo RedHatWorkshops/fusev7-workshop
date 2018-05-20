@@ -241,7 +241,7 @@ The archive file is validated and extracted. On the Fuse Ignite console, the tec
 
 You will setup the AMQ broker provided as part of the Fuse Ignite installation.
 
-. Using the OpenShift Management Console, click on the active OpenShift pod icon, right of the `broker-amq` deployment.
+. Using the OpenShift Management Console, click on the active OpenShift pod icon, right of the `syndesis-amq` deployment.
 +
 image::images/01-Step-53.png[]
 +
@@ -265,7 +265,7 @@ Destination Type: Queue
 ----
 +
 . On the left-hand panel, expand the *Queue* tab.
-. Validate that the queue `damagereport` is created.
+. Validate that the queue `inventoryReceived` is created.
 . Switch focus to the browser displaying the Fuse Ignite console.
 
 
@@ -280,9 +280,9 @@ image:images/create-connection-amq.png[]
 +
 . Select the *AMQ* connector. The *AMQ* connection creation page loads.
 . Configure the connection by entering:
-.. In the *Broker URL* field, enter `tcp://broker-amq-tcp:61616` where the messages are delivered and resides.
-.. In the *Username* field, enter `amq` as authorized user account.
-.. In the *Password* field, enter `topSecret` as the password.
+.. In the *Broker URL* field, enter `tcp://syndesis-amq-tcp:61616` where the messages are delivered and resides.
+.. In the *Username* field, enter `jboss` as authorized user account.
+.. In the *Password* field, enter `jboss` as the password.
 . Leaving all other fields alone, click *Validate*.
 . When validation is successful, click Next.
 . In the *Connection Name* field, enter `AMQ Broker`.
@@ -317,7 +317,7 @@ You will create a REST API connection to the *Todo App* that will be used in thi
 . At the front of the URL, insert `todo-` and at the end of the URL, append `/swagger.json`. You now have a URL for the Swagger specification for the *Todo App* in the form:
 +
 ----
-http://todo-app-<guid>.fuse-ignite.openshift.opentlc.com/swagger.json
+todo-fuse.fuse-<$GUID>.apps.dev37.openshift.opentlc.com/swagger.json
 ----
 +
 . In the Ignite navigation panel, click *Customizations*.
@@ -330,15 +330,15 @@ http://todo-app-<guid>.fuse-ignite.openshift.opentlc.com/swagger.json
 specification without the `swagger.json`. For instance:
 +
 ----
-http://todo-app-<guid>.fuse-ignite.openshift.opentlc.com
+https://todo-app.fuse-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com
 ----
 +
-. Click *Create Connector*. Notice the *API Client Connectors* tab contains a `Todo App API` which was just created.
+. Click *Create Connector*. Notice the *API Client Connectors* tab contains a *Todo App* API which was just created.
 
 
 == Create a REST API connection using the connector
 
-You will create a connection to the *Todo App API*.
+You will create a connection to the *Todo App* API.
 
 1. On the Fuse Ignite console, click *Connections*.
 2. Click *Create Connection*.
@@ -418,8 +418,11 @@ You will test the integration.
 for your Fuse Ignite installation. The resulting URL should resemble:
 +
 ----
-http://todo-app-<guid>.fuse-ignite.openshift.opentlc.com
+https://todo-app.fuse-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com
 ----
++
+[TIP]
+For instance, the URL to a particular instance of a *To Do app* could be `https://todo-app.fuse-3824.apps.ap2.openshift.opentlc.com/` where `3824` is the *$GUID* and `ap2` is the *$Environment_ID*
 +
 . Using the *To Do app*, click *Show JMS Form* to display a field for a XML message.
 . Click *Send JMS Message* to send that message to the AMQ broker.

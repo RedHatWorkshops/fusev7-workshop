@@ -48,7 +48,7 @@ image::images/01-Step-52.png[]
 
 You will setup the AMQ broker provided as part of the Fuse Ignite installation.
 
-. Using the OpenShift Management Console, click on the active OpenShift pod icon, right of the `broker-amq` deployment.
+. Using the OpenShift Management Console, click on the active OpenShift pod icon, right of the `syndesis-amq` deployment.
 +
 image::images/01-Step-53.png[]
 +
@@ -83,15 +83,12 @@ image::images/01-Step-58.png[]
 . Provide the following values to these fields:
 +
 ----
-Activemq user name: amq
+Activemq user name: jboss
 
-Activemq password: topSecret
+Activemq password: jboss
 ----
 +
 . And click the *Done* button on the left panel.
-+
-image::images/01-Step-59.png[]
-+
 . Switch focus to the browser displaying the Fuse Ignite console.
 . In the left-hand panel of the Fuse Ignite console, click *Connections*, and click on *Create Connection*.
 +
@@ -104,9 +101,9 @@ image::images/01-Step-61.png[]
 . Enter the following values:
 +
 ----
-tcp://broker-amq-tcp:61616
-user: amq
-password: topSecret
+tcp://syndesis-amq-tcp:61616
+user: jboss
+password: jboss
 ----
 +
 . Click *Validate*.

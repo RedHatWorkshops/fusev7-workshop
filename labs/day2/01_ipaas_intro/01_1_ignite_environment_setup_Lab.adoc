@@ -67,13 +67,13 @@ image::images/cf_course_selection_elab.png[]
 [source,text]
 -----
 You have been enrolled in the Red Hat OPENTLC FUSE IGNITE OpenShift environment.
-You can access the OpenShift evironment, where Fuse Ignite is hosted, by going to https://master.<GUID>.openshift.opentlc.com and logging in using <YOUR OPENTLC ID>.
+You can access the OpenShift evironment, where Fuse Ignite is hosted, by going to https://master.<$Environment_ID>.openshift.opentlc.com and logging in using <YOUR OPENTLC ID>.
 
 NOTICE: Your environment will expire and be deleted in 14 day(s) at 2018-03-24 00:00:00 -0400. In order to conserve resources we cannot archive or restore any data in this environment. All data will be lost upon expiration.
 -----
 +
 [TIP]
-For instance, the URL to the management console for a particular OpenShift instance could be `http://master.ap2.openshift.opentlc.com`
+For instance, the URL to the management console for a particular OpenShift instance could be `http://master.ap2.openshift.opentlc.com` where `ap2` is the *$Environment_ID*
 
 
 == Connect
@@ -89,13 +89,13 @@ For instance, the URL to the management console for a particular OpenShift insta
 image::images/ocp_login.png[]
 
 . Once authenticated into the OpenShift web console, navigate to the top-right panel called:  _My Projects_.
-. You should see a project whose name has the following convention:  `fuse-ignite-$GUID`  (where $GUID equals a unique identifier assigned to your project).
+. You should see a project whose name has the following convention:  `fuse-ignite-$GUID`  (where *$GUID* equals a unique identifier assigned to your project).
 +
 image::images/ocp_project.png[]
 +
 [TIP]
-The URL for your Fuse Ignite application should resemble `http://fuse.fuse-ignite-<$GUID>.<$Environment_ID>.openshift.opentlc.com`
-For instance, the URL to a particular Fuse Ignite application could be `https://fuse.fuse-ignite-3824.apps.ap2.openshift.opentlc.com/`
+The URL for your Fuse Ignite application should resemble `http://fuse.fuse-ignite-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com`
+For instance, the URL to a particular Fuse Ignite application could be `https://fuse.fuse-ignite-3824.apps.ap2.openshift.opentlc.com/` where `3824` is the *$GUID* and `ap2` is the *$Environment_ID*
 +
 . Click on the link associated with your Fuse Ignite project.
 
