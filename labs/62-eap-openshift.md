@@ -38,14 +38,14 @@ oc login OPENSHIFT_URL -u YOUR_USER
 - Create a new project in OpenShift
 
 ```
-oc new-project fuseeap
+oc new-project YOURUSERID-fuseeap
 ```
 
 - Go back to JBoss developer studio, in *Project Explorer* locate your *eap-lab* project, right click on the project and select Run AS -> **6 Maven build...**
 
 ![Deploy to EAP on OpenShift](images/62-Step-01.png)
 
-- In the pop up panel, under Goals, add the following execute command and check Skip Tests.
+- In the pop up panel, under Goals, add the following execute command and check Skip Tests. (Click on offline if you already have the repo pre-downloaded)
 
 ```
 clean package fabric8:deploy
@@ -58,7 +58,7 @@ Make sure you replace the Master URL, username, password.
 
 ```
 -Dkubernetes.master=https://YOUR_OPENSHIFT_URL
--Dkubernetes.namespace=fuseeap 
+-Dkubernetes.namespace=YOURUSERID-fuseeap 
 -Dkubernetes.auth.basic.username=YOUR_USERNAME 
 -Dkubernetes.auth.basic.password=YOUR_PASSWORD 
 -Dfabric8.mode=openshift 
@@ -74,7 +74,7 @@ Make sure you replace the Master URL, username, password.
 or run following command line in the project directory. 
 
 ```
-mvn clean package fabric8:deploy
+mvn clean package fabric8:deploy -o \
 -Dkubernetes.master=https://YOUR_OPENSHIFT_URL \
 -Dkubernetes.namespace=fuseeap \
 -Dkubernetes.auth.basic.username=YOUR_USERNAME \
@@ -105,7 +105,7 @@ eap-lab-s2i-1-build   0/1       Completed   0          1d
 Use CURL command to test the application, you should be able to execute following CURL command and get the returned response. 
 
 ```
-curl hhttp://eap-lab-fuseeap-YOUR_OPENSHIFT_URL/say/default
+curl http://eap-lab-fuseeap-YOUR_OPENSHIFT_URL/say/default
 
 #Hello World
 ```

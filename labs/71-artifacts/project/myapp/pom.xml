@@ -9,8 +9,8 @@
   <description>Spring Boot example running a Camel route defined in XML</description>
   <properties>
     <spring-boot.version>1.5.4.RELEASE</spring-boot.version>
-    <fabric8.version>2.3.7.fuse-000036-redhat-2</fabric8.version>
-    <fabric8.maven.plugin.version>3.5.32.fuse-000040-redhat-2</fabric8.maven.plugin.version>
+    <fabric8.version>3.0.8.fuse-000023-redhat-4</fabric8.version>
+    <fabric8.maven.plugin.version>3.5.33.fuse-000023-redhat-3</fabric8.maven.plugin.version>
     <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
@@ -20,7 +20,7 @@
       <dependency>
         <groupId>io.fabric8</groupId>
         <artifactId>fabric8-project-bom-camel-spring-boot</artifactId>
-        <version>2.3.7.fuse-000036-redhat-2</version>
+        <version>3.0.8.fuse-000023-redhat-4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -38,7 +38,6 @@
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-spring-boot-starter</artifactId>
-      <version>2.21.0.000033-fuse-000001-redhat-1</version>
     </dependency>
   </dependencies>
   <repositories>

@@ -34,15 +34,14 @@ This is a very important dependency addition which allows SpringBoot to reload y
 
 Now that everything is running perfectly in your local environment, let's try deploying to our SpringBoot container on Minishift.
 
-10. Startup minishift / CDK.
-11. Login via the CLI using `oc login -u developer`.
-12. Create a new project using the command `oc new-project fis-rider-auto-ws`
- - _This project might already exist from the previous lab._
+11. Login via the CLI using `oc login -u YOURUSERID`.
+12. Go to your project `oc new-project YOURUSERID-fis-rider-auto-ws`
+ - _This project already exist from the previous lab._
 13. Via the CLI, cd to your mvn project and execute `oc create -f sa.yml` to create the service account.
 14. Using the same CLI, execute `oc create -f sample-secret.yml` to create the secret.
 15. Using the same CLI, execute `oc create -f sample-configmap.yml` to create the configmap.
 16. Using the same CLI, execute `oc secrets add sa/qs-camel-config secret/camel-config` to add the secret to the service account.
-17. Using the same CLI, execute `oc policy add-role-to-user view system:serviceaccount:fis-rider-auto-ws:qs-camel-config` to give the 'view' permision to the service account.
+17. Using the same CLI, execute `oc policy add-role-to-user view system:serviceaccount: YOURUSERID-fis-rider-auto-ws:qs-camel-config` to give the 'view' permision to the service account.
 18. Via the CLI, cd to your mvn project and execute `mvn fabric8:deploy`.
 
 The build will be begin and via binary streams, deploy to your Minishift environment.

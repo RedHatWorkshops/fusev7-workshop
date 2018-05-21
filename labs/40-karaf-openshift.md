@@ -1,11 +1,10 @@
-# Create a Fuse Karaf 4 FIS project for OpenShift
+# Create a Fuse Karaf project for OpenShift
 
 The following lab demonstrates the new FIS Karaf 4 FIS image running on OpenShift.  
 
 ### Prerequisites
 
-1. Ensure you have JBoss Developers Studio version 11.2 + with the latest Fuse Tooling
-2. Ensure you have CDK 3.3.x running locally
+1. Ensure you have JBoss Developers Studio version 11.3 + with the latest Fuse Tooling
 3. Completed karaf-standalone lab
 
 ### Procedure
@@ -181,14 +180,13 @@ And finally, to the `<builds>/<plugins>` section, add the following block:
 			</plugin>
 ```
 5. Copy `../40-artifacts/features.xml` to `src/main/resources`.
-6.  Startup minishift / CDK.
-7. Login via the CLI using `oc login -u developer`.
-8. Create a new project using the command `oc new-project fis-karaf-openshift`
-9. Via the CLI, cd to your mvn project and execute `mvn clean install`.  If that executes successfully, run `mvn fabric8:deploy`.
+7. Login via the CLI using `oc login ` with your assigned userid/pwd.
+8. Create a new project using the command `oc new-project YOURUSERID-fis-karaf-openshift`
+9. Via the CLI, cd to your mvn project and execute `mvn clean install -o`.  If that executes successfully, run `mvn fabric8:deploy -o`.
 
 The build will be begin and via binary streams, deploy to your Minishift environment.
 
-10. Once the build has completed, login to the Web UI and click on the `fis-karaf-openshift` project.  Navigate to the Karaf pod log.
+10. Once the build has completed, login to the Web UI and click on the `YOURUSERID-fis-karaf-openshift` project.  Navigate to the Karaf pod log.
 
 ![Type Project Name](images/40-Step-10.png)
 

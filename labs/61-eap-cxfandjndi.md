@@ -12,7 +12,7 @@ All you need to do is to have appropriately named XML file(s) somewhere within y
 
 ```
 git clone FUSE_WORKSHOP_URL.git
-cd fusev7-workshop/labs/60-artifacts/archetype/eap-lab-archetype
+cd fusev7-workshop/labs/60-artifacts/archetype
 mvn install
 ```
 

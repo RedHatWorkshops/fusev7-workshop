@@ -4,10 +4,7 @@ This project demonstrates the migration of a Karaf-based SOAP webservice from [R
 
 ### Prerequisites
 
-1. Ensure you have JBoss Developers Studio version 11.2 + with the latest Fuse Tooling
-2. Ensure AMQ 7.x is running locally
-3. Ensure you have CDK 3.3.x running locally
-4. Ensure you've upgraded your CDK to use the latest Fuse 7 image streams found [here](https://github.com/jboss-fuse/application-templates/blob/master/fis-image-streams.json).  You might need to update the `fis-image-streams.json` [in the OpenShift project, Images section] to make use of the following registry URL: **registry.access.redhat.com/jboss-fuse-7-tech-preview/**
+1. Ensure you have JBoss Developers Studio version 11.3 + with the latest Fuse Tooling
 
 ### Procedure
 
@@ -22,14 +19,16 @@ To begin, we need to create a FIS SpringBoot project in JBDS.
 
 ![Type Project Name](images/10-Step-3.png)
 
-4. Select Fuse 7 as the **Target Runtime**.
- - Or select 2.21.0.000033-fuse-000001-redhat-1 as the **Camel Version**.
+4. Select Kubernetes/Openshift as the **deployment platform**.
+ - choose Spring Boot as the **runtime environment**
+ - and select 2.21.0.000033-fuse-000001-redhat-1 as the **Camel Version**.
 
 ![Type Project Name](images/10-Step-4.png)
 
-5. Choose the predefined template under "Fuse on OpenShift", then select "SpringBoot on OpenShift" and "Spring DSL".  Click Finish.
+5. Choose the predefined template *simple log using Spring Boot*.  Click Finish.
 
-![Type Project Name](images/20-Step-5.png)
+![Type Project Name](images/10-Step-5.png)
+
 
 6.  Now that we have a template project, let's update the pom.xml file.  Update the `artifactId` name to `fis-rider-auto-ws`.  Underneath `camel-spring-boot-starter` component in dependencies, paste the following:
 
@@ -57,8 +56,7 @@ To begin, we need to create a FIS SpringBoot project in JBDS.
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
-			<version>3.2.1</version>
-		</dependency>
+	    </dependency>
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxws</artifactId>
@@ -109,22 +107,32 @@ To begin, we need to create a FIS SpringBoot project in JBDS.
 				env.getProperty("amq.user"), env.getProperty("amq.password"));
 	}
 ```
-14. If everything compiles, try right-clicking on the `camel-context.xml` file and selecting "Run As" and then "Local Camel Context".
 
-![Type Project Name](images/10-Step-12.png)
-
-15.  Try hitting the WSDL page [here](http://localhost:8183/cxf/order?wsdl) in a web browser.  If everything is working, it should display.
-
-Now let's try running our SpringBoot container on Minishift.
+Now let's try running our SpringBoot container on OpenShift.
 
 16. Copy both [`../20-artifacts/route.yml`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/route.yml) and [`../20-artifacts/service.yml`](https://raw.githubusercontent.com/RedHatWorkshops/fusev7-workshop/master/labs/20-artifacts/service.yml) to the `src/main/fabric8` directory.
 17. Uncomment the `amq.host=192.168.1.64` in the `src/main/resources/application.properties` file so that your local AMQ environment can be reached from Minishift.  Comment out the `amq.host=localhost` property and save the file.
-18. Startup minishift / CDK.
-19. Login via the CLI using `oc login -u developer`.
-20. Create a new project using the command `oc new-project fis-rider-auto-ws`
-21. Via the CLI, cd to your mvn project and execute `mvn fabric8:deploy`.
+19. Login via the CLI using `oc login` with your assigned user/id and password.
+20. Go to your assigned project `oc project YOURUSERID-fis-rider-auto-ws`
+21. Via the CLI, cd to your mvn project and execute 
 
-The build will be begin and via binary streams, deploy to your Minishift environment.
+```
+mvn clean install fabric8:deploy -o \
+ -Dkubernetes.master=https://master.fuse7sa-emea.openshiftworkshop.com:443 \
+ -Dkubernetes.namespace=YOUR_USER_NO-fis-rider-auto-ws \
+ -Dkubernetes.auth.basic.username=YOUR_USER_NO \
+ -Dkubernetes.auth.basic.password=r3dh4t1! \
+ -Dfabric8.mode=openshift \
+ -Dkubernetes.trust.certificates=true \
+ -Dfabric8.build.strategy=s2i \
+ -Dkubernetes.auth.tryServiceAccount=false \
+ -Dfabric8.generator.from=registry.access.redhat.com/jboss-fuse-7-tech-preview/fuse-java-openshift \
+ -Dfabric8.generator.fromMode=docker \
+ -Dkubernetes.auth.tryKubeConfig=false 
+
+```
+
+The build will be begin and via binary streams, deploy to your OpenShift environment.
 
 21.   Via the OpenShift webconsole, login using the developer/developer credentials and navigate to Routes.
 22.  Click on the route that was created and verify the WSDL is accessible.  The URI context is `/cxf/order?wsdl`

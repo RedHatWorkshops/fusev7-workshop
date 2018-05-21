@@ -6,5 +6,5 @@ metadata:
 data:
   application.properties: |
     # Override the configuration properties here
-    amq.host=192.168.64.1
+    amq.host=broker-amq-amqp
     amq.queueName=incomingOrdersOCP
