@@ -104,7 +104,7 @@ You will setup an integration between the Microservice and the web hosting servi
 +
 . Click *Next*. The *Specify Output Data Type* page is displayed.
 . Click the *Select Type* drop-down box, to display all the options. Note that JSON and XML schemas and document instances are supported data types.
-. Leave the option as *Don't specify type*.
+. Leave the option as *Type specification not required*.
 . Click *Done*. The `coolstore-product-catalog-microservice` connection is now officially the *start connection* in the Integration.
 . In the Fuse Ignite console, notice that you are currently at the *Choose a Finish Connection* page.
 . Select the `hosting-server` connection icon.
