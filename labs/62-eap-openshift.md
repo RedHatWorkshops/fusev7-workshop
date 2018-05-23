@@ -64,7 +64,7 @@ Make sure you replace the Master URL, username, password.
 -Dfabric8.mode=openshift 
 -Dkubernetes.trust.certificates=true 
 -Dkubernetes.auth.tryServiceAccount=false 
--Dfabric8.generator.from=registry.access.redhat.com/jboss-fuse-7-tech-preview/fuse-eap-openshift 
+-Dfabric8.generator.from=registry.access.redhat.com/fuse7/fuse-eap-openshift 
 -Dfabric8.generator.fromMode=docker 
 -Dkubernetes.auth.tryKubeConfig=false 
 -Dfabric8.build.strategy=docker
@@ -82,7 +82,7 @@ mvn clean package fabric8:deploy -o \
 -Dfabric8.mode=openshift \
 -Dkubernetes.trust.certificates=true \
 -Dkubernetes.auth.tryServiceAccount=false \
--Dfabric8.generator.from=registry.access.redhat.com/jboss-fuse-7-tech-preview/fuse-eap-openshift \
+-Dfabric8.generator.from=registry.access.redhat.com/fuse7/fuse-eap-openshift \
 -Dfabric8.generator.fromMode=docker \
 -Dkubernetes.auth.tryKubeConfig=false \
 -Dfabric8.build.strategy=docker
