@@ -81,7 +81,7 @@ To begin, we need to create a FIS SpringBoot project in JBDS.
             <marshal id="_marshal1">
                 <jaxb contextPath="org.fusesource.camel.model"/>
             </marshal>
-            <inOnly id="_inOnly1" uri="amqp:incomingOrders"/>
+            <inOnly id="_inOnly1" uri="amqp:{{amq.queueName}}"/>
             <transform id="_transform1">
                 <constant>OK</constant>
             </transform>
