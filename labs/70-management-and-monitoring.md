@@ -18,7 +18,7 @@ To begin, we need to properly setup minishift.
 
 ```
 export MINISHIFT_ENABLE_EXPERIMENTAL=y
-minishift start --openshift-version v3.7.1 --memory 4GB --service-catalog
+minishift start --memory 4GB --service-catalog
 ```
 
 There might be a few startup errors (which can be ignored).  Verify minishift has started by typing `minishift status`
