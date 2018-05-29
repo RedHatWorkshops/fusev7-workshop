@@ -1,4 +1,4 @@
-#Fuse Console Setup 
+# Fuse Console Setup 
 
 
 An Fuse console that eases the discovery and management of all Fuse 7 applications deployed on OpenShift. There are two options, one allows you to navigate between several namespace, it requires the cluster-admin role to be created. And one that only looks up one, this is the one we will be doing today.
@@ -31,18 +31,14 @@ clean install fabric8:deploy \
 
 We need a service account as OAuth client, which only requires admin role in a project to be created. This restricts the Fuse Online console access to this single project, and as such acts as a single tenant deployment. Go to [71-artifacts](./71-artifacts) and run : 
 
-Namespace mode
+
+
+To deploy the Fuse Online console execute the following command:
 
 ```
-$ oc create -f serviceaccount.yml
-```
 
+oc new-app -f https://raw.githubusercontent.com/jboss-fuse/application-templates/application-templates-2.1.fuse-000081-redhat-4/fis-console-namespace-template.json
 
-To deploy the Fuse Online console, go to [71-artifacts](./71-artifacts) and execute the following command:
-
-```
-oc new-app -f deployment-namespace.yml \
--p OPENSHIFT_MASTER=<MASTERURL>
 ```
 
 Login to you OpenShift console, you should be able to see the two application installed.
