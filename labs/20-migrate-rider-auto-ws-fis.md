@@ -126,7 +126,7 @@ mvn clean install fabric8:deploy -o \
  -Dkubernetes.trust.certificates=true \
  -Dfabric8.build.strategy=s2i \
  -Dkubernetes.auth.tryServiceAccount=false \
- -Dfabric8.generator.from=registry.access.redhat.com/jboss-fuse-7-tech-preview/fuse-java-openshift \
+ -Dfabric8.generator.from=registry.access.redhat.com/fuse7/fuse-java-openshift \
  -Dfabric8.generator.fromMode=docker \
  -Dkubernetes.auth.tryKubeConfig=false 
 
