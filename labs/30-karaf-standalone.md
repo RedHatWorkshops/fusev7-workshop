@@ -107,7 +107,9 @@ Fuse 7 introduces a new version of the Karaf OSGi container, Karaf 4.  One of th
  - Locate the following lines:
 
    #admin = admin,_g_:admingroup
+   
    #_g_\:admingroup = group,admin,manager,viewer,systembundles,ssh
+   
    Note that the first line has the syntax USER=PASSWORD,_g_:GROUP,…​. In this example, the first line specifies a user, admin, with the password, admin, and the role group, admingroup.
 
 - Uncomment both lines by removing the leading # character.
