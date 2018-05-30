@@ -133,8 +133,9 @@ mvn clean install fabric8:deploy -o \
 ```
 
 The build will be begin and via binary streams, deploy to your OpenShift environment.
+You will need to **DELETE THE ROUTE** that is created, and **Establish a new one**. 
 
-21.   Via the OpenShift webconsole, login using the developer/developer credentials and navigate to Routes.
+21.  Via the OpenShift webconsole, login using the developer/developer credentials and navigate to Routes.
 22.  Click on the route that was created and verify the WSDL is accessible.  The URI context is `/cxf/order?wsdl`
 23.  Using PostMan or SOAP UI, copy the WSDL URL and send a sample SOAP request message.  You should receive an OK response message, and your request should end up on the AMQ `incomingOrders` queue.
 
