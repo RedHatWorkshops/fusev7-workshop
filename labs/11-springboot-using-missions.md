@@ -30,7 +30,7 @@ To begin, we need to download the booster-circuitbreaker project from OpenShift.
 
 ![Type Project Name](images/11-Step-5.png)
 
-6.  Select **7.0.0-tp (Red Hat Fuse - Tech preview)** as the **Runtime Version**.  Leave other fields with their default settings.  Click **Next**.
+6.  Select **7.0.0(Red Hat Fuse )** as the **Runtime Version**.  Leave other fields with their default settings.  Click **Next**.
 
 ![Type Project Name](images/11-Step-6.png)
 
@@ -39,11 +39,11 @@ To begin, we need to download the booster-circuitbreaker project from OpenShift.
 
 ![Type Project Name](images/11-Step-7.png)
 
-8. Unzip the `booster-circuit-breaker-fuse.zip` file to a local directory, and import the Maven project into the IDE of your choice.
+8. Unzip the `booster-circuit-breaker-fuse.zip` file to a local directory, and import the **greetings-service** Maven project into the IDE of your choice.
 
 ![Type Project Name](images/11-Step-8.png)
 
-9. Try running the default project as a standalone SpringBoot project (right-click on the camel-context.xml and select **Run As > Local Camel Context**.  You should be able to view the simple console that prints our someone's name (found at http://localhost:8080), plus the Hystrix Dashboard for the name and greetings service.  Experiment by killing the name-service and monitoring the behavior on the Hystrix Dashboard.  You should notice the Circuit Break opening and shutting, depending on whether the service is running or not.
+9. Try running the default project as a standalone SpringBoot project (right-click on the project and select **Run As > 2 Maven build ...**.  Put **spring-boot:run** in the Goal. You should be able to view the simple console that prints our someone's name (found at http://localhost:8080), plus the Hystrix Dashboard for the name and greetings service.  Experiment by killing the name-service and monitoring the behavior on the Hystrix Dashboard.  You should notice the Circuit Break opening and shutting, depending on whether the service is running or not.
 
 #### Add Swagger Docs
 
