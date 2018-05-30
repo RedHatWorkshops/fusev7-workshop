@@ -101,6 +101,19 @@ Fuse 7 introduces a new version of the Karaf OSGi container, Karaf 4.  One of th
 
 1. Ensure you have JBoss Developers Studio version 11.3 + with the latest Fuse Tooling
 2. Ensure [Fuse 7.x](https://drive.google.com/open?id=1oQJm9gAfEVvOheppanGadoji0J7aK3dj) is unzipped to a local directory
+ - To add a user:
+
+ - Open InstallDir/etc/users.properties in your favorite text editor.
+ - Locate the following lines:
+
+   #admin = admin,_g_:admingroup
+   #_g_\:admingroup = group,admin,manager,viewer,systembundles,ssh
+   Note that the first line has the syntax USER=PASSWORD,_g_:GROUP,…​. In this example, the first line specifies a user, admin, with the password, admin, and the role group, admingroup.
+
+- Uncomment both lines by removing the leading # character.
+- Change the first admin to the desired user name.
+- Change the second admin to the desired password.
+- Save the changes.
 
 ### Procedure
 
