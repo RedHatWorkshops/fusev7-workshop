@@ -132,9 +132,9 @@ First add a new Route from dragging from right Palette and add the SQL select co
 
 - 
 	- **Direct** URI as *direct:database*
-	- **SQL** URI as *sql:select name from information_schema.users?dataSource=#myCamelDS*
+	- **SQL** URI as *sql:select returnname from nametable where nameno=${header.dbno}?dataSource=#myCamelDS*
 	- **Log** message as *${body}*
-	- **setBody** Expression as *Hello ${body[0][NAME]}* and Language as *simple*
+	- **setBody** Expression as *Hello ${body[0][RETURNNAME]}* and Language as *simple*
 
 ![CXF](images/61-Step-13.png)
 
