@@ -4,7 +4,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>Fuse Online Foundations - API Client Connector</title>
+		<title>Fuse Online Foundations - Module 3 - API Client Connector</title>
 
 
 		<link rel="stylesheet" type="text/css" href="lib/offline-v2.css">
@@ -407,7 +407,7 @@ animation:         icon-animation-short 3.5s 1.5s 1;
 .reveal section.dark-foreground .redhat-logo .logotext {
   fill: currentcolor !important;
 }
-.reveal .slide-background.background-shade-dark:before {
+.reveal .slide-background.background-shade-dark:after {
   content: "";
   display: block;
   position: absolute;
@@ -419,7 +419,7 @@ animation:         icon-animation-short 3.5s 1.5s 1;
   height: 100%;
   background-color: rgba(40, 40, 40, 0.8);
 }
-.reveal .slide-background.background-shade-light:before {
+.reveal .slide-background.background-shade-light:after {
   content: "";
   display: block;
   position: absolute;
@@ -1741,58 +1741,246 @@ animation:         icon-animation-short 3.5s 1.5s 1;
 
 		</style>
 
+		<!-- User CSS -->
+		<style id="user-css-output" type="text/css">
+			.reveal .slides section h1 {
+  font-family: Overpass, Open Sans, "Helvetica";
+  font-size: 36pt;
+  font-weight: bold;
+  text-transform: none;
+}
+.reveal .slides section h2 {
+  font-family: Overpass, Open Sans, "Helvetica";
+  font-size: 26pt;
+  font-weight: bold;
+  text-transform: none;
+  padding-bottom: 39px;
+}
+.reveal .slides section h3 {
+  font-family: Overpass, Open Sans, "Helvetica";
+  font-size: 20pt;
+  font-weight: bold;
+  text-transform: none;
+  padding-top: 14px;
+}
+.reveal .slides section {
+  font-family: Overpass, Open Sans, "Helvetica";
+  font-size: 16pt;
+}
+.reveal .slides section li {
+  font-family: Overpass, Open Sans, "Helvetica";
+  font-size: 16pt;
+}
+.reveal .slides section table {
+  border: solid;
+  border-color: black;
+}
+.reveal .slides section td {
+  font-family: Overpass, Open Sans, "Helvetica";
+  font-size: 14pt;
+}
+.reveal .slides section th {
+  font-family: Overpass, Open Sans, "Helvetica";
+  font-size: 14pt;
+  border: solid;
+  border-color: black;
+}
+.reveal .slides section code {
+  font-family: Overpass mono;
+  font-size: 10pt;
+  color: black;
+  background-color: #d8e1e9;
+  border: solid;
+}
+
+		</style>
 	</head>
 	<body class="reveal-viewport theme-font-overpass2 theme-color-no-color">
 		<div class="reveal">
 			<div class="slides">
-				<section id="cover" data-background-image="image/1156524-bg_redhat.png" data-background-color="#ffffff" data-id="0703d982e244469b0eac9866bfdc7737"><div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: -12px; top: 181px;" data-block-id="1a1f4f8e02ffc364e960c39baff3f83e"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" data-has-custom-html="" style="z-index: 11;">
-<h2> </h2>
+				<section data-background-color="rgb(156,0,0)" data-background-image="deck-11/32fa01ef1b64201650bdc7d29ce7c22c.svg" data-id="9711c57d1a7b1b29ecc33ca6b7b85eeb"><div class="sl-block" data-block-type="text" style="height: auto; width: 915px; left: 193px; top: 360px;" data-block-id="fda0f2df1daf7e47295dd9ea33fb8b4a"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left;" data-has-custom-html="">
+<h1 style="font-size:2.25em">Red Hat Fuse 7 Foundations</h1>
 
-<div class="scrollbar">
-<div class="sl-block" data-block-id="8cb188d8d0d4f4cfd7095b9df857af00" data-block-type="text" style="width: 832px; left: 67px; top: -52px; height: auto;">
-<div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text">
-<h1>Red Hat Fuse Online Foundations</h1>
-</div>
-</div>
+<h2 style="font-size:1.5em">API Client Connector</h2>
 
-<div class="sl-block" data-block-id="7f1c0dd7a833e7d1af5bb381462027d0" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 776px; left: 80px; top: 350px;">
-<div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text">
-<h2>API Client Connector</h2>
-</div>
-</div>
-
-<div class="sl-block" data-block-id="70bd7960d3f83bf2feee6d409d5aee6d" data-block-type="image" style="min-width: 30px; min-height: 30px; width: 211.707px; height: 68px; left: 82px; top: 129px;">
-<div class="sl-block-content" style="z-index: 13;"><img data-lazy-loaded="" data-src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdMAAACWCAMAAACywpL0AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAASBQTFRF////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////////////////////////////////////////////////////////////BgYGBQUFi4uLm5ubHR0dd3d3ODg4QEBABwcHIiIiXl5ePT09ExMTY2NjERERHx8fU1NTbW1th4eHLCwsDw8PLy8vGBgYJCQkSkpKT09PGhoaKCgo////////////cnJyrKysAAAAMwAAWgAAZgAAgAAAmgAADQAAjQAATQAAGgAApgAAzAAAcwAAwAAAswAAJgAAQAAA////7+/vz8/Pv7+/r6+v39/fn5+fPz8/j4+PX19fDw8Pf39/Hx8fT09PLy8vC0iFQAAAAEB0Uk5TACBAcICwwNBQ8JAQoOBgMCCA0JBA8LBgwDCgEHDgUPb19/br8OLr9/Dk5/Lr8O3t4O7o7utq4OLo6ORMW3To9QPuu1oAAAABYktHRACIBR1IAAAACXBIWXMAAC4jAAAuIwF4pT92AAAQHklEQVR42u2dCXfbNhLH5ftswpsULydOeqdH2l0n3auUdViSJVm0HTfptrvf/1usKFESAeIiCUqUFv/3+l4qkxSJH2cwGAygWq2Qdnb39g8Oj4KEjg4P9vd2d2pCm6ed4/3DkwCrk8PTYwF2g3R2fP5ZwKDPzo/PRGttAtBnB0EGHTwTWCuubEDnWEW7VVY7pydBLp2cir61kto9DArocFe04HYRFVS3kaigWi0950J0SvW5aM0q6Ow04KhTMbRZv45PAq46ORZtumYjPQi460CY6jYZqTDVtRvpaVCSRK+6Ju0c5cHVuG622u12s9noEI46EomldWj3hIDtJqLWhbH1rvu3CfWvO8L/VknPMDB6g2EC26jVbNxFH3ca3QEAdKphE091T7TxinWOIdEd3mbS6A4L9Vy0cjWQUhlODDey3EajGZttV0Ctgs5w0dGYDHQ4AKyy15p+2sBHSiL8XTvSDsXx9md/77caSbMe9gTUyiINrpm70WZ8xtRS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"></div>
-</div>
-
-<div class="footer footer-cover"> </div>
-</div>
-</div></div></section><section id="_topics" data-id="bcc6a5cd0db8d89d36a1d007556d448a"><div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 263px;" data-block-id="d58f4d3c0c2e22c074d5cc986265e7d9"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" data-has-custom-html="" style="z-index: 11;">
-<h2>Topics</h2>
+<h3> </h3>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 360px; height: 122.4px; left: 45px; top: 76.5px; min-width: 4px; min-height: 4px;" data-block-id="e42c6cbd184674e593b900b8b56b408b"><div class="sl-block-content" style="z-index: 11;" data-inline-svg="true">
+<img data-natural-width="500" data-natural-height="170" data-lazy-loaded="" style="" data-src="deck-11/bfa11a84cdd2fc0f50cb6fb54942bd62.svg"><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 500 170" height="170" width="500" class="redhat-logo" preserveaspectratio="xMidYMid meet">
+<path class="logotext" d="m 495.6,120.6 c 0,1.8 -1.5,3.3 -3.3,3.3 -1.8,0 -3.3,-1.5 -3.3,-3.3 0,-1.8 1.5,-3.3 3.3,-3.3 1.8,0 3.3,1.5 3.3,3.3 z m -3.3,-4 c -2.2,0 -4,1.8 -4,4 0,2.2 1.8,4 4,4 2.2,0 4,-1.8 4,-4 0,-2.2 -1.8,-4 -4,-4 z m 0,3.8 c 0.6,0 1,-0.1 1,-0.7 0,-0.5 -0.4,-0.6 -0.9,-0.6 l -0.8,0 0,1.3 z m -0.7,2.3 -0.6,0 0,-4.1 1.5,0 c 1,0 1.5,0.3 1.5,1.1 0,0.8 -0.5,1.1 -1.1,1.2 l 1.2,1.8 -0.7,0 -1.1,-1.8 -0.7,0 z m -22.2,-64.92 0,11.91 15.4,0 0,4.34 -15.4,0 0,35.17 c 0,6.9 2.2,11.2 8,11.2 2.8,0 4.7,-0.4 6.1,-0.9 l 0.7,4.2 c -1.8,0.7 -4.2,1.3 -7.5,1.3 -3.9,0 -7.2,-1.3 -9.3,-3.9 -2.5,-2.8 -3.3,-7.4 -3.3,-12.9 l 0,-34.17 -9.1,0 0,-4.34 9.1,0 0,-9.94 z m -21.3,32.06 c 0,-9.67 -3,-21.38 -18.6,-21.38 -4.9,0 -10.9,1.32 -15.8,4.67 l 1.7,3.89 c 3.9,-2.76 8.8,-4.03 13.5,-4.03 12.8,-0.1 13.9,10.59 13.9,15.94 l 0,1.44 c -22,-0.23 -33,7.33 -33,19.73 0,7.3 5,14.9 15.9,14.9 8.6,0 14.6,-4.8 16,-6.9 l 2.3,5.7 4.9,0 c -0.6,-4.2 -0.8,-8.6 -0.8,-12.9 z m -5.3,16.66 c 0,0.9 -0.2,2.1 -0.6,3.2 -1.8,5.3 -7,10.9 -16,10.9 -5.6,0 -10.7,-3.5 -10.7,-11.3 0,-13 15.5,-14.77 27.3,-14.43 z m -42.7,-15.34 0,32.64 -5.3,0 0,-32.05 c 0,-9.74 -3.8,-18.62 -14.9,-18.62 -7.7,0 -14,5.52 -16.3,12.25 -0.6,1.6 -0.8,3.13 -0.8,5.33 l 0,33.09 -5.3,0 0,-71.31 5.3,1.58 0,25.29 0.3,0 c 1.5,-3.01 4.1,-5.92 7.3,-7.8 3.1,-1.91 6.8,-3.1 10.9,-3.1 5.2,0 18.8,2.56 18.8,22.7 z m -68.5,1.09 c 0,-1.09 -0.1,-2.46 -0.3,-3.57 -1.3,-5.26 -5.7,-9.59 -11.8,-9.59 -8.8,0 -13.7,7.76 -13.7,17.81 0,9.9 4.9,17.2 13.5,17.2 5.6,0 10.5,-3.9 11.8,-9.8 0.4,-1.2 0.5,-2.5 0.5,-3.9 z M 202.9,87.1 c 0,-7.23 -0.1,-12.55 -0.4,-17.36 l 11.8,0 0.5,10.26 0.4,0 c 2.7,-7.6 9,-11.48 14.8,-11.48 1.4,0 2.1,0 3.2,0.29 l 0,12.87 c -1.3,-0.25 -2.4,-0.38 -4.1,-0.38 -6.5,0 -11,4.14 -12.2,10.33 -0.3,1.2 -0.4,2.65 -0.4,4.17 l 0,28 -13.7,0 z m 142.3,21.5 c 0,5.6 0.2,11.5 0.5,15.2 l -12.2,0 -0.6,-8.6 -0.3,0 c -3.2,6.1 -9.7,9.8 -17.5,9.8 -12.9,0 -23.1,-11 -23.1,-27.6 -0.1,-18.13 11.2,-28.88 24.2,-28.88 7.4,0 12.7,3.05 15.1,7.04 l 0.3,0 0,-30.48 13.6,3.85 z m -59.3,-8.1 c 0.2,-1.2 0.5,-3.3 0.5,-5.8 0,-11.83 -5.8,-26.28 -23.3,-26.28 -17.4,0 -26.5,14.11 -26.5,28.98 0,16.6 10.3,27.4 27.9,27.4 7.8,0 14.2,-1.4 18.8,-3.4 l -2,-9.4 c -4.1,1.5 -8.6,2.5 -14.9,2.5 -8.7,0 -16.3,-4.3 -16.7,-14.1 z m -36.2,-9.58 c 0.6,-5.54 4.1,-13.17 12.5,-13.17 9.2,0 11.3,8.16 11.3,13.17 z m -83.8,29.68 c 0,1.8 -1.4,3.3 -3.2,3.3 -1.8,0 -3.3,-1.5 -3.3,-3.3 0,-1.8 1.5,-3.3 3.3,-3.3 1.8,0 3.2,1.5 3.2,3.3 z m -3.2,-4 c -2.2,0 -4,1.8 -4,4 0,2.2 1.8,4 4,4 2.2,0 4,-1.8 4,-4 0,-2.2 -1.8,-4 -4,-4 z m 0,3.8 c 0.5,0 1,-0.1 1,-0.7 0,-0.5 -0.5,-0.6 -0.9,-0.6 l -0.9,0 0,1.3 z m -0.8,2.3 -0.6,0 0,-4.1 1.6,0 c 0.9,0 1.4,0.3 1.4,1.1 0,0.8 -0.4,1.1 -1,1.2 l 1.1,1.8 -0.7,0 -1,-1.8 -0.8,0 z"></path>
+<path style="fill:#fff" d="M150.1 125c-3.1-.7-6.3-1.1-9.5-1.1-5.6 0-10.8.8-14.4 2.5-.8.4-.8.9-.6 1.6.4 1.3-.3 2.7-3.9 3.5-5.4 1.2-8.8 6.7-10.7 8.6-2.3 2.1-8.8 3.5-7.8 2.2.8-1 3.7-4.2 5.4-7.6 1.6-3 3-3.9 4.9-6.8.6-.8 2.8-3.8 3.4-6.2.8-2.3.5-5.2.8-6.4.4-1.7 2-5.4 2.1-7.5.1-1.2-4.9 1.7-7.3 1.7-2.4 0-4.8-1.5-6.9-1.6-2.7-.1-4.4 2.1-6.74 1.7-1.37-.2-2.52-1.4-4.9-1.5-3.4-.2-7.57 1.9-15.38 1.6-7.68-.2-14.77-9.7-15.74-11.2-1.13-1.8-2.52-1.8-4.03-.4-1.5 1.4-3.36.3-3.9-.6-1-1.8-3.7-6.92-7.87-8-5.77-1.5-8.7 3.2-8.3 6.9.38 3.8 2.83 4.9 3.96 6.9 1.12 2 1.7 3.3 3.84 4.2 1.5.6 2.07 1.6 1.62 2.8-.4 1.1-1.97 1.3-3 1.4-2.2.1-3.74-.5-4.86-1.2-1.3-.9-2.37-2-3.5-4-1.33-2.2-3.4-3.1-5.83-3.1-1.16 0-2.24.3-3.2.8-3.8 2-8.3 3.1-13.17 3.1H9.1C19.64 138.5 49.14 161 83.88 161c27.73 0 52.13-14.3 66.23-36"></path>
+<path style="fill:#000" d="m 150.1,125 c -2.6,-0.6 -6.3,-1.1 -9.5,-1.1 -5.6,0 -10.7,0.9 -14.4,2.5 -0.5,0.2 -0.7,0.6 -0.7,1.1 0,0.2 0,0.4 0.1,0.5 0.4,1.3 -0.3,2.7 -3.9,3.5 -5.4,1.2 -8.8,6.7 -10.7,8.6 -2.3,2.1 -8.8,3.5 -7.8,2.2 0.8,-1 3.7,-4.2 5.4,-7.6 1.6,-3 3,-3.9 4.9,-6.8 0.6,-0.8 2.8,-3.8 3.4,-6.2 0.8,-2.3 0.5,-5.2 0.8,-6.4 0.4,-1.7 2,-5.4 2.1,-7.5 0.1,-1.2 -4.9,1.7 -7.3,1.7 -2.4,0 -4.8,-1.5 -6.9,-1.6 -2.6,-0.1 -4.3,2.1 -6.74,1.7 -1.36,-0.2 -2.51,-1.4 -4.9,-1.5 -3.41,-0.1 -7.56,1.9 -15.37,1.6 -7.68,-0.2 -14.78,-9.7 -15.75,-11.2 -1.13,-1.8 -2.52,-1.8 -4.03,-0.4 -1.51,1.4 -3.37,0.3 -3.9,-0.6 -1.01,-1.8 -3.7,-6.92 -7.87,-8 -5.77,-1.5 -8.69,3.19 -8.31,6.9 0.38,3.8 2.83,4.9 3.96,6.9 1.14,2 1.72,3.3 3.85,4.2 1.51,0.6 2.07,1.6 1.62,2.8 -0.39,1.1 -1.96,1.3 -3,1.4 -2.2,0.1 -3.74,-0.5 -4.86,-1.2 -1.31,-0.9 -2.37,-2 -3.51,-4 -1.32,-2.2 -3.4,-3.1 -5.82,-3.1 -1.15,0 -2.23,0.3 -3.19,0.8 -3.8,2 -8.31,3.1 -13.18,3.1 l -5.481,0 C 6.45,99.4 5,90.95 5,82.13 5,38.57 40.32,3.26 83.88,3.262 c 43.52,0 78.82,35.31 78.82,78.87 0,15.77 -4.6,30.57 -12.6,42.87 z m -49.2,-7.2 c -1.03,1.2 -1.47,1.6 -2.21,2.2 -1.78,1.4 -3.81,-0.2 -5.11,-1 -2.9,-1.7 -5.23,-0.6 -5.8,0.7 -0.57,1.3 0.1,2.9 1.64,2.7 2.21,-0.3 2.31,0.1 3.9,1.1 2.98,1.9 5.15,0.8 6.26,-0.1 0.92,-0.7 1.42,-1.3 1.92,-2.2 0.9,-1.7 0.2,-3 -0.3,-3.4 -0.1,-0.1 -0.2,-0.1 -0.3,0 z"></path>
+<path style="fill:#c00" d="m 87.26,25.76 c 3.86,-0.47 10.35,-1.28 10.82,1.61 0.18,1.13 -1.98,2.32 -5.13,3.05 -0.34,0.1 -0.33,0.54 0,0.67 1.32,0.38 2.86,0.65 4.49,0.65 5.06,0.12 9.16,-1.71 9.26,-4.07 0.1,-2.36 -4,-4.39 -9.04,-4.49 -0.99,0 -1.98,0 -3.09,0.15 -3.02,0.3 -5.62,1.1 -7.42,1.98 -0.29,0.14 -0.28,0.45 0.11,0.45 z m -9.53,15.06 c 4.35,-0.32 4.79,-1.32 4.66,-2.39 -0.14,-1.25 -2.77,-2.71 -6.67,-2.71 -3.84,0 -6.6,0.46 -8.99,0.56 -2.39,0.1 -4.24,-1.69 -5.1,-2.76 -0.71,-0.88 -2.97,-1.73 -4.2,1.1 -1.24,2.86 1.07,5.93 2.97,6.33 0,0 3.17,5.89 5.57,3.33 1.71,-1.82 2.65,-2.8 11.76,-3.46 z m 43.87,28.83 c 2.9,-1.57 5.5,-3.63 6.8,-8.5 13.4,3.02 21.3,10 19.6,19.43 C 144.2,101.3 110.3,108.3 77.23,98.3 45.75,88.79 18.11,69.8 21.31,58.68 c 1.86,-6.48 12.13,-9.24 25.82,-7.76 -2.08,4.23 -1.92,9.21 7.14,14.75 11.07,6.29 29.79,11.66 34.85,11.14 1.89,-0.2 3.58,-1.13 1.89,-2.27 -1.7,-1.13 -3.21,-3.4 -4.16,-7.36 C 86.33,64.97 85.73,61.89 73.83,59.63 48.31,54.77 49.29,47.55 50.05,43.4 c 0,0 2.26,-10.19 3.21,-13.78 0.94,-3.59 3.38,-11.82 19.82,-8.12 9.5,2.14 14.62,-0.52 17.24,-1.19 7.1,-1.82 14.98,-0.57 19.28,3.9 4.5,4.63 10.7,18.9 13.7,29.57 1.5,5.42 1.1,8.02 0.3,9.85 -0.5,1.25 -0.8,2.05 -2.7,5.22 -0.3,0.56 -0.1,1.17 0.7,0.8 z"></path>
+</svg>
+</div></div></section><section id="_topics" data-id="bcc6a5cd0db8d89d36a1d007556d448a"><div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 283px; left: 0px; top: 0px;" data-block-id="d58f4d3c0c2e22c074d5cc986265e7d9"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" data-has-custom-html="" style="z-index: 11;" dir="ui">
+<h2 style="text-align: left;">Topics</h2>
 
 <div class="scrollbar">
 <div class="ulist">
 <ul>
 	<li>
-	<p>API Connector (Create/Delete/Configure)</p>
+	<p>API Connector</p>
 	</li>
 	<li>
-	<p>Swagger Actions</p>
+	<p>API Security</p>
+	</li>
+	<li>
+	<p>API Connector Attributes</p>
+	</li>
+	<li>
+	<p>API Connection</p>
 	</li>
 </ul>
 </div>
 </div>
-</div></div></section><section id="_summary" data-id="89246a2baed4cfe4680fc3bbc853b8be"><div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 960px; left: 0px; top: 263px;" data-block-id="2e3a7eedd38d30808a693ad234cc8118"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" data-has-custom-html="" style="z-index: 11;">
-<h2>Summary</h2>
+</div></div></section><section data-id="74bc23d5ece93b241e50e094856191fc">
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 0px; top: 0px;" data-block-id="10af56213971405c3d4752842a1033ee"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;">
+<h2 style="text-align:left"><span style="font-size:1.0em"><strong>API Connector</strong></span></h2>
+
+<ul>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">Super-connector</span></p>
+	</li>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">Unlocks world of SaaS, cloud, custom APIs</span></p>
+	</li>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">Resource operations (Swagger) map to connector actions</span></p>
+	</li>
+</ul>
+</div></div>
+<div class="sl-block" data-block-type="image" data-block-id="9081a4772fb56ad2480f7e57a3def423" style="min-width: 4px; min-height: 4px; width: 821px; height: 465px; left: 230px; top: 234px;"><div class="sl-block-content" style="z-index: 12;"><img data-natural-width="567" data-natural-height="321" style="" data-lazy-loaded="" data-src="deck-11/b1d1e9ec4a8061fa2b2aece8f7997f4f.png"></div></div></section><section data-id="24a8590d90c351db90e537b7f1b829eb">
+<div class="sl-block" data-block-type="text" style="height: auto; width: 313px; left: 0px; top: 0px;" data-block-id="967b6326ee172b45c6a31badd0f93e62"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;">
+<h2 style="text-align:left"><span style="font-size:1.0em"><strong>API Security</strong></span></h2>
+
+<ul>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">Swagger v. 2</span></p>
+	</li>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">OAuth 2.0</span></p>
+	</li>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">Override Swagger defaults</span></p>
+	</li>
+</ul>
+</div></div>
+
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 560px; top: 45px;" data-block-id="2e48765d6e57168f445d4c51540d7eeb"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13;">
+<pre><span style="font-size:0.7em">{
+    <span class="hljs-attr">"swagger"</span>: <span class="hljs-string">"2.0"</span>,
+    <span class="hljs-attr">"info"</span>: {
+        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"Coolstore API"</span>,
+        <span class="hljs-attr">"description"</span>: <span class="hljs-string">"API for Coolstore Product Catalog"</span>,
+        <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.1.1"</span>,
+    },
+    <span class="hljs-attr">"securityDefinitions"</span>: {
+        <span class="hljs-attr">"api_key"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"apiKey"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"api_key"</span>,
+            <span class="hljs-attr">"in"</span>: <span class="hljs-string">"header"</span>
+        },
+        <span class="hljs-attr">"oauth"</span>: {
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"oauth2"</span>,
+            <span class="hljs-attr">"authorizationUrl"</span>: <span class="hljs-string">"http://api.rh-coolstore.io/api/auth/"</span>,
+            <span class="hljs-attr">"flow"</span>: <span class="hljs-string">"implicit"</span>,
+            <span class="hljs-attr">"scopes"</span>: {
+                <span class="hljs-attr">"read:players"</span>: <span class="hljs-string">"read product data"</span>
+            }
+        }
+    },
+    <span class="hljs-attr">"security"</span>: {},
+    <span class="hljs-attr">"paths"</span>: {
+        ...
+    }
+}</span></pre>
+</div></div></section><section data-id="bdf0859a69c0c00b70ed9867a714ebba"><div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 1278px; height: 424px; left: 2px; top: 198px;" data-block-id="699f98ab6798e995f811d9339cc70327"><div class="sl-block-content" style="z-index: 10;"><img style="" data-natural-width="1969" data-natural-height="653" data-lazy-loaded="" data-src="deck-11/ca60c247f4b8190c01fd9c26ecde41ae.png"></div></div>
+<div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 0px; top: 0px;" data-block-id="a1df62f5be9de6b526afea1ed94885b5"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; font-size: 150%;">
+<h2 style="text-align:left"><strong>API Security</strong></h2>
+
+<h3 style="text-align:left"><span style="color:rgb(53, 64, 69)">Authentication Type</span></h3>
+</div></div>
+
+</section><section data-id="dcd1bd6ebcfdb48edf54b2dd01e4572a">
+<div class="sl-block" data-block-type="text" style="height: auto; width: 600px; left: 6px; top: 0px;" data-block-id="dd02541cef753ff2455f2739e79b00e6"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11; font-size: 150%;">
+<h2 style="text-align:left"><strong>API Security</strong></h2>
+
+<h3 style="text-align:left">Security Data</h3>
+</div></div>
+
+
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 1209px; height: 508px; left: 36px; top: 191px;" data-block-id="730b6003120917347a6495609bb76873"><div class="sl-block-content" style="z-index: 14;"><img style="" data-natural-width="1902" data-natural-height="799" data-lazy-loaded="" data-src="deck-11/7b1a4b44921d642514da6c40c45ff80c.png"></div></div></section><section data-id="8f4dfc06a9ce677da5928cf9a9ea007d">
+<div class="sl-block" data-block-type="text" style="height: auto; width: 468px; left: 1px; top: 0px;" data-block-id="f555c149d3e0a0e568cbf98f4d4e830f"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;">
+<h2 style="text-align:left"><span style="font-size:1.0em"><strong>API Connector Attributes</strong></span></h2>
+
+<ul>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">Custom icons</span></p>
+	</li>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">Connector description</span></p>
+	</li>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">Connector name</span></p>
+	</li>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">Client connectivity only</span></p>
+	</li>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">Host address and base URL</span></p>
+	</li>
+</ul>
+</div></div>
+
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 1239px; height: 355px; left: 21px; top: 327px;" data-block-id="682314afb3b5dc472cb643375e872d7b"><div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="2339" data-natural-height="670" data-lazy-loaded="" data-src="deck-11/fbc493e43d5fb424533534d7ebfb9a44.png"></div></div></section><section data-id="db7a9301935ffa53b2c295dd00e123eb">
+<div class="sl-block" data-block-type="text" style="height: auto; width: 600px; left: 0px; top: 0px;" data-block-id="e0b7f6ec0c26473ecb836c3bad94873d"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;" data-has-custom-html="">
+<h2 style="text-align:left"><span style="font-size:1.0em"><strong>API Connection</strong></span></h2>
+
+<ul>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">API connection only finish connection</span></p>
+	</li>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">APIs:</span></p>
+
+	<ul>
+		<li>
+		<p><span style="font-size:1.0em">Are to be consumed</span></p>
+		</li>
+		<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+		<p><span style="font-size:1.0em">Do not invoke integrations</span></p>
+		</li>
+	</ul>
+	</li>
+	<li style="color:rgb(53, 64, 69); font-size:21.3333px">
+	<p><span style="font-size:1.0em">Webhook extension invoking API connection</span></p>
+
+	<ul>
+		<li>
+		<p><span style="font-size:1.0em">Allows API connection to be used as part of start connection</span></p>
+		</li>
+	</ul>
+	</li>
+</ul>
+</div></div>
+
+<div class="sl-block" data-block-type="image" style="min-width: 4px; min-height: 4px; width: 1061px; height: 320px; left: 110px; top: 371px;" data-block-id="ee119aee6d2e465f0851644e815ea2c1"><div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="1883" data-natural-height="568" data-lazy-loaded="" data-src="deck-11/656f4c3c5f4b893e6cf0484d6c94b4d4.png"></div></div></section><section id="_summary" data-id="89246a2baed4cfe4680fc3bbc853b8be"><div class="sl-block" data-block-type="text" style="height: auto; min-width: 30px; min-height: 30px; width: 290px; left: 0px; top: 0px;" data-block-id="2e3a7eedd38d30808a693ad234cc8118"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" data-has-custom-html="" style="z-index: 11;" dir="ui">
+<h2 style="text-align: left;">Summary</h2>
 
 <div class="scrollbar">
 <div class="ulist">
 <ul>
 	<li>
-	<p>API Connector (Create/Delete/Configure)</p>
+	<p>API Connector</p>
 	</li>
 	<li>
-	<p>Swagger Actions</p>
+	<p>API Security</p>
+	</li>
+	<li>
+	<p>API Connector Attributes</p>
+	</li>
+	<li>
+	<p>API Connection</p>
 	</li>
 </ul>
 </div>
@@ -1804,9 +1992,9 @@ animation:         icon-animation-short 3.5s 1.5s 1;
 		</div>
 
 		<script>
-			var SLConfig = {"deck": {"id":1218155,"slug":"deck-11","title":"Fuse Online Foundations - API Client Connector","description":"","width":960,"height":700,"visibility":"self","published_at":null,"sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/cb095b31905224c7cc3aa1e50edecaec/thumb.jpg?1522137823","view_count":0,"user":{"id":354178,"username":"hchin","name":"Hong Hua Chin","description":null,"thumbnail_url":"https://www.gravatar.com/avatar/46aa09dd1dd291800ef54633a2b852a1?s=140\u0026d=https%3A%2F%2Fstatic.slid.es%2Fimages%2Fdefault-profile-picture.png","paid":true,"pro":true,"lite":false,"team_id":32,"settings":{"id":187807,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null},"enterprise":true,"membership":{"role":"member","manager":false,"activated":true}},"background_transition":"none","transition":"none","theme_id":176,"theme_font":"overpass2","theme_color":"no-color","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":false,"rolling_links":false,"center":false,"shuffle":false,"should_loop":false,"share_notes":false,"slide_number":false,"slide_count":3,"rtl":false,"version":2,"collaborative":true,"deck_user_editor_limit":1,"data_updated_at":1522137964158,"font_typekit":null,"font_google":null,"notes":{"bcc6a5cd0db8d89d36a1d007556d448a":"=== Transcript\nThis module covers the creation of a custom client connector based on RESTful APIs.","89246a2baed4cfe4680fc3bbc853b8be":"=== Transcript\nThis module covers the creation of a custom client connector based on RESTful APIs."}}};
+			var SLConfig = {"deck": {"id":1218155,"slug":"deck-11","title":"Fuse Online Foundations - Module 3 - API Client Connector","description":"","width":1280,"height":720,"visibility":"self","published_at":null,"sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/cb095b31905224c7cc3aa1e50edecaec/thumb.jpg?1527026222","view_count":0,"user":{"id":354178,"username":"hchin","name":"Hong Hua Chin","description":null,"thumbnail_url":"https://www.gravatar.com/avatar/46aa09dd1dd291800ef54633a2b852a1?s=140\u0026d=https%3A%2F%2Fstatic.slid.es%2Fimages%2Fdefault-profile-picture.png","paid":true,"pro":true,"lite":false,"team_id":32,"settings":{"id":187807,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null},"enterprise":true,"membership":{"role":"member","manager":false,"activated":true}},"background_transition":"none","transition":"none","theme_id":176,"theme_font":"overpass2","theme_color":"no-color","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":false,"rolling_links":false,"center":false,"shuffle":false,"should_loop":false,"share_notes":true,"slide_number":true,"slide_count":9,"rtl":false,"version":2,"collaborative":true,"deck_user_editor_limit":1,"data_updated_at":1527124344595,"font_typekit":null,"font_google":null,"notes":{"bcc6a5cd0db8d89d36a1d007556d448a":"This module covers the creation of a custom client connector based on RESTful APIs. It describes the security aspects, the connector attributes, and the API connection.","89246a2baed4cfe4680fc3bbc853b8be":"This module covered the creation of a custom client connector based on RESTful APIs. It described the security aspects, the connector attributes, and the API connection.","74bc23d5ece93b241e50e094856191fc":"Using Fuse Ignite, a connector can be created for any API based on a Swagger definition of the RESTful service API.\n\nResource operations defined in the Swagger document are mapped to connector actions in the custom-built API connector.","bdf0859a69c0c00b70ed9867a714ebba":"Security settings can be set in the Swagger document for the RESTful service. After the Swagger document is imported into Fuse Ignite, the authentication type can be selected to secure access to the API.","24a8590d90c351db90e537b7f1b829eb":"Swagger version 2.0 support is provided in the API connector wizard.\n\nAs part of the connector setup process, Swagger documents can be uploaded or a URL to the Swagger document can be provided.\n\nAuthorization support in the form of an OAuth 2.0 framework is also provided. The Swagger document must contain a reference to the OAuth2 security scheme for the API connector to successfully manage access to the API.","8f4dfc06a9ce677da5928cf9a9ea007d":"During API connector setup, custom icons, a connector description, and the connection name can be provided as part of the configuration. The host address and base URL are also revealed for inspection prior to finalization of configuration changes.\n\nThe API connector behaves like a client connector, which means that it interacts with the REST service API as a REST client. It sends a request to the REST service and may expect a response if there is one.\n\n","dcd1bd6ebcfdb48edf54b2dd01e4572a":"Upon successful creation of the API connector, the next phase to connecting to your API is setting up a connection using this API connector .\n\nDuring this phase, security data, like the OAuth Client ID, OAuth Client Secret, OAuth Access Token, and OAuth Authorization Endpoint URL, must be provided as part of configuring the connection.\n\nIt is helpful if this information is determined and written down before starting configuration setup.","db7a9301935ffa53b2c295dd00e123eb":"Currently, any API connection is restricted for use only as a finish connection.\n\nThis fulfills the underlying concept that APIs are consumed as part of an integration, not used to initiate integrations. \n\nIt is possible to set up a webhook extension that invokes an API connection. This approach allows the API connection to be used as part of a start connection."}}};
 
-				SLConfig.theme = {"id":176,"created_at":"2014-05-27T12:38:16.183Z","updated_at":"2017-10-10T08:48:29.371Z","name":"Red Hat Corporate","thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/66755080be2b0c8c0146bfa70069ef16/thumb.jpg?1507625308","sanitize_messages":null,"slide_template_ids":[56708,56706,56689,28642,36442,27160,26765,26762,56684,56696,56697,56698,56699,56704,56703,56707],"font_typekit":"","font_google":"","width":960,"height":700};
+				SLConfig.theme = {"id":176,"created_at":"2014-05-27T12:38:16.183Z","updated_at":"2018-05-04T07:53:25.097Z","name":"Red Hat Corporate","thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/66755080be2b0c8c0146bfa70069ef16/thumb.jpg?1525420403","sanitize_messages":null,"slide_template_ids":[56708,56706,56689,28642,36442,27160,26765,26762,56684,56696,56697,56698,56699,56704,56703,56707],"font_typekit":"","font_google":"","width":960,"height":700};
 
 			// Use local fonts
 			SLConfig.fonts_url = 'lib/fonts/';
@@ -1819,16 +2007,16 @@ animation:         icon-animation-short 3.5s 1.5s 1;
 		<!-- Initialize the presentation -->
 		<script>
 			Reveal.initialize({
-				width: 960,
-				height: 700,
+				width: 1280,
+				height: 720,
 				margin: 0.05,
 
 				controls: true,
 				progress: true,
 				history: true,
 				mouseWheel: false,
-				showNotes: false,
-				slideNumber: false,
+				showNotes: true,
+				slideNumber: true,
 
 				autoSlide: 0 || 0,
 				autoSlideStoppable: true,

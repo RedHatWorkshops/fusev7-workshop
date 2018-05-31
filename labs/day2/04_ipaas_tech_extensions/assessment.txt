@@ -1,19 +1,19 @@
 QUESTIONBANKCODE|QUESTIONCODE|QUESTIONTYPE|QUESTIONTEXT|QUESTIONTEXTFORMAT|QUESTIONFEEDBACK|OPTION|RIGHTOPTION|OPTIONFEEDBACK|ISCORRECT|OPTIONWEIGHT|ISCASESENSITIVE|RANDOMIZEOPTIONS|STATUS
-IGNITE_DEV|IGNITE_FDS0401|1|Which is not a default connector of Red Hat Fuse Ignite?|||OData|||0|0|||
-IGNITE_DEV|IGNITE_FDS0401|1|Which is not a default connector of Red Hat Fuse Ignite?|||Ansible|||1|100|||
-IGNITE_DEV|IGNITE_FDS0401|1|Which is not a default connector of Red Hat Fuse Ignite?|||Timer|||0|0|||
-IGNITE_DEV|IGNITE_FDS0401|1|Which is not a default connector of Red Hat Fuse Ignite?|||REST|||0|0|||
-IGNITE_DEV|IGNITE_FDS0402|1|Which is not a dependency for technical extensions of Red Hat Fuse Ignite?|||io.syndesis.extension.api.Step|||0|0|||
-IGNITE_DEV|IGNITE_FDS0402|1|Which is not a dependency for technical extensions of Red Hat Fuse Ignite?|||io.syndesis.extension.api.annotations.Action|||0|0|||
-IGNITE_DEV|IGNITE_FDS0402|1|Which is not a dependency for technical extensions of Red Hat Fuse Ignite?|||io.syndesis.extension.api.annotations.ConfigurationProperty|||0|0|||
-IGNITE_DEV|IGNITE_FDS0402|1|Which is not a dependency for technical extensions of Red Hat Fuse Ignite?|||io.syndesis.extension.api.Action|||1|100|||
+IGNITE_DEV|IGNITE_FDS0401|1|Which of the following is NOT a default connector of Red Hat Fuse Ignite?|||OData|||0|0|||
+IGNITE_DEV|IGNITE_FDS0401|1|Which of the following is NOT a default connector of Red Hat Fuse Ignite?|||Ansible|||1|100|||
+IGNITE_DEV|IGNITE_FDS0401|1|Which of the following is NOT a default connector of Red Hat Fuse Ignite?|||Timer|||0|0|||
+IGNITE_DEV|IGNITE_FDS0401|1|Which of the following is NOT a default connector of Red Hat Fuse Ignite?|||REST|||0|0|||
+IGNITE_DEV|IGNITE_FDS0402|1|Which of the following is NOT a dependency for technical extensions of Red Hat Fuse Ignite?|||io.syndesis.extension.api.Step|||0|0|||
+IGNITE_DEV|IGNITE_FDS0402|1|Which of the following is NOT a dependency for technical extensions of Red Hat Fuse Ignite?|||io.syndesis.extension.api.annotations.Action|||0|0|||
+IGNITE_DEV|IGNITE_FDS0402|1|Which of the following is NOT a dependency for technical extensions of Red Hat Fuse Ignite?|||io.syndesis.extension.api.annotations.ConfigurationProperty|||0|0|||
+IGNITE_DEV|IGNITE_FDS0402|1|Which of the following is NOT a dependency for technical extensions of Red Hat Fuse Ignite?|||io.syndesis.extension.api.Action|||1|100|||
 IGNITE_DEV|IGNITE_FDS0403|5|Both the 'inputDataShape' and 'outputDataShape' elements of a shapeless connector contain a 'kind' element with the value 'any'.|||TRUE|||1|100|||
 IGNITE_DEV|IGNITE_FDS0403|5|Both the 'inputDataShape' and 'outputDataShape' elements of a shapeless connector contain a 'kind' element with the value 'any'.|||FALSE|||0|0|||
-IGNITE_DEV|IGNITE_FDS0404|1|Which statement about the extension definition file for a Fuse Ignite technical extension is true?|||The file is named syndesis-extension-definition.js|||0|0|||
-IGNITE_DEV|IGNITE_FDS0404|1|Which statement about the extension definition file for a Fuse Ignite technical extension is true?|||The format of the file is YAML|||0|0|||
-IGNITE_DEV|IGNITE_FDS0404|1|Which statement about the extension definition file for a Fuse Ignite technical extension is true?|||The file always contains an actionType element|||1|100|||
-IGNITE_DEV|IGNITE_FDS0404|1|Which statement about the extension definition file for a Fuse Ignite technical extension is true?|||It is located in a src/main/java subdirectory|||0|0|||
-IGNITE_DEV|IGNITE_FDS0405|1|During the Import Extension process, which attribute of the technical extension is not visible from the Fuse Ignite console?|||description|||0|0|||
-IGNITE_DEV|IGNITE_FDS0405|1|During the Import Extension process, which attribute of the technical extension is not visible from the Fuse Ignite console?|||pattern|||1|100|||
-IGNITE_DEV|IGNITE_FDS0405|1|During the Import Extension process, which attribute of the technical extension is not visible from the Fuse Ignite console?|||ID|||0|0|||
-IGNITE_DEV|IGNITE_FDS0405|1|During the Import Extension process, which attribute of the technical extension is not visible from the Fuse Ignite console?|||name|||0|0|||
+IGNITE_DEV|IGNITE_FDS0404|1|Which of the following is a true statement about the extension definition file for a Fuse Ignite technical extension?|||The file is named syndesis-extension-definition.js|||0|0|||
+IGNITE_DEV|IGNITE_FDS0404|1|Which of the following is a true statement about the extension definition file for a Fuse Ignite technical extension?|||The format of the file is YAML|||0|0|||
+IGNITE_DEV|IGNITE_FDS0404|1|Which of the following is a true statement about the extension definition file for a Fuse Ignite technical extension?|||The file always contains an actionType element|||1|100|||
+IGNITE_DEV|IGNITE_FDS0404|1|Which of the following is a true statement about the extension definition file for a Fuse Ignite technical extension?|||It is located in a src/main/java subdirectory|||0|0|||
+IGNITE_DEV|IGNITE_FDS0405|1|During the Import Extension process, which attribute of the technical extension is NOT visible from the Fuse Ignite console?|||description|||0|0|||
+IGNITE_DEV|IGNITE_FDS0405|1|During the Import Extension process, which attribute of the technical extension is NOT visible from the Fuse Ignite console?|||pattern|||1|100|||
+IGNITE_DEV|IGNITE_FDS0405|1|During the Import Extension process, which attribute of the technical extension is NOT visible from the Fuse Ignite console?|||ID|||0|0|||
+IGNITE_DEV|IGNITE_FDS0405|1|During the Import Extension process, which attribute of the technical extension is NOT visible from the Fuse Ignite console?|||name|||0|0|||

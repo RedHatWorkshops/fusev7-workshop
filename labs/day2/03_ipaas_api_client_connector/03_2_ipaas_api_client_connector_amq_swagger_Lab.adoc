@@ -83,9 +83,9 @@ image::images/01-Step-58.png[]
 . Provide the following values to these fields:
 +
 ----
-Activemq user name: jboss
+Activemq user name: uservKL
 
-Activemq password: jboss
+Activemq password: RA8oNMOg
 ----
 +
 . And click the *Done* button on the left panel.
@@ -102,8 +102,8 @@ image::images/01-Step-61.png[]
 +
 ----
 tcp://syndesis-amq-tcp:61616
-user: jboss
-password: jboss
+user: uservKL
+password: RA8oNMOg
 ----
 +
 . Click *Validate*.
@@ -286,10 +286,5 @@ You have completed, tested and cleaned up your integration in Fuse Ignite.
 
 ifdef::showscript[]
 
-Base URL: tcp://syndesis-amq-tcp:61616
-
-User Name: ignite
-
-Password: ignite
 
 endif::showscript[]

@@ -3,29 +3,29 @@ IGNITE_DEV|IGNITE_FDS0101|1|Who is the target audience for Red Hat Ignite?|||Cit
 IGNITE_DEV|IGNITE_FDS0101|1|Who is the target audience for Red Hat Ignite?|||System administrators|||0|0|||
 IGNITE_DEV|IGNITE_FDS0101|1|Who is the target audience for Red Hat Ignite?|||C++ developers|||0|0|||
 IGNITE_DEV|IGNITE_FDS0101|1|Who is the target audience for Red Hat Ignite?|||All of the above|||0|0|||
-IGNITE_DEV|IGNITE_FDS0102|1|Which is not a system metric that is visible from the Fuse Ignite console?|||Amount of time since Fuse Ignite became active|||0|0|||
-IGNITE_DEV|IGNITE_FDS0102|1|Which is not a system metric that is visible from the Fuse Ignite console?|||Number of integrations in use|||0|0|||
-IGNITE_DEV|IGNITE_FDS0102|1|Which is not a system metric that is visible from the Fuse Ignite console?|||Memory utilization|||1|100|||
-IGNITE_DEV|IGNITE_FDS0102|1|Which is not a system metric that is visible from the Fuse Ignite console?|||Number of processed messages|||0|0|||
+IGNITE_DEV|IGNITE_FDS0102|1|Which of the following is NOT a system metric that is visible from the Fuse Ignite console?|||Amount of time since Fuse Ignite became active|||0|0|||
+IGNITE_DEV|IGNITE_FDS0102|1|Which of the following is NOT a system metric that is visible from the Fuse Ignite console?|||Number of integrations in use|||0|0|||
+IGNITE_DEV|IGNITE_FDS0102|1|Which of the following is NOT a system metric that is visible from the Fuse Ignite console?|||Memory utilization|||1|100|||
+IGNITE_DEV|IGNITE_FDS0102|1|Which of the following is NOT a system metric that is visible from the Fuse Ignite console?|||Number of processed messages|||0|0|||
 IGNITE_DEV|IGNITE_FDS0103|5|A step is a task that performs data operations.|||TRUE|||1|100|||
 IGNITE_DEV|IGNITE_FDS0103|5|A step is a task that performs data operations.|||FALSE|||0|0|||
-IGNITE_DEV|IGNITE_FDS0104|5|Fuse Ignite scales thanks to Kubernetes suppport.|||TRUE|||1|100|||
-IGNITE_DEV|IGNITE_FDS0104|5|Fuse Ignite scales thanks to Kubernetes suppport.|||FALSE|||0|0|||
-IGNITE_DEV|IGNITE_FDS0105|5|Four of the Fuse Ignite infrastructure pods each utilizes a databas  as a persistence store.|||TRUE|||1|100|||
-IGNITE_DEV|IGNITE_FDS0105|5|Four of the Fuse Ignite infrastructure pods each utilizes a database as a persistence store.|||FALSE|||0|0|||
+IGNITE_DEV|IGNITE_FDS0104|5|Fuse Ignite scales as a result of Kubernetes suppport.|||TRUE|||1|100|||
+IGNITE_DEV|IGNITE_FDS0104|5|Fuse Ignite scales as a result of Kubernetes suppport.|||FALSE|||0|0|||
+IGNITE_DEV|IGNITE_FDS0105|5|Four of the Fuse Ignite infrastructure pods each use a database as a persistence store.|||TRUE|||1|100|||
+IGNITE_DEV|IGNITE_FDS0105|5|Four of the Fuse Ignite infrastructure pods each use a database as a persistence store.|||FALSE|||0|0|||
 IGNITE_DEV|IGNITE_FDS0106|1|Which Fuse Ignite infrastructure pod provides user authorization services?|||syndesis-ui|||0|0|||
 IGNITE_DEV|IGNITE_FDS0106|1|Which Fuse Ignite infrastructure pod provides user authorization services?|||syndesis-server|||1|100|||
 IGNITE_DEV|IGNITE_FDS0106|1|Which Fuse Ignite infrastructure pod provides user authorization services?|||syndesis-meta|||0|0|||
 IGNITE_DEV|IGNITE_FDS0106|1|Which Fuse Ignite infrastructure pod provides user authorization services?|||syndesis-prometheus|||0|0|||
-IGNITE_DEV|IGNITE_FDS0107|1|Which are the pre-packaged softwares in Fuse Ignite?|||MySQL and HornetQ|||0|0|||
-IGNITE_DEV|IGNITE_FDS0107|1|Which are the pre-packaged softwares in Fuse Ignite?|||MariaDB and Red Hat AMQ|||0|0|||
-IGNITE_DEV|IGNITE_FDS0107|1|Which are the pre-packaged softwares in Fuse Ignite?|||PostgresDB and Red Hat AMQ|||1|100|||
-IGNITE_DEV|IGNITE_FDS0107|1|Which are the pre-packaged softwares in Fuse Ignite?|||Red Hat EAP and Red Hat AMQ|||0|0|||
-IGNITE_DEV|IGNITE_FDS0108|5|Having an OpenShift Online account is a pre-requisite to using Fuse Online.|||TRUE|||1|100|||
-IGNITE_DEV|IGNITE_FDS0108|5|Having an OpenShift Online account is a pre-requisite to using Fuse Online.|||FALSE|||0|0|||
+IGNITE_DEV|IGNITE_FDS0107|1|Which software is pre-packaged in Fuse Ignite?|||MySQL and HornetQ|||0|0|||
+IGNITE_DEV|IGNITE_FDS0107|1|Which software is pre-packaged in Fuse Ignite?|||MariaDB and Red Hat AMQ|||0|0|||
+IGNITE_DEV|IGNITE_FDS0107|1|Which software is pre-packaged in Fuse Ignite?|||PostgresDB and Red Hat AMQ|||1|100|||
+IGNITE_DEV|IGNITE_FDS0107|1|Which software is pre-packaged in Fuse Ignite?|||Red Hat EAP and Red Hat AMQ|||0|0|||
+IGNITE_DEV|IGNITE_FDS0108|5|Having an OpenShift Online account is a prerequisite to using Fuse Online.|||TRUE|||1|100|||
+IGNITE_DEV|IGNITE_FDS0108|5|Having an OpenShift Online account is a prerequisite to using Fuse Online.|||FALSE|||0|0|||
 IGNITE_DEV|IGNITE_FDS0109|5|Fuse Ignite is fully open source.|||TRUE|||1|100|||
 IGNITE_DEV|IGNITE_FDS0109|5|Fuse Ignite is fully open source.|||FALSE|||0|0|||
-IGNITE_DEV|IGNITE_FDS0110|1|Which of these companies compete with Red Hat in the iPaaS product category?|||HP and Cisco|||0|0|||
-IGNITE_DEV|IGNITE_FDS0110|1|Which of these companies compete with Red Hat in the iPaaS product category?|||Mulesoft and Cisco|||0|0|||
-IGNITE_DEV|IGNITE_FDS0110|1|Which of these companies compete with Red Hat in the iPaaS product category?|||Cloudera and Talend|||0|0|||
-IGNITE_DEV|IGNITE_FDS0110|1|Which of these companies compete with Red Hat in the iPaaS product category?|||Talend and Mulesoft|||1|100|||
+IGNITE_DEV|IGNITE_FDS0110|1|Which of the following companies compete with Red Hat in the iPaaS product category?|||HP and Cisco|||0|0|||
+IGNITE_DEV|IGNITE_FDS0110|1|Which of the following companies compete with Red Hat in the iPaaS product category?|||Mulesoft and Cisco|||0|0|||
+IGNITE_DEV|IGNITE_FDS0110|1|Which of the following companies compete with Red Hat in the iPaaS product category?|||Cloudera and Talend|||0|0|||
+IGNITE_DEV|IGNITE_FDS0110|1|Which of the following companies compete with Red Hat in the iPaaS product category?|||Talend and Mulesoft|||1|100|||

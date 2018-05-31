@@ -40,6 +40,9 @@ This _Product Catalog_ service will support several labs in this course.
 Red Hat strongly recommends that you use this remote OpenShift environment for the remainder of the labs of this course.
 
 == Sign Up
+
+If you are attending an instructor-led training, skip this section and proceed to the next section titled *Connect*.
+
 . Identify your Red Hat OPENTLC username.
 +
 [TIP]

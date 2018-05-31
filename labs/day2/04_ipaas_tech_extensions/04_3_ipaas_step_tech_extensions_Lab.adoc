@@ -281,8 +281,8 @@ image:images/create-connection-amq.png[]
 . Select the *AMQ* connector. The *AMQ* connection creation page loads.
 . Configure the connection by entering:
 .. In the *Broker URL* field, enter `tcp://syndesis-amq-tcp:61616` where the messages are delivered and resides.
-.. In the *Username* field, enter `jboss` as authorized user account.
-.. In the *Password* field, enter `jboss` as the password.
+.. In the *Username* field, enter `uservKL` as authorized user account.
+.. In the *Password* field, enter `RA8oNMOg` as the password.
 . Leaving all other fields alone, click *Validate*.
 . When validation is successful, click Next.
 . In the *Connection Name* field, enter `AMQ Broker`.
@@ -304,7 +304,7 @@ image:images/secured-route-todo-app.png[]
 +
 image:images/unsecure-route-todo-app.png[]
 +
-. Unsecure the route for the* Todo App* by removing the entry in the checkbox.
+. Unsecure the route for the *Todo App* by removing the entry in the checkbox.
 . Scroll down and click *Save*.
 
 
@@ -314,10 +314,10 @@ You will create a REST API connection to the *Todo App* that will be used in thi
 
 . On the left-hand panel of the Fuse Ignite console, click *Home*.
 . Copy the URL for the Fuse Ignite console.
-. At the front of the URL, insert `todo-` and at the end of the URL, append `/swagger.json`. You now have a URL for the Swagger specification for the *Todo App* in the form:
+. At the front of the URL, insert `todo-` at the end of the URL, append `/swagger.json`. You now have a URL for the Swagger specification for the *Todo App* in the form:
 +
 ----
-todo-fuse.fuse-<$GUID>.apps.dev37.openshift.opentlc.com/swagger.json
+http://todo-fuse.fuse-ignite-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com/swagger.json
 ----
 +
 . In the Ignite navigation panel, click *Customizations*.
@@ -330,7 +330,7 @@ todo-fuse.fuse-<$GUID>.apps.dev37.openshift.opentlc.com/swagger.json
 specification without the `swagger.json`. For instance:
 +
 ----
-https://todo-app.fuse-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com
+http://todo-fuse.fuse-ignite-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com
 ----
 +
 . Click *Create Connector*. Notice the *API Client Connectors* tab contains a *Todo App* API which was just created.
@@ -345,8 +345,8 @@ You will create a connection to the *Todo App* API.
 3. Click the *Todo App API* connector that you have just created.
 4. In the *Configuration* wizard, notice that Fuse Ignite populates the *Authentication Type*,
 Base Path*, and *Host* fields from the connector information.
-5. In the *Username* field, enter `jboss`.
-6. In the *Password* field, enter `jboss`.
+5. In the *Username* field, enter `uservKL`.
+6. In the *Password* field, enter `RA8oNMOg`.
 7. Click *Next*.
 8. In the *Connection Name* field, enter `Todo App API Client`.
 9. Leave the *Description* field empty.
@@ -375,7 +375,8 @@ Destination Type: Queue
 image:images/amq-broker-subscribe-for-messages.png[]
 +
 . Click *Next* and then *Done* to complete the setup of the *Start* connection.
-. Select on the left-hand panel, the *Finish Connection*.
+. Select from the left-hand panel, the *Finish Connection*.
+. Click on the "Create Task" action.
 . Click on the *Todo App API Client* connection.
 . Click *Next* and then *Done* to complete the setup of the *Finish* connection.
 
@@ -418,17 +419,17 @@ You will test the integration.
 for your Fuse Ignite installation. The resulting URL should resemble:
 +
 ----
-https://todo-app.fuse-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com
+http://todo-fuse.fuse-ignite-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com
 ----
 +
 [TIP]
-For instance, the URL to a particular instance of a *To Do app* could be `https://todo-app.fuse-3824.apps.ap2.openshift.opentlc.com/` where `3824` is the *$GUID* and `ap2` is the *$Environment_ID*
+For instance, the URL to a particular instance of a *To Do app* could be `http://todo-fuse.fuse-ignite-f2r5.apps.ap2.openshift.opentlc.com/` where `f2r5` is the *$GUID* and `ap2` is the *$Environment_ID*
 +
 . Using the *To Do app*, click *Show JMS Form* to display a field for a XML message.
 . Click *Send JMS Message* to send that message to the AMQ broker.
 +
 [NOTE]
-Successful execution returns a task from the *To Do app client API*. The task identifies the ID of
+Successful execution returns a task from the *To Do app* API. The task identifies the ID of
 the damaged item as well as the contact information for its vendor.
 +
 . Edit the *XML message* to specify two damaged items:
