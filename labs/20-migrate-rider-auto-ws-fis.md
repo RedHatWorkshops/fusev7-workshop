@@ -21,7 +21,7 @@ To begin, we need to create a FIS SpringBoot project in JBDS.
 
 4. Select Kubernetes/Openshift as the **deployment platform**.
  - choose Spring Boot as the **runtime environment**
- - and select 2.21.0.000033-fuse-000001-redhat-1 as the **Camel Version**.
+ - and select 2.21.0.fuse-000077-redhat-1 as the **Camel Version**.
 
 ![Type Project Name](images/10-Step-4.png)
 
@@ -118,7 +118,7 @@ Now let's try running our SpringBoot container on OpenShift.
 
 ```
 mvn clean install fabric8:deploy -o \
- -Dkubernetes.master=https://master.fuse7sa-emea.openshiftworkshop.com:443 \
+ -Dkubernetes.master=https://YOUR_MASTER_URL:443 \
  -Dkubernetes.namespace=YOUR_USER_NO-fis-rider-auto-ws \
  -Dkubernetes.auth.basic.username=YOUR_USER_NO \
  -Dkubernetes.auth.basic.password=r3dh4t1! \
