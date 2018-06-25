@@ -100,7 +100,7 @@ Fuse 7 introduces a new version of the Karaf OSGi container, Karaf 4.  One of th
 ### Prerequisites
 
 1. Ensure you have JBoss Developers Studio version 11.3 + with the latest Fuse Tooling
-2. Ensure [Fuse 7.x](https://drive.google.com/open?id=1oQJm9gAfEVvOheppanGadoji0J7aK3dj) is unzipped to a local directory
+2. Ensure Fuse 7.x Karaf zip is unzipped to a local directory
  - To add a user:
 
  - Open InstallDir/etc/users.properties in your favorite text editor.
@@ -130,9 +130,10 @@ To begin, we need to create a Fuse Karaf project in JBDS using one of the fabulo
 
 ![Type Project Name](images/30-Step-3.png)
 
-4. Select Fuse 7 as the **Target Runtime**, or select **2.21.0.000033-fuse-000001-redhat-1** as the **Camel Version**. Click "Next".
+4. Select **Karaf/Fuse on Karaf** and click "New" button next to it. Select Fuse 7.0 as runtime. Select where you unzip the karaf instance.
 
 ![Type Project Name](images/30-Step-4.png)
+![Type Project Name](images/30-Step-4-1.png)
 
 5. Choose "Use a predefined template", then select "Beginner", "Content Based Router" and "Blueprint DSL".  Click Finish.
 
