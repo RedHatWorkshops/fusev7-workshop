@@ -5,212 +5,212 @@
 :coursevm:
 
 
-= Integration Lab - Salesforce to PostgresDB scenario
+== Salesforce to PostgreSQL Integration Lab
 
-This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
+NOTE: This lab takes about an hour to complete. It covers topics you need to know to correctly complete the final assessment.
 
-.Goals
-* Create an Integration using Red Hat Fuse Ignite from Salesforce to PostgresDB Database
+.Goal
+* Create an Integration from Salesforce to a PostgreSQL database using Fuse Ignite
 
 .Requirements
-* Registered for a Salesforce Developer account
+* A Salesforce developer account
 
-Coolstore, an online store of fine products, plans to replicate the data that they captured in Salesforce, as part of a customer lead capture project.
-The replica of the data will reside on a PostgresDB database. This enables business analytical jobs can be executed on this replica of the lead data.
+.Overview
+
+Coolstore, an online wholesaler of quality products, plans to replicate the data that they captured in Salesforce as part of a customer lead capture project. The replica of the data will reside on a PostgreSQL database. This enables business analytics jobs to be executed on the replica of the lead data.
 
 image::images/arch-salesforce-db.png[]
 
-In this lab, you will integrate two popular technology products: Salesforce and PostgresDB Database, in order to meet the above-mentioned business use case for Coolstore's data replication project.
+In this lab, you integrate two popular technology products--Salesforce and PostgreSQL--in order to meet the above-mentioned business use case for Coolstore's data replication project.
 
 :numbered:
 
-== Logon to Red Hat Fuse Ignite
-
-. Check your email inbox for the same email you received earlier, containing a link to Red Hat Fuse Ignite.
+== Log In to Fuse Ignite Console
+. Log in to the OpenShift Container Platform web console if you are not already logged in.
 +
-CAUTION: Red Hat Fuse Ignite is supported for the following web browsers: Google Chrome, Mozilla Firefox, Microsoft Edge
-+
-. Click this link to display the Red Hat Fuse Ignite login page.
+TIP: The link is in your confirmation email, if you need it.
 
-. Log in using your OPENTLC account.
+. Click your *fuse-ignite-$GUID* project.
+. Click the URL of your Fuse Ignite console.
+. Log in using your OPENTLC credentials.
+* The Fuse Ignite console appears.
 
-. A webpage launches, prompting you to authorize Red Hat Fuse Ignite access to your OPENTLC account credentials:
-+
-image::images/fuseignite_oauth.png[]
-+
-. Select both available checkboxes and click the *Allow selected permissions* button.
-+
-NOTE: This authorization page will appear only once. The next time you log in, the console for Fuse Ignite appears instead of this authorization page.
+== Register Fuse Ignite as Client for Salesforce
 
-== Register Fuse Ignite as a client for Salesforce
+In the previous lab, you registered Fuse Ignite with Salesforce.
 
-In the earlier lab *Integration Lab - Twitter to Salesforce scenario* you have registered Fuse Ignite with Salesforce.
+If you have not completed the previous lab, complete the _Register Fuse Ignite as Client for Salesforce_ section before proceeding to the next section of this lab.
 
-If you have not completed that lab, complete the section in that lab titled *Register Fuse Ignite as a client for Salesforce* before proceeding to the next section of this lab.
+== Create Salesforce Connection in Fuse Ignite
 
-== Create a Salesforce Connection on Fuse Ignite
+In the previous lab, you created a Salesforce connection. You can reuse this connection in the next integration.
 
-In the earlier lab *Integration Lab - Twitter to Salesforce scenario* you have created a Salesforce connection. Since you already have a Salesforce connection, you can reuse it the next integration to be created.
+If you have not completed the previous lab, complete the _Create Salesforce Connection in Fuse Ignite_ section before proceeding to the next section of this lab.
 
-If you have not completed that lab, complete the section in that lab titled *Create a Salesforce Connection on Fuse Ignite* before proceeding to the next section of this lab.
+== Create Integration Between Salesforce and PostgreSQL
 
-== Create an Integration between Salesforce and PostgresDB database
-
-. On the left-hand pane of Fuse Ignite console, click *Integrations*.
+. In the left-hand panel of the Fuse Ignite console, click *Integrations*.
 . Click *Create Integration*.
-. Select the Salesforce connection, on the *Choose a Start Connection* page.
-. Click the *On create* option, on the *Choose an Action* page.
+. On the *Choose a Start Connection* screen, select the Salesforce connection.
+. On the *Choose an Action* screen, select *On create*:
 +
 image::images/salesforce_connection_on_create.png[]
 +
-. On the *On create* page, select *Lead* from the list of choices in the *Object name* field.
-. Click *Done*. The Salesforce connection is now officially the *start connection* in the Integration.
+. On the *On create* screen, select *Lead* from the list of choices in the *Object name* field:
 +
 image::images/configure_on_create_lead.png[]
+. Click *Done*.
+* The Salesforce connection is now officially the start connection in the integration.
 +
-NOTE: The Integration monitors for a notification arising from the creation of a Salesforce lead record. Data from this new lead is immediately passed to the next step within the integration. The *finish connection will be created next, followed by the creation of this step.
+NOTE: The integration monitors for a notification arising from the creation of a Salesforce lead record. Data from new leads are immediately passed to the next step within the integration.
 
-== Add the PostgresDB connection to the Integration
+== Add PostgresDB Connection to Integration
 
-. In the Fuse Ignite console, select the *Finish Connection* page.
+In this section, you create the finish connection to the integration.
+
+. In the left-hand panel, select *Finish*:
 +
 image::images/choose_finish_connection_db.png[]
-+
-. Select the `PostgresDB` connection icon.
+
+. Select the *PostgresDB* connection icon.
 +
 NOTE: Credentials defined with the PostgresDB database connection are used when connecting to the database.
-+
-. Click *Invoke SQL stored procedure* on the *Choose an Action* page. Data is sent to a database stored procedure, as part of the integration.
+
+. On the *Choose an Action* screen, select *Invoke stored procedure*:
 +
 image::images/choose_an_action_sql.png[]
-+
-. On the *Invoke SQL stored procedure* page, select _add_lead_ from the *Procedure Name* field. This is a pre-packaged stored procedure for use with the database. The selected stored procedure determines the requirements for steps in the integration, which in this case are the Salesforce fields required in the mapping to respective database fields.
-. Click *Done*. The PostgresDB connection is now part of the Integration.
+* Data is sent to a database stored procedure as part of the integration.
+. On the *Invoke SQL stored procedure* screen, select *add_lead* from the *Procedure Name* field:
 +
 image::images/invoke_sql_add_lead.png[]
+* This is a prepackaged stored procedure for use with the database. The selected stored procedure determines the requirements for steps in the integration, which in this case are the Salesforce fields required in the mapping to respective database fields.
+. Click *Done*.
+* The PostgresDB connection is now part of the integration.
 
-== Add a data mapping step
 
-To complete the integration, Salesforce fields have to be mapped to respective PostgresDB fields through the use of a _data mapping_ step.
+== Add Data Mapping Step
 
-. Mouse-hover over the plus sign on the left-hand pane. The plus sign is located right below the *START* connection.
+To complete the integration, Salesforce fields have to be mapped to respective PostgresDB fields through a data mapping step.
+
+. Hover over the image:images/add_filter_icon.png[] in the left-hand panel below the start connection and select *Add a Step*:
 +
 image::images/db_save_add_step.png[]
 +
-. Click *Add a Step* in the pop-up window.
-. Click *Data Mapper*. The data fields that can selected for the mapping appear.
+. Select *Data Mapper*:
 +
 image::images/db_add_a_step_data_mapper.png[]
+* The available data fields appear.
 +
 [TIP]
-If you made a mistake in creating a data mapping, it is easy to delete it. Simply click the garbage bin icon at the top of the *Mapping Details* pane, as seen below:
-+
+====
+If you make a mistake while creating a data mapping, it is easy to delete it. Simply click the garbage bin icon at the top of the *Mapping Details* panel:
+
 image::images/mapping_details_garbagebin.png[]
-+
-. Map the source `Company` field (in the Salesforce data schema) to the target `company` field (in the PostgresDB data scheme).
-.. On the *Sources* column, scroll down and click `Company`.
-.. On the *Target* column, click `company`. A line from the source field to the target field has been established by the data mapper.
+====
+. Map the source *Company* field (in the Salesforce data schema) to the target *company* field (in the PostgresDB data schema):
+.. In the *Sources* panel, scroll down and click *Company*.
+.. In the *Target* panel, click *company*.
+* A line from the source field to the target field is established by the data mapper:
 +
 image::images/configure_mapper_company.png[]
-+
-. In the same manner, create these data mappings:
-.. from the Salesforce `Email` field to the PostgresDB `email` field, and
-.. from the Salesforce `FirstName` field to the PostgresDB `first_and_last_name` field.
-+
-[NOTE]
-A line connecting the Salesforce `FirstName` field to the PostgresDB `first_and_last_name` field is displayed. The next activity will be to combine the `FirstName` and `LastName` *Sources* fields into the `first_and_last_name` *Target* field.
-+
-. With `FirstName` on the *Sources* column selected, select *Combine* from the *Action* field on the *Mapping Details* pane.
-. Click the *Add Source* button.
-. Highlight the text `[None]` that appears in the new *Source* section (second from the top of the *Mapping Details* pane).
-. Replace the text `[None]` with `LastName`. A drop-down list appears below the field.
-. Select `LastName` from the drop-down list.
-. A line connecting the Salesforce `LastName` field to the PostgresDB `first_and_last_name` field is displayed. This is the mapping established by the data mapper.
+
+. In the same manner, create a data mapping between the Salesforce *Email* field and the PostgresDB *email* field.
+. Create a data mapping between the Salesforce *FirstName* field and the PostgresDB *first_and_last_name* field.
+* A line connecting the Salesforce *FirstName* field to the PostgresDB *first_and_last_name* field is displayed.
+
+. Next, combine the Salesforce *FirstName* and *LastName* fields with the PostgresDB *first_and_last_name* field.
+
+.. With *FirstName* on the *Sources* panel selected, select *Combine* from the *Action* list on the *Mapping Details* panel.
+.. Click *Add Source*.
+.. In the *Source* section (second from the top of the *Mapping Details* panel) start typing `LastName` where *[None]* is displayed, then select *LastName* from the list.
+** A line connecting the Salesforce *LastName* field to the PostgresDB *first_and_last_name* field is displayed:
 +
 image::images/configure_mapper_mapping_details_lastname.png[]
-+
+
 . Create the following data mappings:
 +
-[width="25%"]
+[cols=2,width="50%",options="header"]
 |=======
-|*Map This _Sources_ Field*|*To This _Target_ Field*
-|`LeadSource`|`lead_source`
-|`Status`|`lead_status`
-|`Phone`|`phone`
-|`Rating`|`rating`
+|Sources Field|Target Field
+|LeadSource|lead_source
+|Status|lead_status
+|Phone|phone
+|Rating|rating
 |=======
-+
-. Click the *Next* button located on the upper right of the Fuse Ignite console.
+
+. Click *Done* at the top right corner of the Fuse Ignite console.
 +
 image::images/configure_mapper_all_mapped.png[]
 +
-. At the top-left hand corner of the Fuse Ignite console, select the field with the text `Enter integration name...`
-. Provide _Salesforce to PostgresDB_ as the name for the integration.
-. At the upper right corner of the console, click *Publish*.
+. At the top left corner of the Fuse Ignite console, in the *Enter integration name...* field, type `Salesforce to PostgresDB`.
+. At the top right corner of the console, click *Publish*.
+. While the integration is being deployed, click *Done*:
 +
 image::images/salesforce_to_postgresdb_published.png[]
-+
-. While the integration is being deployed, click the *Done* button.
+* A green check mark appears next to the Salesforce to PostgresDB integration when the integration is successfully deployed:
 +
 image::images/fuse_ignite_console_integrations_2.png[]
-+
-. Once the green checkbox icon appears next to the _Salesforce to PostgresDB_ integration, it indicates that the integration has been successfully deployed.
 
-Now, testing of the integration can proceed.
+Now, you can proceed with testing the integration.
 
-== Test the _Salesforce to PostgresDB_ Integration
+== Test Salesforce to PostgresDB Integration
 
-. Click *Integrations*, in the left-hand pane of the Fuse Ignite console.
-. Select the _Salesforce to PostgresDB_ integration.
-. Validate that the _Salesforce to PostgresDB_ integration is active.
+. Click *Integrations* in the left-hand panel of the Fuse Ignite console.
+. Select the *Salesforce to PostgresDB* integration and validate that it is active:
 +
 image::images/salesforce_to_postgresdb_integration_summary.png[]
-+
-. On your Salesforce console, click on the *Home* tab, followed by the *New Lead* from the appropriate drop-down box (shown below).
+
+. On your Salesforce console, click the *Home* tab and select *More -> New Lead*:
 +
 image::images/salesforce_new_lead.png[]
-+
-. Create a new lead in Salesforce and click the *Create* button. The lead should be complete with these fields:
-.. Company
-.. Email
-.. First Name
-.. Last Name
-.. Lead Source
-.. Lead Status
-.. Phone
-.. Rating
+. Enter information in the following fields:
+* First Name
+* Last Name
+* Email
+* Phone
+* Company
+. Click *Create*.
+. Select the lead and click *Edit*.
+. Make selections in the following fields:
+* Lead Source
+* Lead Status
+* Rating
 +
 image::images/salesforce_lead_create.png[]
-+
+. Click *Save*.
 . Launch a new web browser window.
-. In front of the URL of the Fuse Ignite installation, append the string `todo-`. For instance: https://todo-fuse-fuse9123.apps.dev.openshift.opentlc.com/ will be the new URL.
+. Copy the URL of your Fuse Ignite installation, paste it into the new browser window, and append the string `todo-` as shown:
 +
-*NOTE:* This is the URL for the *To Do App* which captures notifications of new leads created in Salesforce. The app serves as a web interface for the embedded PostgresDB database in Fuse Ignite, which contains a replica of the Salesforce lead information, replicated using the _Salesforce to PostgresDB_ integration.
+.Sample URL
+-----
+https://todo-fuse-fuse-9123.apps.dev.openshift.opentlc.com/
+-----
 +
-. Access the *To Do App* at its URL using the web browser.
-. Observe that a notification is displayed in the *To Do App* regarding a new Salesforce lead.
+NOTE: This is the URL for the To Do application, which captures notifications of new leads created in Salesforce. The application serves as a web interface for the embedded PostgresSQL database in Fuse Ignite. The database contains a replica of the Salesforce lead information, which was replicated using the Salesforce to PostgresDB integration.
+
+. Press *Enter* to access the To Do application and observe that a notification is displayed regarding a new Salesforce lead:
 +
 image::images/todo_lead_notification.png[]
-+
-[NOTE]
-If you are using the Fuse Ignite Technology Preview release, exactly one integration at a time can be active.
-Though you can create another sample integration, you cannot publish it while another integration is active.
 
-== [OPTIONAL] Query PostgresDB to locate the replicated data
 
-You can perform a lookup of the table in PostgresDB that contains the data that was just replicated from Salesforce using Fuse Ignite.
-The following instructions applies to the infrastructure of Fuse Ignite, and should be good learning material if you intend to access data using command line.
+== Query PostgreSQL to Locate Replicated Data (Optional)
 
-. In a command-line terminal, type this command to login to your OpenShift environment:
+You can perform a lookup of the table in PostgreSQL that contains the data that you just replicated from Salesforce using Fuse Ignite.
+
+The following instructions apply to the infrastructure of Fuse Ignite, and are good learning material if you intend to access data using the command line.
+
+. In a command-line terminal, log in to your OpenShift environment:
 +
 ----
-$ oc login https://master.<$guid>.openshift.opentlc.com:443 -u <$your-OPENTLC-ID>
+$ oc login https://master.<$Environment_ID>.openshift.opentlc.com:443 -u <$your-OPENTLC-ID>
 ----
 +
 [TIP]
-Substitute the `<$guid>` with the GUID that was sent to you by email, and <$your-OPENTLC-ID> with your OPENTLC ID.
+====
+Substitute the `<$Environment_ID>` with the environment ID that you received in the confirmation email, and <$your-OPENTLC-ID> with your OPENTLC ID.
+====
 +
-. Type this command to retrieve details of the OpenShift pods for Fuse Ignite:
+. Enter the following command to retrieve details of the OpenShift pods for Fuse Ignite:
 +
 ----
 $ oc get pods
@@ -228,21 +228,24 @@ syndesis-ui-1-kjgwj           1/1       Running     0          3d
 todo-1-build                  0/1       Completed   0          3d
 todo-1-qdnm8                  1/1       Running     0          3d
 ----
+
+. From the results, identify the OpenShift pod containing the PostgreSQL database.
+* Expect the name of the pod to contain the prefix `syndesis-db`.
+
+. In the terminal, enter the following command, substituting the name of the pod used in this example with the name of the pod in your Fuse Ignite environment:
 +
-. From the results, identify the OpenShift pod containing the PostgresDB. The name of the pod should contain the prefix `syndesis-db`
-. In the terminal, type this command, substituting the name of the pod used in this example, with the name of the pod in your Fuse Ignite environment.
-+
+
 ----
 $ oc rsh syndesis-db-1-k2gzd
 ----
-+
-. At the shell prompt, type the following:
+
+. At the shell prompt, enter the following command:
 +
 ----
 sh-4.2$ psql -Usampledb
 ----
-+
-. At the `sampledb` prompt, type the following:
+
+. At the `sampledb` prompt, enter the following command:
 +
 ----
 sampledb-> \d
@@ -256,15 +259,18 @@ public | todo_id_seq | sequence | sampledb
 
 ----
 +
-*Question*: How many database schemas are in-place and what are they?
-. Type in the next command:
+****
+*Question*: How many database schemas are in place and what are they?
+****
+. Enter the following command:
 +
+
 ----
 sampledb-> \x
 Expanded display is on.
 ----
-+
-. Proceed to type this SQL query:
+
+. Enter this SQL query:
 +
 ----
 sampledb=> SELECT * FROM todo LIMIT 10;
@@ -275,26 +281,30 @@ completed | 0
 ----
 +
 [NOTE]
-The `todo` database contains the data replicated from Salesforce, using the  _Salesforce to PostgresDB_ integration in Fuse Ignite.
+====
+The `todo` database contains the data replicated from Salesforce, using the Salesforce to PostgresDB integration in Fuse Ignite.
+====
+
+. Validate that the data is the same as the lead data that you created in Salesforce.
+. Exit the PostgreSQL shell as well as the OpenShift pod shell, using these commands:
 +
-. Validate that the data is the same as the lead data you have created in Salesforce.
-. Exit the PostgresDB shell as well as the OpenShift pod shell, using these commands:
-+
+
 ----
 sampledb=> \q
 sh-4.2$ exit
 ----
 
-== Integration clean-up
+== Clean Up Integration
 
-. In the left-hand pane, click *Integrations*.
-. Select the entry for the _Salesforce to PostgresDB_ integration.
-. Click *Stop Integration*, followed by clicking *OK* in the the integration summary. This will deactivate the integration.
-. When you require an integration, proceed to delete it.
-. Select the inactive integration _Salesforce to PostgresDB_.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
+Remember, if you are using the Fuse Ignite Technology Preview release, exactly one integration at a time can be active. Although you can create a second sample integration, you cannot publish it while another integration is active. It is recommended that you clean up your integrations when you are finished.
 
-You have completed, tests and cleaned up your integration in Fuse Ignite.
+. In the left-hand panel of the Fuse Ignite console, click *Integrations*.
+. Select the *Salesforce to PostgresDB* integration.
+. Click *Stop Integration*, then click *OK* in the the integration summary panel.
+* This deactivates the integration.
+
+
+You have completed, tested, and cleaned up your integration in Fuse Ignite.
 
 ifdef::showscript[]
 

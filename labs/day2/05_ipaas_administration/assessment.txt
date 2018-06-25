@@ -13,7 +13,7 @@ IGNITE_DEV|IGNITE_FDS0504|1|Which of the following is NOT a valid Persistent Vol
 IGNITE_DEV|IGNITE_FDS0504|1|Which of the following is NOT a valid Persistent Volume Claim in Fuse Ignite?|||syndesis-prometheus|||0|0|||
 IGNITE_DEV|IGNITE_FDS0504|1|Which of the following is NOT a valid Persistent Volume Claim in Fuse Ignite?|||syndesis-meta|||0|0|||
 IGNITE_DEV|IGNITE_FDS0504|1|Which of the following is NOT a valid Persistent Volume Claim in Fuse Ignite?|||syndesis-db|||0|0|||
-IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc get-token sa syndesis-oauth-client -n fuse-ignite-manual-provision-<your initials>|||0|0|||
-IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc sa get-token fuse-ignite-manual-provision-<your initials> -n syndesis-oauth-client|||0|0|||
-IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc sa get-token syndesis-oauth-client -n fuse-ignite-manual-provision-<your initials>|||1|100|||
-IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc get-token sa fuse-ignite-manual-provision-<your initials> -n syndesis-oauth-client|||0|0|||
+IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc get-token sa syndesis-oauth-client -n fuse-ignite-manual-provision-&lt;your initials&gt;|||0|0|||
+IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc sa get-token fuse-ignite-manual-provision-&lt;your initials&gt; -n syndesis-oauth-client|||0|0|||
+IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc sa get-token syndesis-oauth-client -n fuse-ignite-manual-provision-&lt;your initials&gt;|||1|100|||
+IGNITE_DEV|IGNITE_FDS0505|1|Which command retrieves the OAuth token associated with the Fuse Ignite service account?|||oc get-token sa fuse-ignite-manual-provision-&lt;your initials&gt; -n syndesis-oauth-client|||0|0|||

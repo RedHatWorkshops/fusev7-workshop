@@ -5,265 +5,276 @@
 :coursevm:
 
 
-= Integration Lab - Product Data Synchronization: Microservice to Flat File scenario
+== Microservice to Flat File Integration Lab
 
-This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
+NOTE: This lab takes about an hour to complete. It covers topics you need to know to correctly complete the final assessment.
 
 .Goals
-* Design an integration for a cloud-based data persistence solution, where JSON data from a Microservice is synchronized and persisted to a Flat File on a remote server
-* Implement the planned integration using Red Hat Fuse Ignite
+* Design an integration for a cloud-based data persistence solution, where JSON data from a microservice is synchronized and persisted to a flat file on a remote server.
+* Implement the planned integration using Fuse Ignite
 
-.Requirements
-* Provisioned a Fuse Ignite environment
+.Prerequisite
+* A provisioned Fuse Ignite environment
 
-In this lab, you will fulfill the requirements for a cloud-based data synchronization solution, by integrating a provider of JSON data, namely a Microservice, to a remote file hosting server designated to host the destination copy of the data.
-The data is hosted by Coolstore, an online store that conducts wholesale business of quality consumer products. The consumer of the data is any reseller of Coolstore products.
+.Overview
+In this lab, you fulfill the requirements for a cloud-based data synchronization solution by integrating a provider of JSON data, namely a microservice, with a remote file hosting server designated to host the destination copy of the data.
+The data is hosted by Coolstore, an online business that operates as a wholesaler of quality consumer products. The consumer of the data is any reseller of Coolstore products.
 
 image::images/architecture-microservice-to-file.png[]
 
-The data will be persisted into a flat file, which will be created upon the initial synchronization with the Microservice using a Fuse Ignite integration. This integration scenario will be real-time and will be active indefinitely (does not ever stop, if you allow it).
+The data is to be persisted into a flat file, which is created upon the initial synchronization with the microservice using a Fuse Ignite integration. This integration scenario is real-time and remains active indefinitely unless you stop it.
 
-As the Integration actively polls the Microservice for product catalog data of an e-commerce business, called Coolstore, the flat file is constantly refreshed with the most current data that the Microservice offers. This allows any resellers of Coolstore product to be assured of data quality and therefore, confidently download the data from the remote file hosting server anytime.
-This business data regarding the product catalog is utilized as part of business operations of any reseller of Coolstore products.
+As the integration actively polls the microservice for product catalog data from the Coolstore e-commerce business, the flat file is constantly refreshed with the most current data that the microservice offers. This assurance of data quality makes resellers of Coolstore products confident that they can download correct data from the remote file hosting server at any time. Resellers of Coolstore products utilize this product catalog data as part of their business operations.
 
 :numbered:
 
-== Logon to Red Hat Fuse Ignite
+== Log In to Fuse Ignite Console
 
-. Check your email inbox for the same email you received earlier, containing a link to Red Hat Fuse Ignite.
+. Log in to the OpenShift Container Platform web console if you are not already logged in.
 +
-CAUTION: Red Hat Fuse Ignite is supported for the following web browsers: Google Chrome, Mozilla Firefox, Microsoft Edge
+TIP: The link is in your confirmation email, if you need it.
+
+. Click your *fuse-ignite-$GUID* project.
+. Click the URL of your Fuse Ignite console.
+. Log in using your OPENTLC credentials.
 +
-. Click this link to display the Red Hat Fuse Ignite login page.
+NOTE: Because you already authorized your *fuse-ignite-$GUID* project access to your OPENTLC account credentials in the previous lab, the Fuse Ignite console appears. If you see an authorization screen instead, go back and complete Lab 1.
 
-. Log in using your OPENTLC account.
 
-. A webpage launches, prompting you to authorize Red Hat Fuse Ignite access to your OPENTLC account credentials:
-+
-image::images/fuseignite_oauth.png[]
-+
-. Select both available checkboxes and click the *Allow selected permissions* button.
-+
-NOTE: This authorization page will appear only once. The next time you log in, the console for Fuse Ignite appears instead of this authorization page.
+== Create HTTP Connection to Microservice
 
-== Create a HTTP connection to the Microservice
+In this section, you set up a connection to the microservice that provides product catalog data in JSON format.
 
-You will setup a connection to the Microservice that provides Product Catalog data in JSON format.
-
-. On the left-hand pane of Fuse Ignite console, click *Connections*.
+. In the left-hand panel of the Fuse Ignite console, click *Connections*.
 . Click the *Create Connection* button.
-. Select the Connector named *HTTP*. The *Configure Connection* page loads.
-. Provide the URL to the *Coolstore Product Catalog Microservice* as earlier identified in the *Fuse Ignite Environment Setup Lab* of Module 1.
-. Click *Validate* and observe the successful result.
+. Select the *HTTP* connector.
+. On the *Configure Connection* screen, provide the URL to the Coolstore product catalog microservice as identified in the previous lab.
+. Click *Validate* and observe the result:
 +
 image::images/http-connector-validate.png[]
 +
-. Click *Next*. The *Add Connection Details* page loads.
-. Provide `coolstore-product-catalog-microservice` as the name of the HTTP connection.
+. Click *Next*.
+. On the *Name Connection* screen, type `coolstore-product-catalog-microservice` as the name of the HTTP connection.
 . Click *Create* to complete the connection creation process.
 
-== Setup a web hosting account
+== Set Up Web Hosting Account
 
-You will utilize a remote file hosting server in order to provide the environment for hosting the destination endpoint (which is a flat file) of the Fuse Ignite Integration.
+In the next part of the lab, you utilize a remote file hosting server as the environment for hosting the destination endpoint (which is a flat file) of the Fuse Ignite integration. In this section, you set up the account.
 
-. Setup a user account with a free web-hosting service provider. Ensure that you are able to utilize FTP and SFTP services using this account.
+. Set up a user account with a free web-hosting service provider.
+.. Make sure that you are able to utilize FTP and SFTP services using this account.
 +
-[NOTE]
-The following lab involves an account from link:https://infinityfree.net/[Infinity Free]
-. Note the Login ID and Password for your new account, as the Fuse Ignite integration creation process will require these particulars.
+NOTE: The lab examples use an account from link:https://infinityfree.net/[Infinity Free].
 
-== Create an FTP connection to the web hosting service provider
+. Note the username and password for your new account, as the Fuse Ignite integration creation process requires this information.
 
-You will setup a connection to the web hosting service where the flat file containing JSON data will be stored.
+== Create FTP Connection to Web Hosting Service Provider
 
-. On the left-hand pane of Fuse Ignite console, click *Connections*.
-. Select the Connector named *FTP*.
+In this section, you set up a connection to the web hosting service where the flat file containing JSON data is to be stored.
+
+. In the left-hand panel of the Fuse Ignite console, click *Connections*.
+. Select the *FTP* connector:
 +
 image::images/fi-connectors.png[]
-+
-. Proceed to populate the form with the *Host*, *User name* and *Password* of your web hosting service account.
-. Click *Next*. The *Name Connection* page is displayed.
-. Provide `hosting-server` as the name of the FTP connection.
+
+. Populate the form with the *Host*, *Username*, and *Password* of your web hosting service account.
+. Click *Next*.
+. On the *Name Connection* screen, type `hosting-server` as the name of the FTP connection.
 . Click *Create* to complete the connection creation process.
 
-== Create an Integration from the HTTP connection to the FTP connection
+== Create Integration from HTTP Connection to FTP Connection
 
-You will setup an integration between the Microservice and the web hosting service.
+In this section, you set up an integration between the microservice and the web hosting service.
 
-. On the left-hand pane of Fuse Ignite console, click *Integrations*.
+. In the left-hand panel of the Fuse Ignite console, click *Integrations*.
 . Click *Create Integration*.
-. Select the `coolstore-product-catalog-microservice` connection, on the *Choose a Start Connection* page.
-. On the *Choose an Action* page, select *Periodic invoke URL*.
-. On the *Properties* page, assign the following values to the fields:
-+
-[.noredheader,cols="5,5,5",caption=""]
-|======
-|*URL Path*|*HTTP Method*|*Period*
-|/products|GET|5 Seconds
-|======
-+
-. Click *Next*. The *Specify Output Data Type* page is displayed.
-. Click the *Select Type* drop-down box, to display all the options. Note that JSON and XML schemas and document instances are supported data types.
-. Leave the option as *Don't specify type*.
-. Click *Done*. The `coolstore-product-catalog-microservice` connection is now officially the *start connection* in the Integration.
-. In the Fuse Ignite console, notice that you are currently at the *Choose a Finish Connection* page.
-. Select the `hosting-server` connection icon.
-. On the *Choose an Action* page, select the *Upload* option.
-. On the *Properties* page, assign the following values to the fields:
-+
-[.noredheader,cols="5,5",caption=""]
-|======
-|*File name expression*|*FTP Directory*
-|product-catalog.txt|./htdocs
-|======
-+
-. Click *Next*. On the *Specify Input Data Type* page, validate the available data types by displaying the options from the *Select Type* dropdown box.
-. Leave the options as default, and click *Done*. The `hosting-server` connection is now part of the Integration.
-. At the top-left hand corner of the Fuse Ignite console, select the field with the text `Enter integration name...`
-. Provide _Microservice to File_ as the name for the integration.
-. At the upper right corner of the console, click *Publish*.
+. On the *Choose a Start Connection* screen, select the *coolstore-product-catalog-microservice* connection.
+. On the *Choose an Action* screen, select *Periodic invoke URL*.
+. On the *Properties* screen, assign the following values to the fields:
+* *URL Path*: `/products`
+* *HTTP Method*: *GET*
+* *Period*: *5 Seconds*
+
+. Click *Next*.
+. On the *Specify Output Data Type* screen, click the *Select Type* list to display all of the options.
+* Note that JSON and XML schemas and document instances are supported data types.
+. Select *Don't specify type* and click *Done*.
+* The *coolstore-product-catalog-microservice* connection is now officially the start connection in the integration.
+. On the *Choose a Finish Connection* screen, click the *hosting-server* connection icon.
+. On the *Choose an Action* screen, select *Upload*.
+. On the *Properties* screen, assign the following values to the fields:
+* *File name expression*: `product-catalog.txt`
+* *FTP Directory*: `/htdocs`
+
+. Click *Next*.
+. On the *Specify Input Data Type* screen, click the *Select Type* list to display the available data types.
+. Leave the default option and click *Done*.
+* The `hosting-server` connection is now part of the integration.
+. At the top left corner of the Fuse Ignite console, in the *Enter integration name...* field, type
+`Microservice to File`.
+. At the top right corner of the console, click *Publish*.
 . While the integration is being deployed, click the *Done* button.
-. Once the green checkbox icon appears next to the _Microservice to File_ integration, it indicates that the integration has been successfully deployed.
+* A green check mark appears to the right of the *Microservice to File* integration when the integration is successfully deployed.
 
-Now, testing of the data synchronization integration can proceed.
 
-== Test the _Microservice to File_ Integration
+== Test Microservice to File Integration
 
-You will setup a connection to the web hosting service where the flat file containing JSON data will be stored.
+In this section, you test the integration.
 
-=== Interprete JSON output from Microservice
+=== Interpret JSON Output from Microservice
 
-. Click *Integrations*, in the left-hand pane of the Fuse Ignite console.
-. Select the _Microservice to File_ integration.
-. Validate that the _Microservice to File_ integration is active.
-. In a separate web browser window, access the *Coolstore Product Catalog Microservice* using the URL earlier identified from the confirmation email.
+. In the left-hand panel of the Fuse Ignite console, click *Integrations*.
+. Select the *Microservice to File* integration.
+. Validate that the *Microservice to File* integration is active.
+. In a separate web browser window, access the Coolstore product catalog microservice using the URL identified earlier from the confirmation email.
 . Test the `/products` API operation.
 . Note the response in JSON format, displayed in the web browser window.
++
+****
+*Question:* Can you identify the individual products listed, as well as their attributes?
+****
 
-*Question:* Can you identify the individual products listed as well as their attributes?
+=== Validate Data Quality
 
-=== Validate data quality
-
-. Using an FTP client, or a web-based console (if available), login and navigate to the root directory of your web hosting service account.
+. Using an FTP client, or a web-based console if available, log in and navigate to the root directory of your web hosting service account.
 . Navigate to the `./htdocs` subdirectory.
 . Locate and download the `product-catalog.txt` file to your local PC.
 . Locate the `product-catalog.txt` file on your local PC and open it using your favorite text editor.
-. Compare the contents of the `product-catalog.txt` file, with the response from the test of the `/products` API operation of the *Coolstore Product Catalog Microservice* using the Swagger user interface of the microservice.
+. Compare the contents of the `product-catalog.txt` file with the response from the test of the `/products` API operation of the Coolstore product catalog microservice using the Swagger user interface of the microservice.
 +
-*Question:* Do the contents of the flat file differ from the JSON-based response from the earlier API operation test? What are your conclusions regarding the function of the _Microservice to File_ integration?
-+
-. On the *Integration Summary* page of the Fuse Ignite console, explore both the *Activity* and *Metrics* tabs.
+****
+*Questions:*
+
+* Do the contents of the flat file differ from the JSON-based response from the earlier API operation test?
+* What are your conclusions regarding the function of the Microservice to File integration?
+****
+
+. On the *Integration Summary* screen of the Fuse Ignite console, explore both the *Activity* and *Metrics* tabs:
 +
 image::images/integration-summary-metrics.png[]
-+
-[NOTE]
-Additional step activity are logged and made available through the *Activity* tab, while the uptime, total number of messages and errors are listed under the *Metrics* tab.
+* Additional step activity are logged and made available through the *Activity* tab, while the uptime, total number of messages, and errors are listed on the *Metrics* tab.
 
-=== Test the data transfer
+=== Test Data Transfer
 
-. Using the FTP client, or a web-based console (if available), delete the `product-catalog.txt` files from the remote web host as well as the local PC.
-. After a minute or more, list the contents of the `./htdocs` subdirectory.
+. Using the FTP client, or a web-based console if available, delete the `product-catalog.txt` files from the remote web host and the local PC.
+. After a minute or so, list the contents of the `./htdocs` subdirectory.
 . Verify that the `product-catalog.txt` file appears again.
-* *Question:* If the _Microservice to File_ integration is not active, will this file appear under these circumstances?
++
+****
+*Question:* If the Microservice to File integration is not active, will this file appear?
+****
 . Locate and download the `product-catalog.txt` file to your local PC.
 . Locate the `product-catalog.txt` file on your local PC and open it using your favorite text editor.
-. Compare the contents of the `product-catalog.txt` file, with the JSON-based response from the *Coolstore Product Catalog Microservice* which is displayed in the web browser window.
+. Compare the contents of the `product-catalog.txt` file with the JSON-based response from the Coolstore product catalog microservice, which is displayed in the web browser window.
++
+****
+*Question:* Does this validate that the Microservice to File integration achieves its objective of real-time data synchronization for the benefit of resellers of Coolstore products?
+****
 
-*Question:* Does this validates that the _Microservice to File_ integration achieves its objective of real-time data synchronization for the benefit of resellers of Coolstore products?
+== Design Integrations to Enable Microservice Operations (Optional)
 
-== [OPTIONAL] Design integrations to enable microservice operations
+In this section, you implement the rest of the API operations of the Coolstore product catalog microservice. It is likely that other connectors (apart from HTTP and FTP) have to be used for this lab exercise, so you are encouraged to complete other labs before attempting this lab exercise.
 
-You will implement the rest of the API operations of the *Coolstore Product Catalog Microservice*. It is likely that other connectors (apart from HTTP and FTP) have to be used for this lab exercise, so you are encouraged to complete other labs before attempting this lab exercise.
-
-. Access the Swagger user interface of the *Coolstore Product Catalog Microservice*, using the URL that was provided by the earlier confirmation email.
+. Access the Swagger user interface of the Coolstore product catalog microservice, using the URL provided in the confirmation email.
 . Test the various API operations of the microservice through the use of the Swagger user interface, taking note of the parameters and responses.
-. Provide an architecture design, with description, of each new Fuse Ignite integration that supports a distinct API operation of the *Coolstore Product Catalog Microservice*. Every integration will have to map to a distinct endpoint of *Coolstore Product Catalog Microservice*, thereby enabling a business operation. For instance, the _Microservice to File_ integration performs a retrieval of the current product catalog.
+. Provide an architecture design, with description, of each new Fuse Ignite integration that supports a distinct API operation of the Coolstore product catalog microservice.
+* Every integration must map to a distinct endpoint of the Coolstore product catalog microservice, thereby enabling a business operation--for example, the Microservice to File integration performs a retrieval of the current product catalog.
++
+****
+*Questions:*
 
-*Question:* Should all API operations of this microservice be implemented using Fuse Ignite integrations, or is there a better alternative for some API operations? Does this hybrid integration approach suit any business use case that you have been across?
+* Should all API operations of this microservice be implemented using Fuse Ignite integrations, or is there a better alternative for some API operations?
+* Does this hybrid integration approach suit any business use case that you have encountered?
+****
 
-== Monitoring of Camel Route within the integration
+== Monitor Camel Route Within Integration
 
-You will analyse the statistics regarding the Camel Route that the _Microservice to File_ integration is built on.
+In this section, you analyze the statistics of the Camel route that the Microservice to File integration is built on.
 
-As the underlying technology for Fuse Ignite integration are Apache Camel routes, it is useful to access the Hawtio Console, embedded in every integration, in order to monitor the Camel routes and inflight exchange messages.
+As the underlying technology for Fuse Ignite integration are Apache Camel routes, it is useful to access the Hawtio console, embedded in every integration, in order to monitor the Camel routes and inflight exchange messages.
 
-. From the OpenShift Management Console, select the *Overview* tab from the menu.
-. Select the pod icon next to the _Microservice to File_ deployment.
+. From the OpenShift Container Platform web console, select *Overview* from the left-hand panel.
+. Click the pod icon next to the Microservice to File deployment:
 +
 image::images/pod-integration.png[]
 +
 [NOTE]
-Each Fuse Ignite integration is containerized in its own OpenShift Pod.
-Having access to the Pod logs for each integration helps in diagnosing the status and issues regarding the use of the integration.
+====
+Each Fuse Ignite integration is containerized in its own OpenShift pod.
+Having access to the pod logs for each integration helps in diagnosing the status and issues regarding the use of the integration.
+====
 +
-. Click the link *Open Java Console*. This will launch the Hawtio Console that monitors the activity and performance statistics of the Apache Camel Route that forms the structure of the integration.
+. Click the *Open Java Console* link:
 +
 image::images/open-java-console.png[]
-+
-. Navigate the console and take note of the various statistics for the Camel Route that belongs to the  _Microservice to File_ integration.
-. Select the *Attributes* tab on the Hawtio Console menu bar. Note the number of inflight exchanges, delta processing time, last processing time, minimum processing times.
+* This launches the Hawtio console that monitors the activity and performance statistics of the Apache Camel route that forms the structure of the integration.
+
+. Explore the console and take note of the various statistics for the Camel route that belongs to the Microservice to File integration.
+. Select the *Attributes* tab on the Hawtio console:
 +
 image::images/attributes-java-console.png[]
-+
-. Select the *Trace* tab on the Hawtio Console menu bar. Activate tracing on the page displayed.
+* Note the number of inflight exchanges, delta processing time, last processing time, and minimum processing times.
+. Select the *Trace* tab and then click *Start tracing* to activate tracing on the screen displayed:
 +
 image::images/trace-java-console.png[]
-+
+
 . Observe the trace statistics and the inflight exchange activity.
++
+****
+*Question:* Are you able to explain these statistics meaningfully to a business stakeholder who needs to understand the performance of the solution?
+****
 
-*Question:* Are you able to explain these statistics meaningfully to a business stakeholder who intends to understand the performance of the solution?
+== Import and Export Integration
 
+In this section, you back up your integration and then import and retest it.
 
-== Import and Export of Integration
-
-You will backup your integration and subsequently import and re-test the integration.
-
-. Click the *Integrations* tab, located on the left-hand panel.
-. Click the _Microservice to File_ integration.
-. Click on the *Export* button located at the top right-hand corner of the Fuse Ignite console.
+. From the Fuse Ignite console, select *Integrations* from the left-hand panel.
+. Select the *Microservice to File* integration.
+. Click the *Export* button at the top right-hand corner of the Fuse Ignite console.
 . Save the archive file.
 . Using your favorite file archival tool, unzip the archive file.
-. Analyse the contents of the JSON files that were extracted from the archive file.
+. Analyze the contents of the JSON files that were extracted from the archive file.
 +
-*QUESTION:* Can you recognise the configuration for the _Microservice to File_ integration?
+****
+*Question:* Can you recognize the configuration for the Microservice to File integration?
+****
 +
-. Click the *Integrations* tab, located on the left-hand panel.
-. Click on the *Import* button located at the top right-hand corner of the Fuse Ignite console.
+. Select *Integrations* from the left-hand panel.
+. Click the *Import* button at the top right-hand corner of the Fuse Ignite console.
+. Click *Browse*:
 +
 image::images/import-integration.png[]
+
+. Select the archive file that you exported earlier and click *Open*.
+* The *Integrations* screen is displayed.
+. Note that the Microservice to File integration is no longer in a *Published* state; instead, its status is *Draft*.
+. Click image:images/more_options_icon.png[] (*More Options*) next to the green check box and select *Publish*.
+. Once the status of the Microservice to File integration becomes *Published*, repeat the earlier tests in this lab.
 +
-. Click the *Browse* button on the *Import Integration* page.
-. Select the archive file which you exported earlier and click *Open*. The *Integrations* page is displayed.
-. Notice the _Microservice to File_ integration is no longer in *Published* state, rather its status is *Draft*.
-. Click on the icon of three vertical dots, next to the green check box.
-. From the pop-up window, select *Publish*.
-. Once the status of _Microservice to File_ integration becomes *Published*, repeat the earlier tests in this lab.
-
-*QUESTION:* Can you validate that behaviour of the _Microservice to File_ integration remains the same even after re-import?
-
+****
+*Question:* Can you validate that the behavior of the Microservice to File integration remains the same even after import?
+****
++
 [NOTE]
-If you are using the Fuse Ignite Technology Preview release, exactly one integration at a time can be active (ie: in publish state).
-Though you can create another Fuse Ignite integration, you cannot publish it while another integration is active.
-As a good housekeeping practice, it is recommended to `unpublish` any integration that you no longer wish to test.
+With the Fuse Ignite Technology Preview release, exactly one integration at a time can be active--that is, in a *Published* state. Although you can create a second Fuse Ignite integration, you cannot publish it while another integration is active. As a good housekeeping practice, it is recommended that you unpublish any integration that you no longer wish to test.
 
-== Housekeeping
+== Clean Up Integration
 
-You will clean up the integration. as a housekeeping best practice.
+In this section, you clean up the integration.
 
-. In the left-hand pane, click *Integrations*.
-. Locate the entry for the _Microservice to File_ integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
-* If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
+. In the left-hand panel, click *Integrations*.
+. Locate the *Microservice to File* integration and click image:images/more_options_icon.png[] (*More Options*) to the right of the green check box, and then select *Unpublish*.
+. Click *OK*.
+* This deactivates the integration.
+* If you are using the Fuse Ignite Technology Preview release, other integrations can now be published and tested.
 +
 [NOTE]
 The next few steps are optional. Use them only when you are certain that the integration will never be required again.
-+
-. Locate the entry for the _Microservice to File_ integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
 
-You have completed, tested and cleaned up your integration in Fuse Ignite.
+. Locate the *Microservice to File* integration and click image:images/more_options_icon.png[] (*More Options*), and then select *Delete Integration*.
+. Click *OK* at the bottom of the summary panel.
+
+You have completed, tested, and cleaned up your integration in Fuse Ignite.
 
 ifdef::showscript[]
 

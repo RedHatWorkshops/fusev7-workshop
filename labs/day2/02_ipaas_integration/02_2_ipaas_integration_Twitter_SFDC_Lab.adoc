@@ -5,418 +5,438 @@
 :coursevm:
 
 
-= Integration Lab - Twitter to Salesforce scenario
+== Twitter to Salesforce Integration Lab
 
-This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
+NOTE: This lab takes about an hour to complete. It covers topics you need to know to correctly complete the final assessment.
 
-.Goals
-* Create an Integration using Red Hat Fuse Ignite from Twitter to Salesforce
+.Goal
+* Create an Integration from Twitter to Salesforce using Fuse Ignite
 
 .Requirements
-* Registered for a Twitter account
-* Registered for a Salesforce Developer account
-** Salesforce API access will be used with this account
-** A free Developer account can be registered link:https://developer.salesforce.com/signup[here].
+* A Twitter account
+* A Salesforce developer account
+** Salesforce API access is used with this account
+** You can register for a free developer account link:https://developer.salesforce.com/signup[here].
 
-Coolstore, an online store of fine products, plan to capture leads in Salesforce, every time a tweet on Twitter mentions their latest product.
+.Overview
+Coolstore, an online wholesaler of quality products, plans to capture leads in Salesforce every time a tweet on Twitter mentions their latest product.
 
 image::images/arch-twitter-salesforce.png[]
-
-In this lab, you will integrate two popular cloud services: Twitter and Salesforce, in order to meet the Coolstore business use case for a marketing scenario. This use case involves capturing of marketing leads in Salesforce, whenever a potential client "tweets" a message on Twitter.
+In this lab, you integrate two popular cloud services--Twitter and Salesforce--in order to meet the Coolstore business use case for a marketing scenario. This use case involves the capturing of marketing leads in Salesforce whenever a potential client tweets a message on Twitter.
 
 :numbered:
 
-== Logon to Red Hat Fuse Ignite
+== Log In to Fuse Ignite Console
+. Log in to the OpenShift Container Platform web console if you are not already logged in.
++
+TIP: The link is in your confirmation email, if you need it.
 
-. Check your email inbox for the same email you received earlier, containing a link to Red Hat Fuse Ignite.
-+
-CAUTION: Red Hat Fuse Ignite is supported for the following web browsers: Google Chrome, Mozilla Firefox, Microsoft Edge
-+
-. Click this link to display the Red Hat Fuse Ignite login page.
+. Click your *fuse-ignite-$GUID* project.
+. Click the URL of your Fuse Ignite console.
+. Log in using your OPENTLC credentials.
+* The Fuse Ignite console appears.
 
-. Log in using your OPENTLC account.
-
-. A webpage launches, prompting you to authorize Red Hat Fuse Ignite access to your OPENTLC account credentials:
-+
-image::images/fuseignite_oauth.png[]
-+
-. Select both available checkboxes and click the *Allow selected permissions* button.
-+
-NOTE: This authorization page will appear only once. The next time you log in, the console for Fuse Ignite appears instead of this authorization page.
-
-. Familiarize yourself with the Fuse Ignite Dashboard.
-. Note the left-hand pane, and the various tabs on it.
+. Familiarize yourself with the Fuse Ignite dashboard.
+. Note the left-hand panel, and the various options on it:
 +
 image::images/fuseignite_dashboard.png[]
 +
-. Next, locate the key system metrics on the Fuse Ignite Dashboard. These are counts of *Integrations*, *Connections*, *Total Messages* and *Uptime*.
+. Next, locate the key system metrics on the Fuse Ignite dashboard. These include Integrations, Connections, Total Messages, and Uptime.
 +
-[QUESTION]
-What does it mean to have 247 days 8 hours 15 minutes of Uptime, 350 Total Messages, 2 Integration and 4 Connections displayed on the Fuse Ignite Dashboard?
+****
+*Question:* What does it mean to have 247 days 8 hours 15 minutes of Uptime, 350 Total Messages, 2 Integration, and 4 Connections displayed on the Fuse Ignite dashboard?
+****
 
-== Register Fuse Ignite as a client for Twitter service
+== Register Fuse Ignite as Client for Twitter Service
 
-This section assumes that you have a Twitter account setup. If you have not done so, complete the _Cloud services account registration_ section of Lab 1 first.
+NOTE: This section assumes that you have a Twitter account set up. If you have not done so, complete the _Register Cloud Services Accounts_ section of Lab 1 first.
 
-Next, register Fuse Ignite as a client application for the online Twitter service. With this accomplished, any number of integrations connecting Twitter can be created.
+In this section, you register Fuse Ignite as a client application for the online Twitter service. With this accomplished, you can create integrations connecting with Twitter.
 
-. At the Fuse Ignite console, copy the Fuse Ignite URL from URL field in the web browser.
-. On the left-hand pane of the Fuse Ignite console, click *Settings*.
-. On the *OAuth Application Management* webpage, locate the _Twitter_ icon.
-. On the right of the _Twitter_ icon, click the *Register* button.
-. Notice both the *Client ID* and *Client Secret* fields are displayed.
-. Launch another web browser window, and type `http://apps.twitter.com` in the URL field.
-. After typing, hit the *Enter* button on your keyboard.
-. When the login page is fully loaded, log into your *Twitter* account.
+. From the Fuse Ignite console, copy the Fuse Ignite URL from the URL field in the web browser.
+. In the left-hand panel of the Fuse Ignite console, click *Settings*.
+. On the *OAuth Application Management* screen, locate the *Twitter* icon and click *Register* to the right of it.
+* Note that both the *Client ID* and *Client Secret* fields are displayed.
+. Launch another web browser window and sign in to your Twitter account at `http://apps.twitter.com`.
+. Click *Create New App*:
 +
 image::images/twitter-apps-app-mgt.png[]
+. Complete the form as follows:
+.. In the *Name* field, type a unique name for your new application.
 +
-. Click *Create New App*.
-. In the _Name_ field, provide the name of this new app.
+[NOTE]
+====
+The application name must be unique among all of the applications registered to your Twitter account.
+====
 +
-NOTE: The app name must be unique among all other apps registered using your *Twitter* account.
-+
-. In the _Description_ field, enter helpful information. Twitter requires some input in this field.
-. In both the _Website_ and _Callback URL_ fields, paste your Fuse Ignite URL (which you copied earlier into the clipboard) .
-. Remove the URI suffix `dashboard` from the end of the value in the _Callback URL_ field.
-. Append the string `api/v1/credentials/callback` to the value in the _Callback URL_ field.
-+
-NOTE: For example: https://fuse-fuse7475.apps.dev.openshift.opentlc.com/api/v1/credentials/callback
+.. In the *Description* field, type helpful information.
+** Twitter requires some input in this field.
+.. In both the *Website* and *Callback URL* fields, paste your Fuse Ignite URL (which you copied onto the clipboard earlier).
+.. Remove the URI suffix `dashboard` from the end of the value in the *Callback URL* field and append the string `api/v1/credentials/callback` in its place.
+** Expect the resulting URL to look similar to this: `https://fuse.fuse-7475.apps.dev37.openshift.opentlc.com/api/v1/credentials/callback`.
+.. Check the *Yes* box to agree to the terms and conditions of the Twitter developer agreement.
 +
 image::images/twitter-create-an-app.png[]
-+
-. Click *Yes*, and thereby agreeing to the terms and conditions of the *Twitter* developer agreement.
-. Click *Create your Twitter application*. A webpage showing the details of your Twitter app (Fuse Ignite) is loaded.
+
+. Click *Create your Twitter application*.
+* A screen showing the details of your Fuse Ignite Twitter application is displayed:
 +
 image::images/twitter-app-details.png[]
-+
-. Select the *Keys and Access Tokens* tab.
-. The `Consumer Key` appears on the web page. Copy it.
+
+. Select the *Keys and Access Tokens* tab:
 +
 image::images/twitter-keys-access-tokens.png[]
-+
-. In the other web browser window, select the *Settings* tab on the Fuse Ignite console.
-. Paste the *Twitter* `Consumer Key` into the *Twitter Client ID* field.
-. In the web browser window displaying your Twitter account, locate the Twitter *Keys and Access Tokens* tab.
-. Copy the `Consumer Secret`.
-. Paste the string into the *Twitter Client Secret* field in the Fuse Ignite console.
-. On the Fuse Ignite console, click *Save*. After the page loads and a *Registration successful!* message appears, click *OK*.
+
+. Copy the *Consumer Key* value and paste it into the *Twitter Client ID* field in your Fuse Ignite console.
+. Switch back to your Twitter account, copy the *Consumer Secret* value, and paste it into the *Twitter Client Secret* field in the Fuse Ignite console.
+. Click *Save*.
+. When the *Registration successful!* message appears, click *OK*:
 +
 image::images/oauth-app-management-twitter-credentials.png[]
 
-Your Red Hat Fuse Ignite instance is now registered as a Twitter client application.
+Your Fuse Ignite instance is now registered as a Twitter client application.
 
-== Create a Twitter Connection on Fuse Ignite
+== Create Twitter Connection in Fuse Ignite
 
 Before an integration can be created, a connection has to be created for each cloud service endpoint that will be integrated. These cloud services have to support the link:https://oauth.net/2[OAuth protocol].
 
-A Twitter connection will be created, followed by the creation of a Salesforce connection.
+In this section, you create a Twitter connection, and later in the lab, a Salesforce connection.
 
-. On the left-hand pane of the Fuse Ignite console, click Connections to display any available connections.
-. Click *Create Connection* to display connectors in Fuse Ignite.
+. In the left-hand panel of the Fuse Ignite console, click *Connections* to display the available connections.
+. Click *Create Connection* to display the connector types:
 +
 image::images/create_connection_wizard.png[]
-+
-. Select the *Twitter* connector type. A page loads, displaying the current state of the connection creation process, as *Configure Connection*.
-. Click *Connect Twitter*.
+
+. Select the *Twitter* connector type.
+. On the *Configure Connection* screen, click *Connect Twitter*:
 +
 image::images/create_connection_twitter.png[]
-+
-. On the Twitter authorization webpage, click *Authorize app* to return to Fuse Ignite.
+* This opens Twitter.
+. On the Twitter authorization screen, click *Authorize app*:
 +
 image::images/twitter-authorize-app.png[]
+* This returns you to the Fuse Ignite console.
+. On the *Name Connection* screen, type a name for your Twitter connection in the *Connection Name* field.
 +
-. Provide a name for the *Connection Name* field. Every connection is uniquely distinguished by its name.
-. Provide a description of the connection in the *Description* field.
-. Click *Create*. Notice the Twitter connection is now available.
+IMPORTANT: Every connection must have a unique name.
+. Type a description of the connection in the *Description* field.
+. Click *Create*:
 +
 image::images/create_connection_twitter_name.png[]
+* The Twitter connection that you just created appears.
 
-The Twitter connection in your Fuse Ignite project has been setup and can be reused in multiple integrations.
+The Twitter connection in your Fuse Ignite project is now set up and can be used in multiple integrations.
 
-== Register Fuse Ignite as a client for Salesforce
+== Register Fuse Ignite as Client for Salesforce
 
-This section assumes that you have a Salesforce account setup. If you have not done so, complete the _Cloud services account registration_ section of Lab 1 first.
+NOTE: This section assumes that you have a Salesforce account set up. If you do not, complete the _Register Cloud Services Accounts_ section of Lab 1 first.
 
-You will register Fuse Ignite with Salesforce once, as a pre-requisite to creating a Salesforce connection.
+In this section, you register Fuse Ignite with Salesforce as a prerequisite to creating a Salesforce connection.
 
-. On the left-hand pane of the Fuse Ignite console, click *Home*.
-. At the Fuse Ignite console, copy the Fuse Ignite URL from URL field in the web browser.
-. On the left-hand pane, click *Settings*.
-. Locate the Salesforce icon. Right of the icon, click *Register*, which is located on the *OAuth Application Management* page.
-. The *Client ID* and *Client Secret* fields are now displayed. You will populate these fields in a while.
-. Launch a new web browser window and log in to your Salesforce account. You will setup Fuse Ignite as a connected app using this account.
+. In the left-hand panel of the Fuse Ignite console, click *Home*.
+. Copy the Fuse Ignite URL from the URL field in the web browser.
+. In the left-hand panel, click *Settings*.
+. On the *OAuth Application Management* screen, locate the Salesforce icon and click *Register* to the right of it:
 +
-NOTE: You are recommended to proceed using the Salesforce Classic user interface. To switch, click your profile icon and select *Switch to Salesforce Classic*.
+image::images/oauth_client_mgt.png[]
+* Note that both the *Client ID* and *Client Secret* fields are now displayed.
+. Launch a new web browser window and log in to your Salesforce account.
+* You set up Fuse Ignite as a connected app using this account.
++
+[NOTE]
+====
+It is recommended that you use the Salesforce Classic user interface here. To switch, click your profile icon and select *Switch to Salesforce Classic*.
+====
 +
 image::images/salesforce_build_create_apps.png[]
 +
 . On the Salesforce landing page, click *Setup*.
-. Select *Build > Create > Apps*.
-. Scroll down to *Connected Apps* and click *New*. The *New Connected App* page loads.
+. Select *Build -> Create -> Apps*.
+. Scroll down to *Connected Apps* and click *New*.
+* The *New Connected App* screen appears:
 +
 image::images/salesforce_new_connected_app.png[]
-+
-. Enter the required information in the following fields:
-.. *Connected App Name*
-.. *API Name*
-.. *Contact Email*
-. Select the *Enable OAuth Settings* checkbox.
-. Paste the Fuse Ignite URL, which was earlier copied, in the *Callback URL* field. Replace the suffix `dashboard` in the URL with  `api/v1/credentials/callback`. For example, the *Callback URL* value will resemble `https://fuse-fuse7475.apps.dev.openshift.opentlc.com/api/v1/credentials/callback`
-. In the *Selected OAuth Scopes* section, from the table of options, ensure the following options are added:
-.. *Access and manage your data (api)*
-.. *Allow access to your unique identifier (openid)*
-.. *Perform requests on your behalf at any time (refresh_token, offline_access)*
-. Check the boxes next to *Include ID Token* and *Include Standard Claims*
+. Complete the required fields:
+* *Connected App Name*
+* *API Name*
+* *Contact Email*
+. In the *API (Enable OAuth Settings)* section, complete the following:
+.. Check the *Enable OAuth Settings* box.
+.. In the *Callback URL* field, paste your Fuse Ignite URL (which you copied onto the clipboard earlier).
+.. Replace the suffix `dashboard` in the URL with `api/v1/credentials/callback`.
+** Expect the resulting URL to resemble this: `https://fuse.fuse-7475.apps.dev37.openshift.opentlc.com/api/v1/credentials/callback`.
+.. In the *Selected OAuth Scopes* field, add the following options from the *Available* list to the *Selected* list:
+** *Access and manage your data (api)*
+** *Allow access to your unique identifier (openid)*
+** *Perform requests on your behalf at any time (refresh_token, offline_access)*
+.. Check the *Configure ID Token* and *Include Standard Claims* boxes.
 +
 image::images/salesforce_enable_oauth_settings.png[]
-+
-. Click *Save* to effect the changes.
-. Read the message regarding the `2-10 minutes` wait time for the application to load.
-. Click *Continue*. The Salesforce account page will load after a while.
-. Notice both the consumer key and the consumer secret associated to Fuse Ignite have been generated and are displayed.
+
+. Click *Save* and note the message regarding the two- to 10-minute wait time for the application to load.
+. Click *Continue* and wait for the Salesforce account screen to appear.
+* Note that both the *Consumer Key* and the *Consumer Secret* associated with Fuse Ignite are displayed:
 +
 image::images/salesforce_connected_app_fuse_ignite.png[]
-+
-. Copy both the consumer key and the consumer secret, to either a clipboard or to your favorite code editor.
-. In the browser for the Fuse Ignite console, click on the *Settings* link on the left-hand pane. The *OAuth Client Management* page appears.
-. Click the *Register* button in the row containing the Salesforce icon.
-+
-image::images/oauth_client_mgt.png[]
-+
-. In the *Client ID* field, enter the Salesforce-generated consumer key for Fuse Ignite.
-. In the *Client Secret* field, enter the Salesforce-generated consumer secret for Fuse Ignite.
+
+. Copy the *Consumer Key* value and paste it into the Salesforce *Client ID* field in your Fuse Ignite console.
+. Switch back to your Salesforce account, copy the *Consumer Secret* value, and paste it into the Salesforce *Client Secret* field in the Fuse Ignite console.
 . Click *Save*.
+. When the *Registration successful!* message appears, click *Ok*:
 +
 image::images/oauth_app_mgt_salesforce.png[]
-+
-. Note that the *Registration successful! You can validate these values when creating a connection Salesforce* message appears.
-. Click *Ok*.
 
-Red Hat Fuse Ignite is now registered as a Salesforce client application.
+Fuse Ignite is now registered as a Salesforce client application.
 
-== Create a Salesforce Connection on Fuse Ignite
+== Create a Salesforce Connection in Fuse Ignite
 
 . On the Fuse Ignite console, click the *Connections* tab.
 . Click *Create Connection* to display Fuse Ignite connectors.
 . Select the Salesforce connection type.
-. On the *Salesforce Configuration* page,
+. On the *Configure Connection* screen, click *Connect Salesforce*:
 +
 image::images/create_connection_salesforce.png[]
-+
-. Click *Validate*, followed by *Ok*.
-. Click *Connect Salesforce*. A Salesforce authorization page appears, prompting you to authorize or reject this connection.
+
+* A Salesforce authorization screen appears, prompting you to authorize or reject this connection:
 +
 image::images/salesforce_allow_access.png[]
 +
 [NOTE]
-In the event this error appears:  `error=redirect_uri_mismatch&error_description=redirect_uri%20must%20match%20configuration` note that it indicates that an incorrect Fuse Ignite *Callback URL* has been assigned in your Salesforce account. Resolve it by correcting the *Callback URL* as described in the section *Register Fuse Ignite as a client for Salesforce*.
+====
+If this error appears:  `error=redirect_uri_mismatch&error_description=redirect_uri%20must%20match%20configuration`, it indicates that an incorrect Fuse Ignite *Callback URL* was assigned in your Salesforce account. Resolve it by correcting the *Callback URL* as described in the _Register Fuse Ignite as Client for Salesforce_ section.
+====
 +
-. Click *Allow*. The Fuse Ignite console reappears.
-. Provide a name in the *Connection Name* field. This field helps distinguish every connection.
-. Provide descriptive information in the *Description* field. This helps to explain what the purpose for this connection.
-. Click *Create* to complete the connection creation process. Notice the Salesforce connection that you just created appears.
+. Click *Allow*.
+* The Fuse Ignite console reappears.
+. Type a name in the *Connection Name* field.
+* This field helps distinguish each connection.
+. Type descriptive information in the *Description* field.
+* This helps to explain the purpose for this connection.
+. Click *Create* to complete the connection creation process.
+* The Salesforce connection that you just created appears.
 
-You have created a Salesforce connection, which can be used in multiple integrations.
+You now have a Salesforce connection in your Fuse Ignite project that can be used in multiple integrations.
 
-== Create an Integration between Twitter and Salesforce
+== Create Integration between Twitter and Salesforce
 
-Next, create an integration that monitors Twitter feeds for any mention of your Twitter account name. An identified mention triggers the first step in the integration, which will create new Salesforce records with the Twitter feed information.
+In this section, you create an integration that monitors Twitter feeds for any mention of your Twitter account name. An identified mention triggers the first step in the integration, which creates new Salesforce records with the Twitter feed information.
 
 image::images/fuseignite_connections.png[]
 
-=== Add Connections to the Integration
+=== Add Connections to Integration
 
-. On the left-hand pane of the Fuse Ignite console, select the *Integrations* tab. The available connections, including the ones for Salesforce and Twitter which you just created, are displayed.
+. In the left-hand panel of the Fuse Ignite console, click *Integrations*.
+* The available connections, including the ones for Salesforce and Twitter that you just created, are displayed.
+. Click *Create Integration*.
+* The *Choose a Start Connection* screen appears:
 +
 image::images/choose_start_connection.png[]
 +
-. Click *Create Integration*. The *Choose a Start Connection* page appears.
-+
-NOTE: The credentials defined for every connection are used when the integration is active. Both connections (for Twitter and Salesforce) in this Integration invoke credentials that have been set, in order to access the respective Twitter and Salesforce applications.
+[NOTE]
+====
+The credentials defined for each connection are used when the integration is active. Both connections--Twitter and Salesforce--in this integration invoke the credentials that have been set in order to access the respective Twitter and Salesforce applications.
+====
+
+. Select the Twitter connection.
+. Select *Mention* on the *Choose an Action* screen:
 +
 image::images/choose_an_action_twitter_mention.png[]
-+
-. Select the Twitter connection.
-. Select *Mention* on the *Choose an Action* page. The *Choose a Finish Connection* page apppears.
+
+* The *Choose a Finish Connection* screen appears:
 +
 image::images/choose_finish_connection.png[]
-+
-. Click the Salesforce connection.
-. On the *Choose an Action* page, click *New record*.
-+
-NOTE: Data operations (CRUDL) are typical actions. For the Salesforce connection, the action you have to define involves creating new Salesforce records based on suitable leads captured from Twitter feeds.
+
+. Select the Salesforce connection.
+. On the *Choose an Action* screen, select *New record*:
 +
 image::images/choose_an_action_salesforce_new_record.png[]
 +
-. Choose *Contact* as the Salesforce record to create.
-. Complete the connection creation process, by clicking *Done*.
-. The *Add to Integration* page is displayed.
+NOTE: Data operations (CRUDL) are typical actions. For the Salesforce connection, the action you have to define involves creating new Salesforce records based on suitable leads captured from Twitter feeds.
+
+. Select *Contact* as the Salesforce record to create.
+. Click *Done*.
+* The *Add to Integration* screen is displayed:
 +
 image::images/add_to_integration.png[]
 
-*Optional activity:* provide configuration information to both the Twitter and Salesforce connections. What will be the suitable configuration changes that comes to mind?
+. (Optional) Provide configuration information to both the Twitter and Salesforce connections.
++
+****
+*Question:* What are the suitable configuration changes that come to mind?
+****
 
-=== Add Steps to the Integration
+=== Add Steps to Integration
 
-Part of every integration are steps. A step operates on data obtained, from either a connection or a step, and makes it available to either the next connection or step.
+Part of every integration are steps. A step operates on data obtained, from either a connection or another step, and makes it available to either the next connection or step.
 
-Different types of steps are available, including a basic filter step and a data mapping step.
-A _basic filter_ step checks tweets that mention specific keywords. The integration continues only if that content is present.
-A data mapping step that correlates data captured from Twitter feeds with contact fields in Salesforce.
+Different types of steps are available, including a _basic filter_ step and a _data mapping_ step.
+The basic filter step checks tweets that mention specific keywords. The integration continues only if that content is present. The data mapping step correlates data captured from Twitter feeds with contact fields in Salesforce.
 
-==== Add a Basic Filter step
+==== Add Basic Filter Step
 
-. On the *Add to Integration* page, click the *Add a Step* button.
-. Add a _basic filter_ step, by selecting *Basic Filter*.
+. On the *Add to Integration* screen, click *Add a Step*.
+. Select *Basic Filter*:
 +
 image::images/add_a_step_basic_filter.png[]
-+
-. Enter *text* in the first field. Click on *text* which appears within the drop-down list for this field.
-+
-NOTE: By selecting *text*, the body of the tweet serves as the content to be filtered.
+
+. Start typing `text` in the first field, then select *text* when it appears in the list:
 +
 image::images/configure_rule_filter_text.png[]
 +
-. In the adjacent drop-down list, select *contains*. This will be the filter condition that has to be met in the integration.
-. Type *#FuseIgniteRocks* into the empty *Keywords..* field. A valid tweet will have to contain the text in this field.
-. Click *Done*. The _basic filter_ step has been created.
+NOTE: By selecting *text*, the body of the tweet serves as the content to be filtered.
+
+. In the adjacent list, select *contains*.
+* This is the filter condition that has to be met in the integration.
+. Type `#FuseIgniteRocks` in the *Keywords* field.
+* A valid tweet has to contain the text in this field.
+. Click *Done* to create the basic filter step:
 +
 image::images/configure_basic_filter_step.png[]
 
-==== Add a Data Mapper step
 
-A _data mapper_ step that correlates Twitter mention fields to Salesforce contact fields is created next.
+==== Add Data Mapper Step
 
-. In the left-hand pane of Fuse Ignite, move your arrow icon over the plus sign *'+'* located between the _basic filter step_ and the _finish connection_ (ie: Salesforce connection).
+In this section, you create a data mapper step that correlates Twitter mention fields to Salesforce contact fields.
+
+. In the left-hand panel of Fuse Ignite, hover over the image:images/add_filter_icon.png[] icon located between the basic filter step and the finish connection and select *Add a step*:
 +
 image::images/add_filter_step.png[]
-+
-. Click *Add a Step* on the pop-up display which appears.
+. On the *Choose a Step* screen, select *Data Mapper*:
 +
 image::images/add_a_step_data_mapper.png[]
 +
-. Click *Data Mapper*. Observe the data fields displayed in two columns, *Sources* and *Target* on the Fuse Ignite console.
-. Create a mapping - starting from the *name* field in the *Sources* column and ending with both the *FirstName* and *LastName* fields in the *Target* column.
-+
-[NOTE]
-The Twitter *name* field has to be mapped to two distinct fields in Salesforce: *FirstName* and *LastName* respectively.
+. Create a mapping between the Twitter *name* field in the *Sources* panel and the Salesforce *FirstName* and *LastName* fields in the *Target* panel.
+* You need to map to both, as Salesforce uses two fields for the name.
 +
 [TIP]
-If you made a mistake in creating a data mapping, it is easy to delete it. Simply click the garbage bin icon at the top of the *Mapping Details* pane, as shown below:
-+
+====
+If you make a mistake while creating a data mapping, it is easy to delete it. Simply click the garbage bin icon at the top of the *Mapping Details* panel:
+
 image::images/mapping_details_garbagebin.png[]
-+
-. In the *Sources* column, scroll down to the *user* field and expand it.
-. Click the *name* field, located further down the list of fields.
-. Click the downward-facing caret *V*.
-. In the *Mapping Details* tab (located to the right of the console), under *Action*, select *Separate*.
-. Within the *Targets* section, replace the value of the field `[None]` with the text *FirstName*.
-. Select *FirstName* from the drop-down list that appears below the field.
+====
+
+.. In the *Sources* panel, scroll down to the *user* folder and expand it.
+.. Scroll down and click the *name* field.
+.. In the *Action* section of the *Mapping Details* panel on the right, select *Separate* from the *Action* list.
+.. In the *Targets* section, start typing `FirstName` in the field, then select *FirstName* from the list that appears.
 +
 image::images/configure_mapper_username_firstname.png[]
 +
-. Click *Add Target*, on the lower right of the screen.
-. Within the second *Targets* section, replace the value of the field `[None]` with the text *LastName*.
-. When *LastName* appears within a drop-down list below this field, select it.
-+
-NOTE: Notice that the _data mapper_ step displays a line from the Twitter *name* field to the Salesforce *FirstName* field, as well as a line from the Twitter *name* field to the Salesforce *LastName* field. Line of current focus is indicated in blue.
+.. Click *Add Target*.
+.. In the second *Targets* section, start typing `LastName`, then select *LastName* from the list.
+** Observe that the data mapper step now displays a line from the Twitter *name* field to both the Salesforce *FirstName* field and *LastName* field (The blue lines highlight the current focus.):
 +
 image::images/configure_mapper_username_firstname_lastname.png[]
 
 
-==== Create a mapping from the Twitter *screenName* field to the Salesforce *Title* field
+==== Create Second Mapping
 
-. In the *Sources* column, scroll down the list of fields and click on the *screenName* field.
-. In the *Target* column, click the magnifying glass. Within the search field, enter the text *Title*.
-. Select the *Title* field which appears in the *Target* column.
-+
-NOTE: Like before, the _data mapper_ step displays a line from the Twitter *screenName* field to the Salesforce *Title* field.
+In this section, you create a mapping from the Twitter *screenName* field to the Salesforce *Title* field.
 
-
-==== Create a mapping from the Twitter *text* field to the Salesforce *Description* field
-
-. In the *Sources* column, click the magnifying glass. In the search field located on the same column, enter the string *text*.
-+
-image::images/source_column_text_field.png[]
-+
-. With the *user* tab structure expanded, select the field *text* in the *Sources* column.
+. In the *Sources* panel, scroll down the list of fields and click *screenName*.
+. In the *Target* panel, click image:images/magnifying_glass_icon.png[] and type `title` in the search field.
+. Select the *Title* field when it appears.
+* The data mapper step now displays a line from the Twitter *screenName* field to the Salesforce *Title* field:
 +
 image::images/configure_mapper_userscreenname_title.png[]
+
+==== Create Third Mapping
+
+In this section, you create a mapping from the Twitter *text* field to the Salesforce *Description* field.
+
+. In the *Sources* panel, click image:images/magnifying_glass_icon.png[] and type `text` in the search field.
+
+. Expand the *user* folder and select the *text* field:
 +
-. Enter *Description* in the search field of the *Target* column. A field titled *Description* appears below.
-. Click the *Description* field to complete the data mapping creation.
+image::images/source_column_text_field.png[]
+
+. In the *Target* panel, click image:images/magnifying_glass_icon.png[] and type `Description` in the search field, then click the *Description* field when it appears:
 +
 image::images/configure_mapper_statustext_description.png[]
 +
-. Click the grid icon located at the upper right of the Fuse Ignite console. The list of data mappings you have created appear.
-. Click *Done* in the upper right of the console.
+. Click image:images/grid_icon.png[] above the *Mapping Details* panel.
+* The list of data mappings you created appears:
 +
 image::images/configure_mapper_grid.png[]
 
+. Click *Done* at the top right-hand corner of the console.
 
-=== Complete the Integration setup
+=== Complete Integration Setup
 
-Now that you have completed the Integration, deploy and test it.
+Now that you have completed the integration, deploy and test it.
 
-. Enter the name of the Integration _Twitter to Salesforce_ within the *Integration Name* field, on the left-hand pane.
-. Click *Publish*. Deployment of the integration begins immediately and lasts several minutes.
-. Select *Integrations* tab.
-. Enter the name of the integration _Twitter to Salesforce_ in the left-hand pane, and validate that the integration is active.
+==== Deploy Integration
+
+. Type `Twitter to Salesforce` in the *Enter integration name* field at the top of the left-hand panel in the Fuse Ignite console.
+. Click *Publish*.
+* Deployment of the integration begins immediately and lasts several minutes.
+. Click *Integrations*.
+. Select the *Twitter to Salesforce* integration and verify that it is active:
 +
 image::images/twitter_to_salesforce_integration.png[]
+
+==== Validate Integration
+
+In this section, you test that the integration creates a Salesforce record only when you send a tweet that contains the specific keyword criteria defined in the basic filter step.
+
+. Start with a negative test case by sending a tweet that meets the following criteria:
+* Contains your Twitter handle with the `@` prefix
+* Does not contain the keywords specified in the basic filter step
 +
-. In addition, validate that the integration creates a Salesforce record only when you send a tweet that contains the specific keyword criteria defined in the _basic filter_ step.
-. Proceed with a negative test case, by sending a Twitter tweet which:
-.. Contains your Twitter handle with a `@` prefix
-.. Does not contain the keywords specified in the _basic filter_ step. For instance:
-+
+.Sample Tweet
 ----
 @Hong loves #FuseIgnite.
 ----
+. After a minute, confirm that your Twitter handle (without the `@` prefix) does not exist in any Salesforce contact record.
+. Next, try a positive test case by sending a tweet that meets the following criteria:
+* Contains your Twitter handle with a `@` prefix
+* Contains the keywords specified in the basic filter step
 +
-. After a minute, validate that your Twitter handle (less the `@` prefix) does not exist in any Salesforce contact record.
-. Proceed with a positive test case, by sending a Twitter tweet which:
-.. Contains your Twitter handle with a `@` prefix
-.. Contains the keywords specified in the _basic filter_ step. For instance:
-+
+.Sample Tweet
 ----
 @Hong believes #FuseIgniteRocks.
 ----
 +
-. After a few minutes, validate that a contact record containing your Twitter handle (without the `@` prefix) has been created in Salesforce.
+. After a few minutes, confirm that a contact record containing your Twitter handle (without the `@` prefix) was created in Salesforce:
 +
 image::images/salesforce_lead_summary.png[]
 +
-. *Question:* What are the fields in the Salesforce contact record that capture the information from your earlier tweet? Can you recognise the various parts of the text from the tweet?
-+
-[NOTE]
-Verify that the text from your tweet is captured in the *Description* field, while your Twitter handle is captured in the *Title* field.
-+
-. [Optional] Recreate your integration, this time use the *Search criteria* functionality of *Twitter Connect* and the criteria for tweets to be captured as leads should be the phrase `#FuseIgniteRocks`.
-+
-*Question:* What are the rest of the changes that you have to make in order to complete this integration?
+****
+*Questions:*
 
-== Integration clean-up
+* What are the fields in the Salesforce contact record that capture the information from your tweet?
+* Can you recognize the various parts of the text from the tweet?
+****
++
+TIP: Verify that the text from your tweet is captured in the *Description* field and your Twitter handle is captured in the *Title* field.
 
-. In the left-hand pane of the Fuse Ignite console, click *Integrations*.
-. Select the _Twitter to Salesforce_  integration.
+. (Optional) Recreate the integration, this time using the *Search criteria* functionality of *Twitter Connect* and the phrase `#FuseIgniteRocks` as the criteria for tweets to be captured as leads.
++
+****
+*Question:* What are the other changes that you have to make in order to complete this integration?
+****
+
+== Clean Up Integration
+
+. In the left-hand panel of the Fuse Ignite console, click *Integrations*.
+. Select the *Twitter to Salesforce* integration:
 +
 image::images/integrations_twitter_salesforce.png[]
-+
-. Click *Stop Integration*, followed by clicking *OK* in the the integration summary. This will deactivate the integration.
+
+. Click *Stop Integration*:
 +
 image::images/integration_summary_stop.png[]
-+
-. Select the inactive integration _Twitter to Salesforce_.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
+. Click *OK* at the bottom of the summary panel.
+* This deactivates the integration.
+
+. Select the inactive *Twitter to Salesforce* integration.
+. Click *Delete Integration*, then click *OK* at the bottom of the summary panel.
 +
 [TIP]
-Practice good housekeeping: delete integrations that are no longer needed. This will release resources used by the deleted integrations, back to the Fuse Ignite system resource pool.
+Practice good housekeeping: Delete integrations that are no longer needed. This releases the resources used by the integrations back to the Fuse Ignite system resource pool.
 
-You have completed, tests and cleaned up your first integration in Fuse Ignite.
+You have completed, tested, and cleaned up your integration in Fuse Ignite.
 
 ifdef::showscript[]
-
 
 endif::showscript[]

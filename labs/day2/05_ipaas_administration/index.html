@@ -1754,7 +1754,7 @@ animation:         icon-animation-short 3.5s 1.5s 1;
   font-size: 26pt;
   font-weight: bold;
   text-transform: none;
-  padding-bottom: 39px;
+  padding-bottom: 24px;
 }
 .reveal .slides section h3 {
   font-family: Overpass, Open Sans, "Helvetica";
@@ -1792,14 +1792,20 @@ animation:         icon-animation-short 3.5s 1.5s 1;
   background-color: #d8e1e9;
   border: solid;
 }
+.reveal .reveal .slides section audio {
+  position: absolute;
+  left: 900px;
+  width: 300px;
+}
 
 		</style>
 	</head>
 	<body class="reveal-viewport theme-font-overpass2 theme-color-no-color">
 		<div class="reveal">
 			<div class="slides">
-				<section data-background-color="rgb(156,0,0)" data-background-image="deck-13/32fa01ef1b64201650bdc7d29ce7c22c.svg" data-id="15de49376d7a960ac9dfc03bb9ae7dba"><div class="sl-block" data-block-type="text" style="height: auto; width: 915px; left: 190px; top: 360px;" data-block-id="40e79dd2a15b48f09a0b3142a21e7f01"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left;" data-has-custom-html="">
-<h1 style="font-size:2.25em">Red Hat Fuse 7 Foundations</h1>
+				<section data-background-color="rgb(156,0,0)" data-background-image="deck-13/32fa01ef1b64201650bdc7d29ce7c22c.svg" data-id="15de49376d7a960ac9dfc03bb9ae7dba"><div class="sl-block" data-block-type="text" style="height: auto; width: 915px; left: 190px; top: 360px;" data-block-id="40e79dd2a15b48f09a0b3142a21e7f01"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 10; text-align: left;" data-has-custom-html="" dir="ui">
+<h1 style="font-size:2.25em">Red Hat Fuse 7 Foundations Part 1:<br>
+Fuse Ignite</h1>
 
 <h2 style="font-size:1.5em">Administration</h2>
 </div></div>
@@ -1858,7 +1864,7 @@ animation:         icon-animation-short 3.5s 1.5s 1;
 		</div>
 
 		<script>
-			var SLConfig = {"deck": {"id":1218175,"slug":"deck-13","title":"Fuse Online Foundations - Module 5 - Administation","description":"","width":1280,"height":720,"visibility":"self","published_at":null,"sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/d62df1d88eb92e7a5601dbbf3d63a986/thumb.jpg?1527026163","view_count":1,"user":{"id":354178,"username":"hchin","name":"Hong Hua Chin","description":null,"thumbnail_url":"https://www.gravatar.com/avatar/46aa09dd1dd291800ef54633a2b852a1?s=140\u0026d=https%3A%2F%2Fstatic.slid.es%2Fimages%2Fdefault-profile-picture.png","paid":true,"pro":true,"lite":false,"team_id":32,"settings":{"id":187807,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null},"enterprise":true,"membership":{"role":"member","manager":false,"activated":true}},"background_transition":"none","transition":"none","theme_id":176,"theme_font":"overpass2","theme_color":"no-color","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":false,"rolling_links":false,"center":false,"shuffle":false,"should_loop":false,"share_notes":true,"slide_number":true,"slide_count":4,"rtl":false,"version":2,"collaborative":true,"deck_user_editor_limit":1,"data_updated_at":1527124139444,"font_typekit":null,"font_google":null,"notes":{"cf0bc66421e2a3f165f1bf6591537783":"This module covers the integration log monitoring administrative feature of Red Hat Fuse Online.","3b3052adef08474225d8d1571ace849b":"Each integration runs in its own OpenShift Container Platform pod.\n\nThe log stream within the OpenShift Container Platform pod for the integration displays useful messages that indicate the health and status of the integration, its connections, and the data that is delivered.\n\nLogs can be read using the OpenShift Container Platform Management Console.","9305ef7579af4208649ce791f586129e":"This module covered the integration log monitoring administrative feature of Red Hat Fuse Online."}}};
+			var SLConfig = {"deck": {"id":1218175,"slug":"deck-13","title":"Fuse Online Foundations - Module 5 - Administation","description":"","width":1280,"height":720,"visibility":"self","published_at":null,"sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/d62df1d88eb92e7a5601dbbf3d63a986/thumb.jpg?1529002118","view_count":1,"user":{"id":354178,"username":"hchin","name":"Hong Hua Chin","description":null,"thumbnail_url":"https://www.gravatar.com/avatar/46aa09dd1dd291800ef54633a2b852a1?s=140\u0026d=https%3A%2F%2Fstatic.slid.es%2Fimages%2Fdefault-profile-picture.png","paid":true,"pro":true,"lite":false,"team_id":32,"settings":{"id":187807,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null},"enterprise":true,"membership":{"role":"member","manager":false,"activated":true}},"background_transition":"none","transition":"none","theme_id":176,"theme_font":"overpass2","theme_color":"no-color","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":false,"rolling_links":false,"center":false,"shuffle":false,"should_loop":false,"share_notes":true,"slide_number":true,"slide_count":4,"rtl":false,"version":2,"collaborative":true,"deck_user_editor_limit":1,"data_updated_at":1529002118286,"font_typekit":null,"font_google":null,"notes":{"cf0bc66421e2a3f165f1bf6591537783":"This module covers the integration log monitoring administrative feature of Red Hat Fuse Online.","3b3052adef08474225d8d1571ace849b":"Each integration runs in its own OpenShift Container Platform pod.\n\nThe log stream within the OpenShift Container Platform pod for the integration displays useful messages that indicate the health and status of the integration, its connections, and the data that is delivered.\n\nLogs can be read using the OpenShift Container Platform Management Console.","9305ef7579af4208649ce791f586129e":"This module covered the integration log monitoring administrative feature of Red Hat Fuse Online."}}};
 
 				SLConfig.theme = {"id":176,"created_at":"2014-05-27T12:38:16.183Z","updated_at":"2018-05-04T07:53:25.097Z","name":"Red Hat Corporate","thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/66755080be2b0c8c0146bfa70069ef16/thumb.jpg?1525420403","sanitize_messages":null,"slide_template_ids":[56708,56706,56689,28642,36442,27160,26765,26762,56684,56696,56697,56698,56699,56704,56703,56707],"font_typekit":"","font_google":"","width":960,"height":700};
 
@@ -1881,7 +1887,7 @@ animation:         icon-animation-short 3.5s 1.5s 1;
 				progress: true,
 				history: true,
 				mouseWheel: false,
-				showNotes: true,
+				showNotes: false,
 				slideNumber: true,
 
 				autoSlide: 0 || 0,

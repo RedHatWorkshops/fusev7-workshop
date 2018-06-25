@@ -5,171 +5,189 @@
 :coursevm:
 
 
-= Step Technical Extensions Lab - Products Damage Reporting
+== Step Technical Extensions Lab
 
-This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
+NOTE: This lab takes about an hour to complete. It covers topics you need to know to correctly complete the final assessment.
 
 .Goals
-* Create an integration using a custom developed Spring CDI application as a step extension
-* Amend the code in the Spring CDI application in order to alter behaviour of the step extension
+* Create an integration using a custom-developed Spring CDI application as a step extension
+* Amend the code in the Spring CDI application to alter the step extension behavior
 * Test the integration
 
 .Requirements
-* Completion of Lab 2 of Module 3 - API Client Connector Lab - AMQ to RESTful Service Scenario
-* Completion of Lab 2 of Module 4 - *Connector Technical Extensions Lab - utilize a technical extension in a marketing campaign use case*
+* Completion of _AMQ to RESTful Service Connector Lab_
+* Completion of _Connector Technical Extensions for File Replication Lab_
 * JDK 1.8 installed
 
-A consumer goods company `Coolstore` intends to provide a damage reporting service for products sold and shipped from vendor locations.
-The management of `Coolstore` plans to utilize Fuse Ignite and both the shapeless connectors and the technical extensions features to implement this product damage reporting service for their vendor shipments.
-Below is the sequence of events that allows the Damage Reporting service, on Fuse Ignite, to analyze and report the status of product shipments.
+.Overview
+A consumer goods company, Coolstore, intends to provide a damage reporting service for products sold and shipped from vendor locations. Coolstore management plans to use Fuse Ignite, shapeless connectors, and technical extensions to implement this damaged-product reporting service.
+
+The diagram below documents the sequence of events that allows the damage reporting service on Fuse Ignite to analyze and report the status of product shipments.
 
 image::images/arch-damage-reporter.png[]
 
-You will implement a custom step in a Fuse Ignite integration, through the use of a logging mechanism, developed as a Fuse Ignite technical extension.
-`Coolstore` intends to log the status of each product damage report, and this will be achieved using a custom step in a Fuse Ignite integration.
+Coolstore wants you to log the status of each damaged-product report. In this lab, you create a Fuse Ignite integration that implements a custom step that uses a logging mechanism developed as a Fuse Ignite technical extension to achieve this objective.
 
 :numbered:
 
-== Logon to Red Hat Fuse Ignite
+== Log In to Fuse Ignite Console
 
-You will proceed to utilize the Fuse Ignite environment.
-
-. Check your email inbox for the same email you received earlier, containing a link to Red Hat Fuse Ignite.
+. Log in to the OpenShift Container Platform web console if you are not already logged in.
 +
-CAUTION: Red Hat Fuse Ignite is supported for the following web browsers: Google Chrome, Mozilla Firefox, Microsoft Edge
-+
-. Click this link to display the Red Hat Fuse Ignite login page.
+TIP: The link is in your confirmation email, if you need it.
 
-. Log in using your OPENTLC account. The Fuse Ignite console page appears.
+. Click your *fuse-ignite-$GUID* project.
+. Click the URL of your Fuse Ignite console.
+. Log in using your OPENTLC credentials.
+* The Fuse Ignite console appears.
 
 
-== Install JBoss Developer Studio
+== Install Red Hat Developer Studio
 
-You will install JBoss Developer Studio (JBDS) 11.2 and the Fuse Ignite Technical Extension plugin.
+In this section, you install Developer Studio 11.2 and the Fuse Ignite technical extension plug-in.
 
-. link:https://developers.redhat.com/products/devstudio/download/[Download] version 11.2 of JBDS, which is packaged within a JAR archive.
+. Download version 11.2 of link:https://developers.redhat.com/products/devstudio/download/[Developer Studio], which is packaged as a JAR archive:
 +
 image::images/jbds-download.png[]
-+
-. Once download is complete, launch a command-line terminal window.
-. In the window, change working directory to the one containing the JAR archive for JBDS 11.2
-. Execute the command:
+
+. Once the download is complete, launch a command-line terminal window and change to the directory containing the JAR archive for Developer Studio 11.2.
+. Execute the following command:
 +
 ----
 $ java -jar devstudio-11.2.0.GA-installer-standalone.jar
 ----
-+
-. Accept the defaults shown by the installation wizard, and click *Next* on every window of the wizard, followed finally by clicking *Install* to begin installation.
-. After installation is complete, launch JBoss Developer Studio (either from command line or by clicking the JBDS icon).
-. From the menu selection bar, select *Help* -> *Install New Software*.
-. Click the *Add* button next to the *Work with* field.
-. In the *Name* field, provide the text: `Fuse Integration Tooling Builds`
-. In the *Location* field, provide the following URL: `http://download.jboss.org/jbosstools/oxygen/snapshots/builds/jbosstools-fuse_master/`
-. Click *Ok*.
-. After the available repository names appear within the *Install New Software* wizard, select the checkbox next to `Red Hat Fuse Tooling Nightly Build Update Site - Features`.
+
+. Accept the defaults provided by the installation wizard by clicking *Next* on every screen, and then click *Install*.
+. After the installation is complete, launch Developer Studio, either from the command line or by clicking the Developer Studio icon.
+. Select *Help -> Install New Software*.
+. To the right of the *Work with* field, click *Add* and complete the fields as follows:
+* *Name*: `Fuse Integration Tooling Builds`
+* *Location*: `http://download.jboss.org/jbosstools/oxygen/snapshots/builds/jbosstools-fuse_master/`
+. Click *OK*.
+. After the available repository names appear on the *Available Software* screen, check the box next to *Red Hat Fuse Tooling Nightly Build Update Site - Features*, then click *Next*:
 +
 image::images/nightly-builds.png[]
-+
-. Click *Next*.
+
 . Review the items to be installed and click *Next*.
-. Accept the terms and conditions, then click *Finish*. The installation of the latest nightly build for the Fuse Ignite Technical Extension plugin.
-. After the plugin is installed, agree to allow JBDS to restart.
+. Accept the terms and conditions and click *Finish*.
+* This starts the installation of the Fuse Ignite technical extension plug-in.
+. After the plug-in is installed, agree to allow Developer Studio to restart.
 
 
-== Import the Damage Reporter application into your JBDS workspace
+== Import Damage Reporter Application
 
-You will import the `Damage Reporter` application into JBDS, for analysis and eventual compilation of the code.
+In this section, you import the damage reporter application into Developer Studio for analysis and eventual compilation of the code.
 
-. Download the repository containing the lab assets to your preferred working directory `$lab_dir`, using *git*:
+. Download the repository containing the lab assets to the `$lab_dir` working directory using `git`:
 +
 ----
 $ cd $lab_dir
 $ git clone https://github.com/gpe-mw-training/fuse-ipaas-labs
 ----
+
+. From the Developer Studio menu, select *File -> Import -> Existing Maven Projects*.
+. Navigate to the directory containing the `pom.xml` file for the `damage-reporter` project:
 +
-. From the JBDS menu bar, select *File -> Import -> Existing Maven Projects*.
-. Using the wizard, navigate to the directory containing the `pom.xml` for the `damage-reporter` project. This directory will is `/$lab_dir/fuse_ipaas_labs/04_technical_extensions/damage_reporter`.
-. After the project import process completes, you will notice a `damage-reporter` project from the *Project Explorer* view in JBDS.
+----
+/$lab_dir/fuse_ipaas_labs/04_technical_extensions/damage_reporter
+----
+. After the project finishes importing, look for the `damage-reporter` project in the *Project Explorer* view in Developer Studio.
 +
 [NOTE]
-The `Damage Reporter` project is a Java application that utilizes an Apache Camel route. The project also
-implements a Spring-managed component `reportService`, which generates a list of damaged items that will eventually be included (together with the vendor contact list) as part of the product damage report.
-+
-. In the *Project Explorer* view, navigate through the source code for `Damage Reporter`, by expanding all the subdirectory branches of the `src/main/java` directory structure.
+The `damage-reporter` project is a Java application that uses an Apache Camel route. The project also implements a Spring-managed component called `reportService`, which generates a list of damaged items that are eventually included, together with the vendor contact list, in the damaged-product report.
+
+. In the *Project Explorer* view, navigate through the `damage-reporter` project source code by expanding all of the subdirectory branches of the `src/main/java` directory structure.
 . Inspect the Java source files.
 +
-*QUESTION:* Which Java source file implements the Spring-based `reportService` and which Java source file handles the damage report generation?
+****
+*Question:* Which Java source file implements the Spring-based `reportService` and which Java source file handles the damage report generation?
+****
 +
-. Locate the extension definition file `syndesis-extension-definition.json` and double-click on it. It resides in the `../resources/META-INF/syndesis` subdirectory.
-. Analyse the contents of the extension definition file, and visualize the use of this extension.
+. Locate the `syndesis-extension-definition.json` extension definition file and double-click it.
+* It resides in the `../resources/META-INF/syndesis` subdirectory.
+. Analyze the contents of the extension definition file, and visualize the use of this extension:
 +
 image::images/extension-definition.png[]
-+
-. Expand the *Outline* view and inspect the structure of the extension definition.
+
+. Expand the *Outline* view and inspect the structure of the extension definition:
 +
 image::images/outline-extension-definition.png[]
 +
-*QUESTION:* From the extension definition, what are the various configurable aspects of the technical extension that you can identify? If you had a new requirement for a complex data structure or shape as an input, how will you design the technical extension?
+****
+*Questions:*
+
+* Looking at the extension definition, what configurable aspects of the technical extension can you identify?
+* If you had a new requirement for a complex data structure or shape as an input, how would you design the technical extension?
+****
 +
-. In the *Project Explorer* view, navigate to the `../resources/camel` subdirectory in the `Damage Reporter` project.
-. Locate the `extension.xml` file, which contains the Apache Camel Route definition.
-+
-[NOTE]
-In Fuse Ignite, every technical extension consists of implementation code as well as a technical extensions definition file. The definition file defines the action that the extension will perform, the type of implementation (either Camel Endpoint or Bean), the input data type and the output data type. By changing the data types, different types of data (shapeless or shaped) can be handled using custom technical extensions.
+. In the *Project Explorer* view, navigate to the `../resources/camel` subdirectory in the `damage-reporter` project.
+. Locate the `extension.xml` file, which contains the Apache Camel route definition:
 +
 image::images/extension-camel-route.png[]
 +
-. Analyse the `damage-report` Camel Route, using both the *Source* and *Design* tabs of the Camel Editor plugin.
+[NOTE]
+In Fuse Ignite, every technical extension consists of implementation code as well as a technical extension definition file. The definition file defines the action that the extension performs, the type of implementation (either Camel endpoint or bean), the input data type, and the output data type. By changing the data types, different types of data (shapeless or shaped) can be handled using custom technical extensions.
 
-*QUESTION:* What other possible exceptional circumstances, apart from the damaged condition of products, can this damage reporting application cater for? How would you re-design the Camel Route to meet these use case requirements?
+. Analyze the `damage-report` Camel route, using both the *Source* and *Design* tabs of the Camel Editor plug-in.
++
+****
+*Questions:*
 
+* What other possible exceptional circumstances, apart from reporting damaged products, can this damage reporting application be used for?
+* How would you redesign the Camel route to meet those use case requirements?
+****
 
-== Customize the Damage Reporter application
+== Customize Damage Reporter Application
 
-You will customize the Spring-based application `Damage Reporter` to address a new business requirement from `Coolstore` Management.
+In this section, you customize the Spring-based damage reporter application to address a new business requirement from Coolstore management.
 
 [NOTE]
-Learn how a technical extension is developed with the link:https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/tooling_user_guide/igniteextension/[JBoss Fuse Tooling Guide]. You will appreciate from this guide that certain conventions regarding a custom developed technical extension’s JSON file contents must be observed.
+Use the link:https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/tooling_user_guide/igniteextension/[Tooling User Guide] to learn how a technical extension is developed. This guide points out the conventions that must be followed regarding the contents of a custom-developed technical extension’s JSON file.
 
 [TIP]
-For technical extensions that you develop based on an Apache Camel route, and not a bean, the entry point of the extension must correspond to a Camel endpoint on that route. In addition, you have to specify both the input data shape and the output data shape, for a technical extension that transforms data types.
+For technical extensions that you develop based on an Apache Camel route instead of a bean, the entry point of the extension must correspond to a Camel endpoint on that route. In addition, you have to specify both the input data shape and the output data shape for a technical extension that transforms data types.
 
-. Walkthrough the code of the `damage-reporter` project located in your JBDS workspace.
+. Walk through the `damage-reporter` project's code in your Developer Studio workspace:
 +
 image::images/damage-reporter-jbds.png[]
 +
-* *QUESTION:* Can you map the interaction flows between the six Java classes, either using a whiteboard or your favorite UML modeling tool?
-* Discuss and compare your findings with your instructor, your classmate or your colleague. If there are differences, try to arrive on a consensus.
-. Make necessary code changes to include the following new contacts:
+****
+*Question:*
+
+* Can you map the interactions between the six Java classes, using either a whiteboard or your favorite UML modeling tool?
+** Discuss and compare your findings with your instructor, a classmate, or a colleague. If there are differences, try to arrive at a consensus.
+****
+
+. Make the necessary code changes to include the following new contacts:
 +
-[.noredheader,cols="5,5,5",caption=""]
+[options="header",cols="5,5,5"]
 |======
-|*Name*|*Number*|*Company*
+|Name|Number|Company
 |Andreas Chang|937 512 235|Westside Premium
 |Bala Gopal|988 345 111|Finest Goods
 |Sergio Lucini|862 223 402|Eastside Specialty Outlets
 |======
-+
-. Once the changes are made, save them.
-. Perform a compilation of the `damage-reporter` project:
-.. From the *Project Explorer* view, right-click on the project.
-.. From the list of options, select *Run As* -> *Run Configurations*
+
+. Save your changes.
+. Compile the `damage-reporter` project:
+.. In the *Project Explorer* view, right-click the project and select *Run As -> Run Configurations*:
 +
 image::images/run-as-run-configurations.png[]
 +
-.. On the *Run Configurations* window, provide the following text in the *Goals* field: `clean install`
-.. Ensure that the *User settings* field has the correct path for your Apache Maven `settings.xml` file.
-.. Click the *Apply* button, followed by clicking the *Run* button.
+.. In the *Run Configurations* window, type `clean install` in the *Goals* field.
+.. Make sure that the *User settings* field has the correct path for your Apache Maven `settings.xml` file.
+.. Click *Apply*, then click *Run*.
 +
 [NOTE]
-This sequence of instructions is the equivalent of executing the command `mvn clean install` at command-line.
+This sequence of steps is equivalent to executing the `mvn clean install` command from the command line.
 +
 image::images/run-configurations.png[]
-+
-. From the *Console* view, validate that the compilation of the `damage-reporter` project is a success.
+
+. From the *Console* view, validate that the compilation of the `damage-reporter` project is a success:
 +
 image::images/damage-reporter-jbds-compile.png[]
 +
+.Sample Output
 ----
 [INFO] --- syndesis-maven-plugin:1.2.9:repackage-extension (repackage) @ damage-reporter ---
 [INFO] Resolving artifact org.springframework.boot:spring-boot-dependencies:pom:1.5.8.RELEASE from [central (https://repo.maven.apache.org/maven2, default, releases)]
@@ -190,280 +208,268 @@ image::images/damage-reporter-jbds-compile.png[]
 ----
 
 
-== Export the Damage Reporter application from JBDS
+== Export Damage Reporter Application
 
-You will export the `damage-reporter` project to your local working directory, as a JAR archive file.
+In this section, you export the `damage-reporter` project from Developer Studio to your local working directory as a JAR archive file.
 
 . In the *Project Explorer* view, expand the `target` branch of the `damage-reporter` project.
-. Right-click on the JAR archive and select *Export*.
+. Right-click the JAR file and select *Export*:
 +
 image::images/jar-export.png[]
 +
-. In the *Export* window, click the *Browse* button and navigate to your preferred working directory.
+. In the *Export* window, click *Browse* and navigate to your preferred working directory:
 +
 image::images/export-file-system.png[]
 +
-. Click the *Finish* button.
+. Click *Finish*.
++
+TIP: If you are not able to successfully compile and download the damage reporter application, you can download the link:https://github.com/gpe-mw-training/fuse-ipaas-labs/blob/master/04_technical_extensions/damage-reporter-1.3.4.jar?raw=true[precompiled damage reporter application].
 
 
-== [OPTIONAL] Download Pre-compiled Damage Reporter Application
+== Import Damage Reporter Application into Fuse Ignite
 
-Perform this exercise, only if you have not been able to complete the earlier section.
+In this section, you create a custom step that uses a technical extension as part of the integration.
 
-. link:https://github.com/gpe-mw-training/fuse-ipaas-labs/blob/master/04_technical_extensions/damage-reporter-1.3.4.jar?raw=true[Download] the Damage Reporter application that has been pre-compiled.
+A selection of native steps are available in Fuse Ignite that were developed for the consumption and manipulation of integration data. This supply chain integration scenario requires the use of a custom step that identifies electronic goods (such as smartphones, computer monitors, and wireless network routers) that were damaged during transport. In this section, you create such a custom step using a previously developed technical extension that identifies the damaged goods.
 
-
-== Import the Damage Reporter application into Fuse Ignite
-
-You will create a custom step, which will use the technical extension as part of the integration.
-
-A selection of native steps are available in Red Hat Fuse Ignite. They are developed for consumption and manipulation of integration data.
-
-This supply chain integration scenario require the use of a custom step which identifies electronic goods (like smart phones, computer monitors, wireless network routers) that are damaged during transport.
-
-Now, create such a custom step using a pre-developed technical extension, that will identify the damaged goods.
-
-. Select the *Customizations* tab on the left-hand pane of Red Hat Fuse Ignite Console.
+. In the left-hand panel of the Fuse Ignite console, click *Customizations*.
 
 . Select the *Extensions* tab.
 
-. Click the *Import Extension* button.
+. Click *Import Extension*.
 
-. Click *Browse* and select the JAR file containing the *Damage Reporter* technical extension.
-+
-[NOTE]
-The archive file is validated and extracted. On the Fuse Ignite console, the technical extension’s name, ID, and description are listed, additionally `log-body` is indicated as the custom step that the technical extension defines.
+. Click *Browse* and select the JAR file containing the damage reporter technical extension.
+* The archive file is validated and extracted.
 
-. Click *Import*. The custom step becomes available for use in any integration, with the details of the technical extension displayed.
+. On the Fuse Ignite console, note that the technical extension’s name, ID, and description are listed, and `log-body` is indicated as the custom step that the technical extension defines.
+
+. Click *Import*.
+* The details of the technical extension are displayed.
+
+The custom step is now available for use in any integration.
 
 
 == Configure the AMQ broker
 
-You will setup the AMQ broker provided as part of the Fuse Ignite installation.
+In this section, you set up the AMQ broker included in the Fuse Ignite installation.
 
-. Using the OpenShift Management Console, click on the active OpenShift pod icon, right of the `syndesis-amq` deployment.
+. From the OpenShift Container Platform web console, click the active OpenShift pod icon to the right of the *syndesis-amq* deployment:
 +
 image::images/01-Step-53.png[]
 +
 [NOTE]
 OpenShift pods are similar to virtual machine instances as far as a container is concerned. Each pod is allocated its own internal IP address, and containers within pods can share their local storage and networking.
-+
-. Access the AMQ console by clicking on the *Open Java Console* link.
+
+. Click the *Open Java Console* link to access the ActiveMQ console:
 +
 image::images/01-Step-54.png[]
 +
-. At the AMQ console, click on the *Create* tab, located on the horizontal menu bar.
+. In the ActiveMQ console, click the *Create* tab:
 +
 image::images/01-Step-56.png[]
 +
-. Enter the following, then click the *Create Queue* button:
-+
-----
-Queue name: inventoryReceived
-
-Destination Type: Queue
-----
-+
-. On the left-hand panel, expand the *Queue* tab.
-. Validate that the queue `inventoryReceived` is created.
-. Switch focus to the browser displaying the Fuse Ignite console.
+. Complete the form as follows:
+.. In the *Queue name* field, type `inventoryReceived`.
+.. For *Destination type*, select the *Queue* radio button.
+. Click *Create Queue*.
+. In the left-hand panel, expand the *Queue* folder and confirm that the `inventoryReceived` queue was created.
 
 
 == Create an AMQ connection
 
-If you have not done so already, you will create an AMQ connection. If you have created an AMQ connection in a previous lab, skip this section and proceed to complete the *Unsecure the route for the Todo App* section.
+In this section, you create an AMQ connection if you have not done so already. If you created an AMQ connection in a previous lab, you can skip this section and proceed to the <<CrossRefAnchor>> section.
 
-. On the left-hand panel of the Fuse Ignite console, click *Connections*.
-. Click the *Create Connection* button.
+. Switch to the browser window displaying the Fuse Ignite console.
+. In the left-hand panel, click *Connections*, then click *Create Connection*.
+. Select the *AMQ* connector:
 +
 image:images/create-connection-amq.png[]
-+
-. Select the *AMQ* connector. The *AMQ* connection creation page loads.
-. Configure the connection by entering:
-.. In the *Broker URL* field, enter `tcp://syndesis-amq-tcp:61616` where the messages are delivered and resides.
-.. In the *Username* field, enter `uservKL` as authorized user account.
-.. In the *Password* field, enter `RA8oNMOg` as the password.
-. Leaving all other fields alone, click *Validate*.
-. When validation is successful, click Next.
-. In the *Connection Name* field, enter `AMQ Broker`.
-. In the *Description* field, enter the text `Product status update`.
-. Click *Create* to begin connection creation. Notice the new AMQ connection on the Fuse Ignite console.
 
+. On the *Configure Connection* screen, complete the fields as follows:
+* *Broker URL*: `tcp://syndesis-amq-tcp:61616`
+** This is where the messages are delivered and reside.
+* *User Name*: `uservKL`
+* *Password*: `RA8oNMOg`
+* Leave all other fields as is
+. Click *Validate*, then click *Next*.
+. On the *Name Connection* screen, complete the fields as follows:
+* *Connection Name*: `AMQ Broker`
+* *Description*: `Product status update`
+. Click *Create*.
+* Expect to see the new AMQ connection in the Fuse Ignite console.
 
-== Unsecure the route for the Todo App
+[[CrossRefAnchor]]
+== Remove To Do Application's Route Security
 
-. On the menu of the OpenShift Management Console for your OpenShift environment, navigate to *Applications -> Routes*.
+. In the OpenShift Container Platform web console, navigate to *Applications -> Routes*.
+. Click *Actions* and select *Edit*:
 +
 image:images/edit-todo-route.png[]
-+
-. Click on the *Actions* button, and select *Edit*.
+
+. Scroll down to the *Security* section and locate the *Secure route* check box:
 +
 image:images/secured-route-todo-app.png[]
-+
-. Scroll to reveal the *Security* section, and locate the checkbox next to *Secure route*.
+
+. Uncheck the box to remove security on the To Do application's route:
 +
 image:images/unsecure-route-todo-app.png[]
-+
-. Unsecure the route for the *Todo App* by removing the entry in the checkbox.
-. Scroll down and click *Save*.
+
+. Click *Save*.
 
 
-== Create a REST API connector
+== Create REST API Connector
 
-You will create a REST API connection to the *Todo App* that will be used in this scenario as a message client.
+In this section, you create a REST API connection to the To Do application that is used in this scenario as a message client.
 
-. On the left-hand panel of the Fuse Ignite console, click *Home*.
+. In the left-hand panel of the Fuse Ignite console, click *Home*.
 . Copy the URL for the Fuse Ignite console.
-. At the front of the URL, insert `todo-` at the end of the URL, append `/swagger.json`. You now have a URL for the Swagger specification for the *Todo App* in the form:
+. At the front of the URL, insert `todo-` and at the end of the URL, append `/swagger.json`.
+* You now have a URL for the Swagger specification for the To Do application that resembles this:
 +
+.Sample URL
 ----
-http://todo-fuse.fuse-ignite-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com/swagger.json
+https://todo-fuse.fuse-ignite-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com/swagger.json
 ----
-+
-. In the Ignite navigation panel, click *Customizations*.
+
+. In the left-hand panel, click *Customizations*.
 . Click *Create API Connector*.
-. Select *Use a URL*.
-. In the input box, paste the URL for your Swagger specification and click *Next*.
-. On the *Review Swagger Actions* page, click *Next*.
+. Select the *Use a URL* radio button.
+. Paste the URL for your Swagger specification into the field and click *Next*.
+. On the *Review Swagger Actions* screen, click *Next*.
 . Click *Next* again to accept *HTTP Basic Authorization*.
-. On the *General Connector Info* page, in the *Host* field, paste the URL for the *Todo App* Swagger
-specification without the `swagger.json`. For instance:
+. On the *General Connector Info* screen, in the *Host* field, paste the To Do application's Swagger specification URL and remove `/swagger.json` from the end:
 +
+.Sample URL
 ----
-http://todo-fuse.fuse-ignite-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com
+https://todo-fuse.fuse-ignite-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com
 ----
 +
-. Click *Create Connector*. Notice the *API Client Connectors* tab contains a *Todo App* API which was just created.
+. Click *Create Connector*.
+* The *Todo App API* now appears on the *API Client Connectors* screen.
 
 
-== Create a REST API connection using the connector
+== Create REST API Connection
 
-You will create a connection to the *Todo App* API.
+In this section, you create a connection to the Todo App API.
 
-1. On the Fuse Ignite console, click *Connections*.
-2. Click *Create Connection*.
-3. Click the *Todo App API* connector that you have just created.
-4. In the *Configuration* wizard, notice that Fuse Ignite populates the *Authentication Type*,
-Base Path*, and *Host* fields from the connector information.
-5. In the *Username* field, enter `uservKL`.
-6. In the *Password* field, enter `RA8oNMOg`.
-7. Click *Next*.
-8. In the *Connection Name* field, enter `Todo App API Client`.
-9. Leave the *Description* field empty.
-10. Click *Create*. Notice the connection you have created appears as an icon.
+. In the left-hand panel of the Fuse Ignite console, click *Connections*.
+. Click *Create Connection*.
+. Select the *Todo App API* connector that you created.
+* On the *Configure Connection* screen, note that Fuse Ignite populates the *Authentication Type*,
+*Base Path*, and *Host* fields from the connector information.
+. In the *Username* field, type `uservKL`.
+. In the *Password* field, type `RA8oNMOg`.
+. Click *Next*.
+. In the *Connection Name* field, type `Todo App API Client`.
+. Leave the *Description* field empty.
+. Click *Create*.
+* Expect to see the connection appear on the *Connections* screen.
 
 
-== Create a Damage Reporting integration
+== Create Damage Reporter Integration
 
-You will create an integration using two connections you have created.
+In this section, you create an integration using the two connections you have created.
 
-. On the left-hand panel of the Fuse Ignite console, click *Integrations*. The Integration creation wizard is displayed.
-. Select on the left-hand panel, the *Start Connection*.
-. Click on the *AMQ* connection that you have created. The *Choose an Action* screen appears.
+. In the left-hand panel of the Fuse Ignite console, click *Integrations* and then *Create Integration*.
+. On the *Choose a Start Connection* screen, select the *AMQ* connection.
+. On the *Choose an Action* screen, select the *Subscribe for messages* action:
 +
 image:images/amq-broker-choose-an-action.png[]
-+
-. Select the *Subscribe for messages* action. This action will set the *AMQ Broker* connection as a queue subscriber.
-. Populate these fields with the assigned values:
-+
-----
-Destination Name: inventoryReceived
 
-Destination Type: Queue
-----
+* This action sets the *AMQ Broker* connection as a queue subscriber.
+. On the *Subscribe for messages* screen, complete the following fields:
+* *Destination Name*: `inventoryReceived`
+* *Destination Type*: *Queue*
 +
 image:images/amq-broker-subscribe-for-messages.png[]
 +
-. Click *Next* and then *Done* to complete the setup of the *Start* connection.
-. Select from the left-hand panel, the *Finish Connection*.
-. Click on the "Create Task" action.
-. Click on the *Todo App API Client* connection.
-. Click *Next* and then *Done* to complete the setup of the *Finish* connection.
+. Click *Next* and then *Done*.
+* This completes the setup of the *Start* connection.
+. In the left-hand panel, select *FINISH*.
+. On the *Choose a Finish Connection* screen, select *Todo App API Client*.
+. On the *Choose an Action* screen, select *Create Task*.
+. Click *Next*, and then click *Done*.
+* This completes the setup of the *Finish* connection.
 
-== Implement a custom step in the integration
+== Implement Custom Step
 
 //include custom step screenshot
 
-You will add the custom step using the *Damage Reporter* application.
+In this section, you add the damage reporter custom step to the integration.
 
 . In the center of the console, click *Add a Step*.
-. On the *Choose a Step* page, click *Damage Reporter*.
-. In the left panel, hover over the `+` sign between the *Damage Reporter* step and the *Finish*
-connection to display a pop-up in which you click Add a Step .
-. On the *Choose a Step* page, click *Data Mapper*.
+. On the *Choose a Step* screen, select *Damage Reporter*.
+. In the left-hand panel, hover over the image:images/add_filter_icon.png[] icon located between the *Damage Reporter* step and the *Finish* connection and select *Add a Step*.
+. On the *Choose a Step* screen, select *Data Mapper*.
 +
 [NOTE]
-In the data mapper, the *Sources* panel on the left displays the fields in the output from the damage reporter step. The *Target* panel on the
-right displays the fields in the database that the *To Do App API* accesses.
+In the data mapper, the *Sources* panel on the left displays the fields in the output from the damage reporter step. The *Target* panel on the right displays the database fields that the *Todo App API* accesses.
+
+. In the *Sources* panel, click *task*.
+. In the *Target* panel, expand the *body* folder and click *task*.
+. Click *Done*.
+* The custom step is added to the integration.
+
+== Publish Integration
+
+. Name the integration `Damage Reporting`.
+. Click *Publish*.
+* This deploys the integration.
 +
-. In the *Sources* panel, click the *task* field.
-. In the *Target* panel, expand the *body* field and click *task*.
-. Click *Done*. The custom step has been added to the integration.
+****
+*Question:* At this stage, are you able to visualize the objective of the integration based on its design and anticipate the results?
+****
 
 
-== Complete integration creation process
+== Test Integration
 
-. Name the integration _Damage Reporting_.
-. Click *Publish*. The integration will be deployed.
+In this section, you test the integration.
 
-*QUESTION:* At this stage, are you able to visualize the objective of the integration based on its design, and anticipate the results?
-
-
-== Test the integration
-
-You will test the integration.
-
-. On the Fuse Ignite console, click *Integrations*.
-. Validate that your *Damage Reporting* integration is *Published* and active, before proceeding.
-. In a new web browser window, go to the *To Do app* display by appending *todo-* in front of the URL
-for your Fuse Ignite installation. The resulting URL should resemble:
+. In the Fuse Ignite console, click *Home* and copy the URL of your Fuse Ignite installation.
+. In the left-hand panel, click *Integrations*.
+. Confirm that the *Damage Reporting* integration is *Published* and active before proceeding.
+. Open another browser window, paste the URL into the URL field, and append `todo-` as shown:
 +
+.Sample URL
 ----
-http://todo-fuse.fuse-ignite-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com
+https://todo-fuse.fuse-ignite-<$GUID>.apps.<$Environment_ID>.openshift.opentlc.com
 ----
-+
-[TIP]
-For instance, the URL to a particular instance of a *To Do app* could be `http://todo-fuse.fuse-ignite-f2r5.apps.ap2.openshift.opentlc.com/` where `f2r5` is the *$GUID* and `ap2` is the *$Environment_ID*
-+
-. Using the *To Do app*, click *Show JMS Form* to display a field for a XML message.
+
+. Press *Enter* to access the To Do application.
+. Click *Show JMS Form* to display the XML message.
 . Click *Send JMS Message* to send that message to the AMQ broker.
-+
-[NOTE]
-Successful execution returns a task from the *To Do app* API. The task identifies the ID of
-the damaged item as well as the contact information for its vendor.
-+
+* Successful execution returns a task from the Todo App API that identifies the ID of the damaged item as well as the contact information for its vendor.
+
 . Edit the *XML message* to specify two damaged items:
-.. Click *Show JMS Form* to display the message input box again.
-.. In the XML message, change the entry for the undamaged item to specify
-damaged="true".
-.. Click *Send JMS Message*. The *To Do app client API* returns a new task that contains IDs for
-two damaged items and contact information for the two vendors.
+.. Click *Show JMS Form* to display the message field again.
+.. In the XML message, change the entry for the undamaged item to `damaged="true"`.
+.. Click *Send JMS Message*.
+* The Todo app API returns a new task that contains IDs for two damaged items and contact information for the two vendors.
 . Edit the XML message to specify an unknown vendor:
 .. Click *Show JMS Form*.
-.. In the XML message, for an item that has damaged="true", change the name of the
-vendor.
-.. Click *Send JMS Message*. The *To Do app client API* returns a new task that indicates that
-there is no contact information for the vendors of `Coolstore`.
+.. In the XML message, for an item that has `damaged="true"`, change the name of the vendor.
+.. Click *Send JMS Message*.
+* The Todo App API returns a new task that indicates that there is no contact information for one of the Coolstore vendors.
 
 
-== Housekeeping
+== Clean Up Integration
 
-You will clean up the integration. as a housekeeping best practice.
+In this section, you clean up the integration as a housekeeping best practice.
 
-. In the left-hand pane, click *Integrations*.
-. Locate the entry for the _Damage Reporting_ integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
-* If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
+. In the left-hand panel, click *Integrations*.
+. Locate the *Damage Reporting* integration.
+. Click image:images/more_options_icon.png[] (*More Options*) next to the green check box and select *Unpublish*.
+. Click *OK*
+* This deactivates the integration.
+* If you are utilizing the Fuse Ignite Technology Preview, other integration can now be published and tested.
 +
 [NOTE]
-The next few steps are optional. Use them only when you are certain that the integration will never be required again.
-+
-. Locate the entry for the _Damage Reporting_ integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
+The next two steps are optional. Use them only when you are certain that you do not need the integration anymore.
 
-You have completed, tested and cleaned up your integration in Fuse Ignite.
+. Locate the *Damage Reporting* integration, click image:images/more_options_icon.png[] (*More Options*), and select *Delete Integration*.
+. Click *OK* at the bottom of the summary panel.
+
+You have completed, tested, and cleaned up your integration in Fuse Ignite.
 
 ifdef::showscript[]
 

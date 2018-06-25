@@ -5,151 +5,141 @@
 :coursevm:
 
 
-= API Client Connector Lab - AMQ to RESTful Service Scenario
+== AMQ to RESTful Service Connector Lab
 
-This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
+NOTE: This lab takes about an hour to complete. It covers topics you need to know to correctly complete the final assessment.
 
-.Pre-requisites
-* Completed API Client Connector Lab - Database to RESTful Service Scenario
+.Prerequisite
+* Completion of _Database to RESTful Service Connector Lab_
 
 .Goals
-* Create an Integration using existing API Client Connection to an external REST service and an AMQ Connection, using Red Hat Fuse Ignite
-* Use a Data Mapper step to map fields between the schema of AMQ message and the schema of the external REST service
+* Create an integration using the existing API client connector to an external REST service and an AMQ connector, using Fuse Ignite
+* Use a data mapper step to map fields between the AMQ message schema and the external REST service schema
 
-CoolWater Inc. is a local water utility company. The payment management system that you implemented at CoolWater Inc. extends an online service to their clients, for convenience of water bill payment. This online service is accessed via a API REST connection, facilitating payment information to be displayed on the link:https://water-company-tp3demo.4b63.pro-ap-southeast-2.openshiftapps.com/main[_Customer Billing Portal_] of CoolWater Inc. The portal conducts a data-cleanup every 3 hour interval.
+CoolWater Inc. is a local water utility company. The payment management system that you implemented for CoolWater provides their clients with a convenient online water bill payment interface. This online service is accessed via a REST API connection to a web service that displays the water bill payment details on Coolwater's link:https://water-company-tp3demo.4b63.pro-ap-southeast-2.openshiftapps.com/main[customer billing portal]. The portal conducts a data cleanup every three hours.
 
 image::images/01-Step-50.png[]
 
-You are tasked to implement an event-triggered recurring payment solution, that must utilize the existing IT infrastructure of CoolWater Inc. This simulates recurring payments that are scheduled on a monthly basis, and an event triggers a single payment once the payment date arrives.
+You are tasked with implementing an event-triggered recurring payment solution that must utilize Coolwater's existing IT infrastructure. This simulates recurring payments that are scheduled on a monthly basis, and an event triggers a single payment once the payment date arrives.
 
-Status of the recurring payments can be viewed from the link:https://water-company-tp3demo.4b63.pro-ap-southeast-2.openshiftapps.com/main[_Customer Billing Portal_].
+Status of the recurring payments can be viewed from the link:https://water-company-tp3demo.4b63.pro-ap-southeast-2.openshiftapps.com/main[customer billing portal].
 
 image::images/01-Step-37.png[]
 
 :numbered:
 
-== Logon to Red Hat Fuse Ignite
+== Log In to Fuse Ignite Console
 
-. Check your email inbox for the same email you received earlier, containing a link to the OpenShift Management Console for the PaaS environment, where Red Hat Fuse Ignite is installed.
+. Log in to the OpenShift Container Platform web console if you are not already logged in.
 +
-CAUTION: Red Hat Fuse Ignite is supported for the following web browsers: Google Chrome, Mozilla Firefox, Microsoft Edge
-+
-. Click this link to display the OpenShift Management Console.
-. Log in using your OPENTLC account.
-. Select the Fuse Ignite project, with the `GUID` assigned to you through email, from the list of projects.
+TIP: The link is in your confirmation email, if you need it.
+
+. Click your *fuse-ignite-$GUID* project.
 +
 image::images/01-Step-52.png[]
-+
-. Locate the URL for the Red Hat Fuse Ignite login page.
-. Access the Red Hat Fuse Ignite login page, using a separate browser tab.
-. Log in using your OPENTLC account. The Fuse Ignite console page appears.
 
-== Configure the AMQ broker
+. Right-click the URL of your Fuse Ignite console and open it in a new browser window.
+. Log in using your OPENTLC credentials.
+* The Fuse Ignite console appears.
 
-You will setup the AMQ broker provided as part of the Fuse Ignite installation.
+== Configure AMQ Broker
 
-. Using the OpenShift Management Console, click on the active OpenShift pod icon, right of the `syndesis-amq` deployment.
+In this section, you set up the AMQ broker provided as part of the Fuse Ignite installation.
+
+. In the OpenShift Container Platform web console, click the active OpenShift pod icon to the right of the deployment with AMQ in the name. For example `broker-amq` or `syndesis-amq`:
 +
 image::images/01-Step-53.png[]
 +
 [NOTE]
+====
 OpenShift pods are similar to virtual machine instances as far as a container is concerned. Each pod is allocated its own internal IP address, and containers within pods can share their local storage and networking.
+====
 +
-. Access the AMQ console by clicking on the *Open Java Console* link.
+. Click the *Open Java Console* link to access the ActiveMQ console:
 +
 image::images/01-Step-54.png[]
-+
-. At the AMQ console, click on the *Create* tab, located on the horizontal menu bar.
+
+. In the *ActiveMQ* console, click the *Create* tab:
 +
 image::images/01-Step-56.png[]
-+
-. Enter the following, then click the *Create Queue* button:
-+
-----
-Queue name: paymentevent
 
-Destination Type: Queue
-----
+. Complete the form as follows:
+.. In the *Queue name* field type `paymentevent`.
+.. For *Destination type*, select the *Queue* radio button.
 +
 image::images/01-Step-57.png[]
-+
-. On the left-hand panel, expand the *Queue* tab.
-. Validate that the queue `paymentevent` is created.
-. Access *Preferences* from the *User* icon, located on the top right hand corner of the console.
+
+. Click *Create Queue*.
+
+. In the left-hand panel, expand the *Queue* folder and confirm that the `paymentevent` queue was created.
+. In the top right corner of the console, click *User* and select *Preferences*:
 +
 image::images/01-Step-58.png[]
-+
-. Select *ActiveMQ* from the left-hand panel.
-. Provide the following values to these fields:
-+
-----
-Activemq user name: uservKL
 
-Activemq password: RA8oNMOg
-----
-+
-. And click the *Done* button on the left panel.
-. Switch focus to the browser displaying the Fuse Ignite console.
-. In the left-hand panel of the Fuse Ignite console, click *Connections*, and click on *Create Connection*.
+. In the left-hand panel, select *ActiveMQ* and complete the fields as follows:
+* *Activemq user name*: `uservKL`
+* *Activemq password*: `RA8oNMOg`
+. Click *Done*.
+
+== Create Start Connection
+
+. Switch to the browser window displaying the Fuse Ignite console.
+. In the left-hand panel, click *Connections*, then click *Create Connection*:
 +
 image::images/01-Step-60.png[]
 +
-. Select *AMQ* as the Connection Type.
+. On the *Select Connection Type* screen, select *AMQ*:
 +
 image::images/01-Step-61.png[]
 +
-. Enter the following values:
-+
-----
-tcp://syndesis-amq-tcp:61616
-user: uservKL
-password: RA8oNMOg
-----
-+
-. Click *Validate*.
-. Click *Next*.
+. Complete the following fields:
+* *Broker URL*: `tcp://syndesis-amq-tcp:61616`
+* *User Name*: `uservKL`
+* *Password*: `RA8oNMOg`
 +
 image::images/01-Step-63.png[]
-+
-. Name your connection `DefaultBroker` and click *Create* button.
+
+. Click *Validate*, then click *Next*.
+
+. On the *Name Connection* screen, type `DefaultBroker` as the name of the connection, enter a useful description, and click *Create*:
 +
 image::images/01-Step-64.png[]
-+
-. Notice the `DefaultBroker` AMQ Connection is listed on the list of Connections.
+* Note that the *DefaultBroker* AMQ connection is now available on the *Connections* screen:
 +
 image::images/01-Step-65.png[]
 
-== Create the integration
+== Create Integration
 
-. In the left-hand panel of the Fuse Ignite console, select *Integrations*.
-. Click on *Create Integration*
+=== Configure Start Connection
+
+. In the left-hand panel of the Fuse Ignite console, click *Integrations* and then *Create Integration*:
 +
 image::images/01-Step-15.png[]
-+
-. On the *Choose a Start Connection* page, select the *DefaultBroker* connection.
+
+. On the *Choose a Start Connection* screen, select the *DefaultBroker* connection:
 +
 image::images/01-Step-66.png[]
-+
-. Choose *Subscribe for messages*. This Connection will listen for events sent to the AMQ broker.
+
+. Select *Subscribe for messages*:
 +
 image::images/01-Step-67.png[]
-+
-. On the *Subscribe for messages* page, ensure these fields contain the following values:
-+
-----
-Destination Name: paymentevent
-Destination Type: Queue
-----
+* This connection listens for events sent to the AMQ broker.
+
+. On the *Subscribe for messages* screen, complete the following fields:
+* *Destination Name*: `paymentevent`
+* *Destination Type*: *Queue*
 +
 image::images/01-Step-68.png[]
-+
+
 . Click *Next*.
-. On the *Specify Output Data Type* page, select *JSON Instance* from the *Select Type* drop-down box.
+. On the *Specify Output Data Type* screen, select *JSON Instance* from the *Select Type* list:
++
+image::images/01-Step-68a.png[]
 +
 [NOTE]
-With this type *JSON Instance* explictly stated, at this stage of the connection configuration, the AMQ Connection will recognise the document, sent from the *To Do App* to the AMQ Broker, as a JSON document.
-+
-. Specify the following in the *Definition* field:
+With *JSON Instance* explicitly stated at this stage of the connection configuration, the AMQ connection will recognize documents sent from the To Do application to the AMQ Broker as JSON documents.
+
+. Enter the following in the *Definition* field, then click *Done*:
 +
 ----
 {
@@ -158,16 +148,14 @@ With this type *JSON Instance* explictly stated, at this stage of the connection
 "bonus": 1250
 }
 ----
-+
-. Click *Done*.
-+
-image::images/01-Step-68a.png[]
-+
-. Switch to the AMQ Console, and select *Send* from the horizontal menu bar.
+
+=== Create Source Payload
+
+. Switch to the AMQ console and select the *Send* tab:
 +
 image::images/01-Step-68b.png[]
 +
-. Select *JSON* as the *Payload Format* and populate the textbox field with this message:
+. Select *JSON* as the *Payload format* and populate the text field with this message:
 +
 ----
 {
@@ -180,70 +168,71 @@ image::images/01-Step-68b.png[]
 . Click *Send message*.
 +
 [NOTE]
-This step is essential in providing the source payload, in order for the Data Mapper tool in Fuse Ignite to visualize the source data types.
+====
+Providing the source payload is an essential step that enables the Data Mapper tool in Fuse Ignite to visualize the source data types.
+====
 +
-. Select *Browse* from the horizontal menu bar.
-. Locate and examine the contents of the message that you just sent. Validate that the message is in JSON format.
-+
-. On the *Choose a Finish Connection* page, click *PayBill* connection that you created in the previous lab.
+. Select the *Browse* tab and locate the contents of the message that you just sent to confirm that the message is in JSON format.
+
+=== Configure Finish Connection
+
+. In the Fuse Ignite console, on the *Choose a Finish Connection* screen, select *PayBill*:
 +
 image::images/01-Step-69.png[]
-+
-. On the *Choose an Action* page, click *Payment*, which will kick off water utility bill payment.
+
+. On the *Choose an Action* screen, select *Payment*:
 +
 image::images/01-Step-70.png[]
-+
-. In the left-hand panel, move your mouse cursor over the *+* sign located between the *SUBSCRIBE FOR MESSAGES* step and the *PAYMENT* step.
-.In the pop-up window, click *Add a Step*.
+* This initiates a water utility bill payment.
+
+
+=== Add Steps
+
+. In the left-hand panel, hover over the image:images/add_filter_icon.png[] icon located between the *SUBSCRIBE FOR MESSAGES* step and the *PAYMENT* step and select *Add a Step*:
 +
 image::images/01-Step-71.png[]
-+
-. On the *Choose a Step* page, click *Data Mapper*.
+
+. On the *Choose a Step* screen, select *Data Mapper*:
 +
 image::images/01-Step-72.png[]
 +
 [NOTE]
-In the *Data Mapper*, the *Sources* panel on the left displays the fields of source data. The *Target* panel on the right displays the fields of the target data. The source data in this case will be constant data types that you will create during configuration time. The target data will be the fields from the _Customer Billing Portal_ API of CoolWater Inc.
+On the *Configure Mapper* screen that appears, the *Sources* panel displays the constant data types that you create during configuration, while the *Target* panel displays the fields from the CoolWater customer billing portal API.
+
+. In the *Sources* panel, click the image:images/constants_plus_icon.png[] to the right of *Constants*:
 +
 image::images/01-Step-73.png[]
-+
-. In the *Sources* panel, expand the body field. click on the '+ ' sign in Constant.
-+
-image::images/01-Step-74.png[]
-+
-. Create two constants, where <YOUR_NAME> should be substituted with a name:
-+
-----
-50: String
-<YOUR_NAME>: String
-----
+
+. Using the *Create Constant* form, create two constants as follows, making sure to replace `<YOUR_NAME>` with a name:
+.. *Value*: `50`, *Value type*: *String*
+.. *Value*: `<YOUR_NAME>`, *Value type*: *String*
+
+. In the *Target* panel, expand the *body* folder:
 +
 image::images/01-Step-75.png[]
-+
-. In the *Target* panel, expand the *body* field. *Amount* and *senderid* fields are displayed.
-. Map both constants in the *Source* panel with the fields in the *Target* panel accordingly:
-+
-[.noredheader,cols="5,5",caption=""]
-|======
-|*Source*|*Target*
-|50|amount
-|<YOUR_NAME>|senderid
-|======
+* This displays the *Amount* and *senderid* fields.
+
+. Map *50* in the *Source* panel with *amount* in the *Target* panel.
+. Map *<YOUR_NAME>* in the *Source* panel with *senderid* in the *Target* panel.
+* Expect the *Configure Mapper* screen to resemble this when you are done:
 +
 image::images/01-Step-76.png[]
-+
-. Name your integration `SinglePayment` and click *Publish*.
+
+=== Publish Integration
+
+. Name your integration `SinglePayment` and click *Publish*:
 +
 image::images/01-Step-77.png[]
-+
-. Click *Done*, once the state of the `SinglePayment` integration becomes *Published*.
+
+. When the *SinglePayment* integration has a status of *Active*, click *Done*:
 +
 image::images/01-Step-78.png[]
 
-== Test the integration
+== Test Integration
 
-. At the AMQ console menu bar, click *Send*. The *Compose* page is displayed.
-. Select *JSON* as the *Payload Format* and populate the textbox field with this message:
+. In the AMQ console, select the *Send* tab.
+* The *Compose* screen is displayed.
+. Select *JSON* as the *Payload format* and populate the text field with this message:
 +
 ----
 {
@@ -253,36 +242,34 @@ image::images/01-Step-78.png[]
 }
 ----
 
-. Click the *Send message* button.
+. Click *Send message*.
 +
 image::images/01-Step-79.png[]
-+
-image::images/01-Step-80.png[]
-+
-. link:https://water-company-tp3demo.4b63.pro-ap-southeast-2.openshiftapps.com/main[Launch] the _Customer Billing Portal_ for CoolWater Inc.
-. Validate your observations against the expected outcome of testing the `SinglePayment` integration.
-. Repeat your tests as many times as you wish.
+
+. Launch the link:https://water-company-tp3demo.4b63.pro-ap-southeast-2.openshiftapps.com/main[customer billing portal] for CoolWater Inc.
+. Validate your observations against the expected outcomes of testing the *SinglePayment* integration.
+. Repeat your tests as many times as you wish:
 +
 image::images/01-Step-81.png[]
 
-== Housekeeping
+== Clean Up Integration
 
-You will clean up the integration. as a housekeeping best practice.
+In this section, you clean up the integration as a housekeeping best practice.
 
-. In the left-hand pane, click *Integrations*.
-. Locate the entry for the `SinglePayment` integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
-* If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
+. In the left-hand panel, click *Integrations*.
+. Locate the *SinglePayment* integration.
+. Click image:images/more_options_icon.png[] (*More Options*) next to the green check box and select *Unpublish*.
+. Click *OK*.
+* This deactivates the integration.
+* If you are utilizing the Fuse Ignite Technology Preview, other integration can now be published and tested.
 +
 [NOTE]
-The next few steps are optional. Use them only when you are certain that the integration will never be required again.
-+
-. Locate the entry for the `SinglePayment` integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
+The next two steps are optional. Use them only when you are certain that you will not need the integration anymore.
 
-You have completed, tested and cleaned up your integration in Fuse Ignite.
+. Locate the *SinglePayment* integration and click image:images/more_options_icon.png[] (*More Options*), then select *Delete Integration*.
+. Click *OK* at the bottom of the summary panel.
+
+You have completed, tested, and cleaned up your integration in Fuse Ignite.
 
 ifdef::showscript[]
 

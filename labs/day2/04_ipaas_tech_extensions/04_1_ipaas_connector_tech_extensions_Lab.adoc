@@ -5,36 +5,37 @@
 :coursevm:
 
 
-= Connector Technical Extensions Lab - Customize and implement an existing technical extension as a connector
+== Connector Technical Extensions Lab
 
-This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
+NOTE: This lab takes about an hour to complete. It covers topics you need to know to correctly complete the final assessment.
 
 .Goals
 * Customize an existing technical extension
-* Implement technical extension as a connector
-* Using Fuse Ignite, create an integration using this connector extension
+* Implement a technical extension as a connector
+* Using Fuse Ignite, create an integration using this technical extension connector
 * Test the integration
 
-.Pre-requisites
-* Completion of *Integration Lab - Data Synchronization on the Cloud: Microservice to Flat File scenario* in Module 2
-* Apache Maven must be installed on your local PC
-** Download link:https://maven.apache.org/download.html[Apache Maven].
-** Complete the installation by following this https://maven.apache.org/install.html[guide].
+.Prerequisites
+* Completion of _Microservice to Flat File Integration Lab_
+* Apache Maven installed on your local PC
++
+NOTE: If you do not already have Apache Maven installed, download link:https://maven.apache.org/download.html[Apache Maven] and follow the link:https://maven.apache.org/install.html[Installing Apache Maven] instructions to complete the installation.
 
-This lab involves an enhancement to an existing integration: the _Microservice to File_ integration from Module 2.
-The enhancement involves adding a technical extension that adds loop cycles to the synchronization process.
+.Overview
+
+In this lab, you enhance your existing Microservice to File integration from Module 2 by adding a technical extension that adds loop cycles to the synchronization process.
 
 image::images/arch-microservice-loop-file.png[]
 
-An application developer can build a technical extension which serves as the implementation for a custom step. The application developer then transfers the technical extension, as a .jar archive, over to the citizen developer, who proceeds to upload the technical extension into the Fuse Ignite project environment. The citizen developer then creates a custom step using this technical extension, and reuses it in multiple integrations.
+An application developer can build a technical extension that serves as the implementation for a custom step. The application developer transfers the technical extension as a JAR archive to the citizen developer, who uploads the technical extension into the Fuse Ignite project environment. The citizen developer then creates a custom step using the technical extension, and reuses it in multiple integrations.
 
 [NOTE]
-Learn how a technical extension is developed with the link:https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/tooling_user_guide/igniteextension/[JBoss Fuse Tooling Guide]. You will appreciate from this guide that certain conventions regarding a custom developed technical extension’s JSON file contents must be observed.
+Use the link:https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/tooling_user_guide/igniteextension/[Tooling User Guide] to learn how a technical extension is developed. This guide points out the conventions that must be followed regarding the contents of a custom-developed technical extension’s JSON file.
 
-[NOTE]
-The community project for Fuse Ignite is called `Syndesis`. Apache Maven archetype dependencies in the `io.syndesis.extension.api` package are used in the technical extensions as part of a Fuse Ignite integration.
+The community project for Fuse Ignite is called Syndesis. Apache Maven archetype dependencies in the `io.syndesis.extension.api` package are used in technical extensions as part of a Fuse Ignite integration.
 
-Here is an example of a few import statements for these dependencies in a Connector Extension called *LoopAction*. The Extension extends the use of the `Step` class which has a dependency on `io.syndesis.extension.api.Step`:
+The following are examples of import statements for these dependencies in a connector extension called `LoopAction`. The extension extends the use of the `Step` class, which has a dependency on `io.syndesis.extension.api.Step`:
+
 
 ----
 import io.syndesis.extension.api.Step;
@@ -47,38 +48,38 @@ public class LoopAction implements Step {
 
 :numbered:
 
+== Log In to Fuse Ignite Console
 
-== Logon to Red Hat Fuse Ignite
-
-You will proceed to utilize the Fuse Ignite environment.
-
-. Check your email inbox for the same email you received earlier, containing a link to Red Hat Fuse Ignite.
+. Log in to the OpenShift Container Platform web console if you are not already logged in.
 +
-CAUTION: Red Hat Fuse Ignite is supported for the following web browsers: Google Chrome, Mozilla Firefox, Microsoft Edge
-+
-. Click this link to display the Red Hat Fuse Ignite login page.
+TIP: The link is in your confirmation email, if you need it.
 
-. Log in using your OPENTLC account. The Fuse Ignite console page appears.
+. Click your *fuse-ignite-$GUID* project.
+. Click the URL of your Fuse Ignite console.
+. Log in using your OPENTLC credentials.
+* The Fuse Ignite console appears.
 
 
 == Import Microservice to Flat File Integration
 
-You will setup the _Microservice to Flat File_ integration again.
+In this section, you set up the *Microservice to File* integration again.
 
-. Reimport the _Microservice to Flat File_ integration which was backed up in an earlier lab.
-. Ensure that _Microservice to Flat File_ integration is published and active.
+. Import the *Microservice to File* integration that you backed up in an earlier lab.
+. Make sure that the *Microservice to File* integration is published and active.
 
 
-== Setup of Apache Maven Repository for Technical Extensions
+== Set Up Apache Maven Repository
 
-You will setup the Apache Maven repository for use in the compilation of Technical Extensions.
+In this section, you set up the Apache Maven repository for use in the compilation of technical extensions.
 
-. link:https://drive.google.com/open?id=11lJ0IFCxFJIcg9Ex_D8iYxZ7iZqhu1Zf[Download] an Apache Maven Repository (in zipped archive format) that has previously compiled Apache Maven archetypes that will be used in the compilation of the Fuse Ignite technical extensions.
-. Extract into the working directory `$lab_dir` the contents of the zip archive. Make a note of the directory path for this local Apache Maven Repository.
-. link:https://raw.githubusercontent.com/gpe-mw-training/fuse-ipaas-labs/master/04_technical_extensions/settings.xml[Download] the Apache Maven `settings.xml` file while contains references to the Apache Maven repositories.
-. Copy the `settings.xml` file into your ``~/.m2` directory, where at least one local Apache Maven repository will reside.
-. Open `~/.m2/settings.xml` for edit, using your favorite editor.
-. Validate that the contents within the *<repositories>* and *</repositories>* tags resemble:
+. Download this link:https://drive.google.com/open?id=11lJ0IFCxFJIcg9Ex_D8iYxZ7iZqhu1Zf[Apache Maven repository] (zipped archive).
+* It contains previously compiled Apache Maven archetypes that are used in the compilation of the Fuse Ignite technical extensions.
+. Extract the contents of the zipped archive into the `$lab_dir` working directory.
+. Make a note of the directory path for this local Apache Maven repository.
+. Download the Apache Maven link:https://raw.githubusercontent.com/gpe-mw-training/fuse-ipaas-labs/master/04_technical_extensions/settings.xml[settings.xml file], which contains references to the Apache Maven repositories.
+. Copy the `settings.xml` file into your `~/.m2` directory, where at least one local Apache Maven repository will reside.
+. Open `~/.m2/settings.xml` for editing, using your favorite editor.
+. Confirm that the contents between the `<repositories>` and `</repositories>` tags resembles this:
 +
 ----
 <repository>
@@ -137,33 +138,32 @@ You will setup the Apache Maven repository for use in the compilation of Technic
   </repository>
 </repository>
 ----
+* These are the Apache Maven repositories where the Apache Maven archetypes used for the compilation of Fuse Ignite reside. These repositories play a key role in the build process.
+
+. Replace references to the `/tmp` directory with `/$lab_dir/maven-syndesis-extension-1.0.0.fuse-000027`, where `$lab_dir` is the path of your working directory:
 +
-[NOTE]
-These are the Apache Maven repositories where the Apache Maven archetypes used for the compilation of Fuse Ignite reside. These Apache Maven repositories will play a key role in the build process.
-+
-. Replace references to the directory `/tmp` with `/$lab_dir/maven-syndesis-extension-1.0.0.fuse-000027`, where `$lab_dir` is the path of your working directory.
-+
-[TIP]
-An example of a directory path for the local Apache Maven repository is `file:///fuseignite/maven-syndesis-extension-1.0.0.fuse-000027`
-+
-. Review again the changes you have made and save the `~/.m2/settings.xml` file.
+.Sample Path
+----
+file:///fuseignite/maven-syndesis-extension-1.0.0.fuse-000027
+----
+
+. Review your changes and save the `~/.m2/settings.xml` file.
 
 
-== [OPTIONAL] Compile a Technical Extension
+== Compile Technical Extension (Optional)
 
-You will compile a technical extension as part of the integration. Note that this lab is optional, as a pre-compiled technical extension is provided for your use in subsequent lab sections.
+In this section, you compile a technical extension as part of the integration. Note that this section is optional, as a precompiled technical extension is provided for your use in subsequent lab sections.
 
-. Using a new web browser, download the latest technical extensions link:https://github.com/syndesisio/syndesis-extensions/releases[*release*] for Fuse Ignite.
-. Extract the archive, containing the technical extensions, into the working directory `$lab_dir`.
-. Using a command-line terminal window, navigate to the subdirectory containing the code for the technical extension `syndesis-extension-loop`.
-. Within this subdirectory `syndesis-extension-loop`, compile the technical extension using the command:
+. Using a new web browser window, download the link:https://github.com/syndesisio/syndesis-extensions/releases[latest technical extensions release] for Fuse Ignite.
+. Extract the archive containing the technical extensions into the `$lab_dir` working directory.
+. Using a command-line terminal window, navigate to the `syndesis-extension-loop` subdirectory, which contains the code for the technical extension.
+. Within the `syndesis-extension-loop` subdirectory, compile the technical extension using the following command:
 +
 ----
 $ mvn clean install
 ----
 +
-. A successful compilation of the technical extension results in the following message:
-+
+.Sample Output
 ----
 [INFO]
 [INFO] --- maven-install-plugin:2.4:install (default-install) @ syndesis-extension-loop ---
@@ -176,139 +176,153 @@ $ mvn clean install
 [INFO] Finished at: 2018-05-16T21:50:19+08:00
 [INFO] ------------------------------------------------------------------------
 ----
-+
-. Locate the *syndesis-extension-loop-1.0.0.fuse-000027.jar* file in the `target` subdirectory of the directory named `syndesis-extension-loop`. This is the JAR archive file containing the `syndesis-extension-loop` technical extension.
+* This confirms that compilation of the technical extension was successful.
+
+. Locate the `syndesis-extension-loop-1.0.0.fuse-000027.jar` file in the `target` subdirectory of the `syndesis-extension-loop` directory.
+* This is the JAR archive file containing the `syndesis-extension-loop` technical extension.
 +
 [TIP]
-You can either move or copy this JAR archive file to a directory with a shorter naming convention (like `/tmp`). That will help speed up import of the technical extension at the next lab section.
+You can either move or copy this JAR archive file to a directory with a shorter name--for example, `/tmp`&#8212;to speed up import of the technical extension in the next section.
 
 
-== Import the technical extension
+== Import Technical Extension
 
-You will import the compiled technical extension into Fuse Ignite, which will form a part of the integration that you will enhance.
+In this section, you import the compiled technical extension into Fuse Ignite, which forms a part of the integration that you enhance.
 
-. If you have not completed the previous section which involves compiling all the technical extensions, locate the pre-compiled technical extension by navigating to the `$lab_dir/maven-syndesis-extension-1.0.0.fuse-000027/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000027` directory. The JAR archive *syndesis-extension-loop-1.0.0.fuse-000027.jar* contains the `syndesis-extension-loop` technical extension.
-. Click on the *Customizations* tab on the left-hand pane of the Red Hat Fuse Ignite console.
-. Select the *Extensions* tab located on the top of the console.
-. Click the *Import Extension* button.
+. If you skipped the previous optional section, locate the precompiled technical extension by navigating to the following directory:
++
+----
+$lab_dir/maven-syndesis-extension-1.0.0.fuse-000027/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000027
+----
+* The `syndesis-extension-loop-1.0.0.fuse-000027.jar` file contains the `syndesis-extension-loop` technical extension.
+. In the left-hand panel of the Fuse Ignite console, click *Customizations*.
+. Select the *Extensions* tab located at the top of the console.
+. Click *Import Extension*:
 +
 image::images/import-extensions.png[]
 +
 . Click *Browse* and select the JAR archive file containing the `syndesis-extension-loop` technical extension.
-+
-[TIP]
-Should import of an archive file containing a technical extension fail, it is likely that the extension contains invalid code that causes the validation (by the rules contained in the *Meta* OpenShift pod ) to fail. Analyze and debug the code using link:https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/tooling_user_guide/igniteextension/[JBoss Developer Studio] before attempting the import process again.
+. Note the name, ID, type, description, and time of last update of the technical extension, then click *Import Extension*:
 +
 image::images/import-extension.png[]
 +
-. Click *Import Extension*.
+[TIP]
+If the import of an archive file containing a technical extension fails, it is likely that the extension contains invalid code--according to the rules contained in the Meta OpenShift pod--that causes the validation to fail. Analyze and debug the code using Red Hat Developer Studio and the link:https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/tooling_user_guide/igniteextension/[Tooling User Guide] before attempting the import process again.
+
+* The *Extension Details* screen appears and displays the overview information, supported steps (the objective of the extension), and the integrations using the extension:
 +
 image::images/extension-details.png[]
-+
-[NOTE]
-On the Fuse Ignite console, the name, ID, type, description and time of last update of the technical extension are listed. In addition, the supported steps (the objective of the extension) and the integrations using this extension are indicated in the *Extension Details* page.
-+
-. Click the *Update* button.
-. In the left-hand pane, click *Customizations -> Extensions*.
-. Note the details of the *Loop* technical extension displayed, which includes the function of the step as well as the name of the extension.
 
-The technical extension, that you have just imported, is now available for use with any integration.
+. Click *Update*.
+. In the left-hand panel, select *Customizations -> Extensions*.
+* The details of the *Loop* technical extension are displayed, including the function of the step and the name of the extension.
+
+The technical extension that you imported is now available for use with any integration.
 
 
-== Test the integration without a custom step
+== Test Integration Without Custom Step
 
-You will test the integration and validate the results.
+In this section, you test the integration and validate the results.
 
-. Logon to your remote hosting service and delete the previous file containing the product catalog data.
-. Logoff from the remote hosting service.
-. Wait for a few seconds.
-. Logon back to your remote hosting service. This time validate that the file containing the product catalog data is present.
-. Repeat this test as many times as you can. With each test, record the time it took for the file to re-appear on the remote hosting service.
+. Log in to your remote hosting service and delete the file containing the product catalog data.
+. Log out of the remote hosting service.
+. Wait for a few seconds, then log back in to your remote hosting service.
+. Confirm that the file containing the product catalog data is present.
+. Repeat this test multiple times and with each test, record the time it takes for the file to reappear on the remote hosting service.
 
 
-== Adding a custom step
 
-You will add the newly imported technical extension as a custom step to an integration.
+== Add Custom Step
 
-. In the left-hand pane of Fuse Ignite console, click *Integrations*.
-. Select the _Microservice to File_ integration. If you have not completed the lab in Module 2, this will be the time to do so.
-. Click on the *Edit Integration* button on the top right hand corner of the console.
-. On the *Integration Editor* page, move your mouse cursor over the Data Mapper custom step, between the *Start Connection* and the *Finish Connection*.
-. Click on the icon of the trash bin. The custom step is deleted.
-. Click the *Add a Step* button located at the centre of the Fuse Ignite console. Alternatively, you can also move your mouse cursor of the `+` sign located between both connections and select *Add a step*.
+In this section, you add the newly imported technical extension as a custom step to an integration. This exercise uses the Microservice to File integration you set up in the first lab in Module 2. If you did not complete that lab, go back and complete it now.
+
+. In the left-hand panel of Fuse Ignite console, click *Integrations*.
+. Select the *Microservice to File* integration.
+. Click *Edit Integration* at the top right corner of the console.
+. On the *Integration Editor* screen, hover over the Data Mapper custom step between the *Start Connection* and the *Finish Connection* and click the trash bin icon.
+* The custom step is deleted.
+. In the center of the main panel, click *Add a Step*.
+* Alternatively, you can also hover over the image:images/add_filter_icon.png[] icon located between the connections and select *Add a step*:
 +
 image::images/add-a-step.png[]
-+
-. On the *Choose a Step* page, select the custom step *Loop*. This step is now available as you have imported the technical extension in the earlier lab section.
+
+. On the *Choose a Step* screen, select *Loop*:
 +
 image::images/choose-a-step.png[]
-+
-. Assign a positive value for the *Cycles* field and click *Next*.
+* This custom step is available because you imported the technical extension earlier in the lab.
+
+. Type a positive value in the *Cycles* field and click *Next*:
 +
 image::images/configure-loop.png[]
-+
+
 . Click *Publish*.
 
-Once the integration is active (a green checkbox appears and the state of the integration becomes *Published*), testing of the integration can proceed.
+Once the integration is active (a green check box appears and the state of the integration becomes *Published*), you can proceed with testing the integration.
 
 
-== Test and monitor the integration with the new custom step
+== Test and Monitor Integration
 
-You will test the integration and validate the results.
+In this section, you test the integration with the new custom step and validate the results.
 
-. Access the Hawtio Console embedded in the integration pod, which you have previously done so as part of *Integration Lab - Data Synchronization on the Cloud: Microservice to Flat File scenario* in Module 2.
-. Through the use of the Hawtio Console, monitor the various statistics of this edition of the integration.
-. Compare and analyse both sets of statistical results - the first set before the custom step was added, and the latest set with the custom step added.
-. Logon to your remote hosting service and delete the previous file containing the product catalog data.
-. Logoff from the remote hosting service.
-. Wait for a minute or more.
-. Logon back to your remote hosting service. This time validate that the file containing the product catalog data is present.
-. Repeat this test as many times as you can. With each test, record the time it took for the file to re-appear on the remote hosting service.
+. Access the Hawtio console embedded in the integration pod, as you did previously in the first lab in Module 2.
+. Using the Hawtio console, monitor the various statistics of this edition of the integration.
+. Compare and analyze both sets of statistical results--the first set before the custom step was added, and the latest set after the custom step was added.
+. Log in to your remote hosting service and delete the file containing the product catalog data.
+. Log out of the remote hosting service.
+. Wait for at least 1 minute.
+. Log back in to your remote hosting service.
+. Confirm that the file containing the product catalog data is present.
+. Repeat this test multiple times and with each test, record the time it takes for the file to reappear on the remote hosting service.
++
+****
+*Question:* What observations can you make regarding the performance results of both editions of the Microservice to File integration--without the custom step and with the custom step?
+****
 
-*QUESTION:* What are observations can be made regarding the performance results of both editions of the _Microservice to File_ integration - one without the custom step and one with the custom step?
+== Replace Loop Extension (Optional)
 
+In this optional exercise, you experiment with the use of different connector extensions by replacing the loop extension with other extensions.
 
-== [OPTIONAL] Replace loop extension with other extensions
+. Replace the existing loop connector extension with other link:https://github.com/syndesisio/syndesis-extensions[extensions] from the upstream community project.
+. Test the integration upon implementing each extension and observe the results.
++
+****
+*Questions:*
 
-You will experiment with the use of other connector extensions.
+* Does the behavior of the integration change?
+** If so, compile a list of the behavioral changes referencing each extension used.
 
-. Replace the existing *Loop* connector extension with other link:https://github.com/syndesisio/syndesis-extensions[extensions] from the upstream community project
-. Test the integration upon implementing each extension and observe the various results.
+* Which technical extension augments the test results in terms of the time difference between the two editions of the Microservice to File integration (without a custom step and with a custom step)?
+****
 
-*QUESTION 1:* Does the behavior of the integration change, and can you compile a list of the behavioral changes - referencing each extension used?
+== Clean Up Integration
 
-*QUESTION 2:* Which technical extension augments the test results in time difference between the editions of the _Microservice to File_ integration - one without a custom step, and one with a custom step ?
+In this section, you clean up the integration as a housekeeping best practice.
 
-
-== Housekeeping
-
-You will clean up the integration. as a housekeeping best practice.
-
-. In the left-hand pane, click *Integrations*.
-. Locate the entry for the _Microservice to File_ integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
-* If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
+. In the left-hand panel, click *Integrations*.
+. Locate the *Microservice to File* integration.
+. Click image:images/more_options_icon.png[] (*More Options*) next to the green check box and select *Unpublish*.
+. Click *OK*
+* This deactivates the integration.
+* If you are utilizing the Fuse Ignite Technology Preview, other integration can now be published and tested.
 +
 [NOTE]
-The next few steps are optional. Use them only when you are certain that the integration will never be required again.
+====
+The next two steps are optional. Use them only when you are certain that you do not need the integration anymore.
+====
 +
-. Locate the entry for the _Microservice to File_ integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
+. Locate the *Microservice to File* integration, click image:images/more_options_icon.png[] (*More Options*), and select *Delete Integration*.
+. Click *OK* at the bottom of the summary panel.
 
-You have successfully implemented and tested a connector extension as a custom step in an integration.
+You have now implemented and tested a connector extension as a custom step in an integration.
 
 ifdef::showscript[]
 
 
-== [OPTIONAL] Compile Syndesis code
+== Compile Syndesis Code (Optional)
 
-In order to proceed with compilation of a technical extension, you need the compiled code base of the community project `Syndesis`.
+In order to compile a technical extension, you need the compiled code base of Syndesis, the community project for Fuse Ignite. Extension archetype dependencies of the `io.syndesis.extension.api` package have to be compiled prior to the compilation and use of technical extensions within a Fuse Ignite integration.
 
-The community project for Fuse Ignite is called `Syndesis`. Extension archetype dependencies of the `io.syndesis.extension.api` package have to be compiled prior to the compilation and use of technical extensions within a Fuse Ignite integration.
-
-Here is an example of a few import statements for these dependencies in a Connector Extension *LoopAction*, followed by the use of `Step` which has a dependency on  `io.syndesis.extension.api.Step`:
+The following are examples of import statements for these dependencies in a connector extension called `LoopAction`, followed by a `Step`, which has a dependency on  `io.syndesis.extension.api.Step`:
 
 ----
 import io.syndesis.extension.api.Step;
@@ -320,19 +334,18 @@ public class LoopAction implements Step {
 
 ----
 
-As an optional exercise, in this section you will compile the code base for the community project `Syndesis`. If you wish, you may skip this section, as the code base is provided for you to use in the next lab section.
+In this optional exercise, you compile the code base for the Syndesis community project. If you wish, you can skip this exercise, as the code base is provided in the next section.
 
 
-. Using a command-line terminal window, link:https://github.com/syndesisio/syndesis/releases/tag/syndesis-1.3.4.fuse-000002[download] the code base for `Syndesis` in zip format, into a working directory which is referred to here as `$lab_dir`
+. Using a command-line terminal window, download the link:https://github.com/syndesisio/syndesis/releases/tag/syndesis-1.3.4.fuse-000002[Syndesis code base] zip archive into the `$lab_dir` working directory. 
 . Expand the zip archive.
-. In the terminal window, navigate to the subdirectory called `/syndesis/tools/bin` and execute the command to compile the `Syndesis` code:
+. Navigate to the subdirectory called `/syndesis/tools/bin` and execute the command to compile the `Syndesis` code:
 +
 ----
 $ cd $lab_dir/syndesis/tools/bin
 $ ./syndesis build -b -f -c
 ----
-+
-. A successful compilation will result in the following messages:
+* A successful compilation results in the following messages:
 +
 ----
 [INFO] ------------------------------------------------------------------------

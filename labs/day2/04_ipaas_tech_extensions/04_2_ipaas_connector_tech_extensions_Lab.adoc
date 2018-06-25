@@ -5,64 +5,58 @@
 :coursevm:
 
 
-= Connector Technical Extensions Lab - a digital image file replication solution for a marketing campaign
+== Connector Technical Extensions for File Replication Lab
 
-This course includes at least one lab per module. Each lab is hands-on and typically takes about an hour to complete. Executing the course labs prepares you to correctly answer many of the final assessment questions.
+NOTE: This lab takes about an hour to complete. It covers topics you need to know to correctly complete the final assessment.
 
 .Goals
 * Create an integration using both AWS S3 and FTP connectors
-* Create a custom step in Red Hat Fuse Ignite using a `syndesis-extension-log-body` technical extension
+* Create a custom step in Fuse Ignite using the `syndesis-extension-log-body` technical extension
 * Introduce the custom step into the integration
 
 .Requirements
-* Completion of Lab 2 of Module 1 - *Integration Lab - Product Data Synchronization: Microservice to Flat File scenario*
-* Completion of Lab 1 of Module 4 - *Connector Technical Extensions Lab - Customize and implement an existing technical extension as a connector*
-* Registered for a AWS account
+* Completion of _Microservice to Flat File Integration Lab_
+* Completion of _Connector Technical Extensions Lab_
+* An AWS account
 * JDK 1.8 installed
 
-`Coolstore` marketing department intends to launch a demand generation campaign regarding new promotions. Therefore, they have signed a contract with an advertising services vendor, responsible for broadcast advertising of `Coolstore` latest promotions.
-`Coolstore` marketing department will design a promotional flyer which will be "handed over" to the advertising services vendor for  multi-channel broadcast use (eg: social media, print advertising and (e)mailers.)
+.Overview
+The Coolstore marketing department intends to launch a demand generation campaign for new promotions. They signed a contract with an advertising services vendor that is responsible for broadcast advertising of Coolstore's latest promotions. The Coolstore marketing department will design a promotional flyer that must be sent to the advertising services vendor for multi-channel broadcast use via social media, print advertising and (e)mailers.
 
-You have been tasked to design the file replication solution, responsible for the transfer of the digital image of a promotional flyer, which this campaign will depend on.
+Your task is to design the file replication solution for the transfer of the digital image of the promotional flyer.
 
-In order to meet the marketing department's requirements for a demand generation campaign, your Fuse Ignite integration design will utilize 2 connectors: a AWS S3 connector and a FTP connector, as well as a pre-packaged technical extension `log`, which writes a message to the log stream. You will create a custom step using this pre-packaged technical extension and then utilize the custom step in a new integration, using Red Hat Fuse Ignite.
+In order to meet the marketing department's requirements for a demand generation campaign, your Fuse Ignite integration design uses two connectors--an AWS S3 connector and an FTP connector--as well as a prepackaged technical extension log, which writes a message to the log stream. You create a custom step using this prepackaged technical extension and then use it in a new Fuse Ignite integration.
 
 image::images/arch-s3-to-ftp.png[]
 
-The marketing flyer resides on an AWS S3 bucket which is replicated, using a Fuse Ignite integration, to a staging server where the flyer will be retrieved for multiple broadcast use.
-You will also implement a custom step in the Fuse Ignite integration, through the use of a Fuse Ignite technical extension.
-The purpose of this custom step will be log a notification regarding the availability of the promotional flyer.
-`Coolstore` marketing department will like every notification to be recorded and sent to the advertising services vendor, every time the marketing flyer is successfully replicated and hosted on the staging server infrastructure of the vendor.
+The marketing flyer resides in an AWS S3 bucket, which is replicated using a Fuse Ignite integration to a staging server where the flyer is to be retrieved for multi-channel broadcasts. The custom step you implement logs a notification regarding the availability of the promotional flyer. The Coolstore marketing department requires that every notification is recorded and sent to the advertising services vendor every time that the marketing flyer is successfully replicated and hosted on the vendor's staging server infrastructure.
 
 :numbered:
 
-== Logon to Red Hat Fuse Ignite
+== Log In to Fuse Ignite Console
 
-You will proceed to utilize the Fuse Ignite environment.
-
-. Check your email inbox for the same email you received earlier, containing a link to Red Hat Fuse Ignite.
+. Log in to the OpenShift Container Platform web console if you are not already logged in.
 +
-CAUTION: Red Hat Fuse Ignite is supported for the following web browsers: Google Chrome, Mozilla Firefox, Microsoft Edge
-+
-. Click this link to display the Red Hat Fuse Ignite login page.
+TIP: The link is in your confirmation email, if you need it.
 
-. Log in using your OPENTLC account. The Fuse Ignite console page appears.
+. Click your *fuse-ignite-$GUID* project.
+. Click the URL of your Fuse Ignite console.
+. Log in using your OPENTLC credentials.
+* The Fuse Ignite console appears.
 
 
-== [OPTIONAL] Compile a technical extension
+== Compile Technical Extension (Optional)
 
-You will now compile the code for a technical extension, `syndesis-extension-log-body` that will perform recording of marketing notifications.
-Note that this lab is optional, as the pre-compiled technical extension is provided for your use in subsequent lab sections.
+In this section, you compile a technical extension, `syndesis-extension-log-body`, that records marketing notifications. Note that this section is optional, as a precompiled technical extension is provided for your use in subsequent lab sections.
 
-. Using a command-line terminal window, navigate to the subdirectory `syndesis-extension-log-body` located in the directory containing technical extensions.
-. Within the subdirectory `syndesis-extension-log-body`, compile the technical extension, using the command:
+. Using a command-line terminal window, navigate to the `syndesis-extension-log-body` subdirectory, which contains the code for the technical extension.
+. Within the `syndesis-extension-log-body` subdirectory, compile the technical extension using the following command:
 +
 ----
 $ mvn -N install
 ----
 +
-. A successful compilation of the technical extension results in the following message:
-+
+.Sample Output
 ----
 Downloading from oss-sonatype-snapshots: https://oss.sonatype.org/content/repositories/snapshots/io/syndesis/extension/extension-converter/1.3-SNAPSHOT/maven-metadata.xml
 [INFO] HV000001: Hibernate Validator 5.3.5.Final
@@ -88,130 +82,158 @@ Downloading from oss-sonatype-snapshots: https://oss.sonatype.org/content/reposi
 [INFO] Finished at: 2018-03-27T18:09:41+08:00
 [INFO] ------------------------------------------------------------------------
 ----
-+
-. Locate the *syndesis-extension-log-body-1.0.0.fuse-000018.jar* file in the `target` subdirectory of the directory named `syndesis-extension-log-body`. This is the JAR archive file containing the `syndesis-extension-log-body` technical extension.
+* This confirms that compilation of the technical extension was successful.
+
+. Locate the `syndesis-extension-log-body-1.0.0.fuse-000018.jar` file in the `target` subdirectory of the `syndesis-extension-log-body` directory.
+* This is the JAR archive file containing the `syndesis-extension-log-body` technical extension.
 +
 [TIP]
-You can either move or copy this JAR archive file to a directory with a shorter naming convention (like `/tmp`). That will help speed up import of the technical extension at the next lab section.
+You can either move or copy this JAR archive file to a directory with a shorter name--for example, `/tmp`&#8212;to speed up import of the technical extension in the next section.
 
 
-== Import the technical extension
+== Import Technical Extension
 
-You will now import into Fuse Ignite, a pre-developed technical extension, `syndesis-extension-log-body` that will perform this recording of marketing notifications.
-At the completion of the previous lab, the code base for the community project `Syndesis` resides in the working directory `$lab_dir`.
+In this section, you import the `syndesis-extension-log-body` technical extension into Fuse Ignite.
 
-. If you have not completed the previous section on compilation of the technical extension, locate the pre-compiled technical extension by navigating to the `$lab_dir/maven-syndesis-extension-1.0.0.fuse-000018/io/syndesis/extensions/syndesis-extension-log-body/1.0.0.fuse-000018` directory.
+NOTE: When you completed the previous lab, the code base for the `Syndesis` community project was located in the `$lab_dir` working directory.
+
+. If you skipped the previous optional section, locate the precompiled technical extension by navigating to the following directory:
++
+----
+$lab_dir/maven-syndesis-extension-1.0.0.fuse-000018/io/syndesis/extensions/syndesis-extension-log-body/1.0.0.fuse-000018
+----
 +
 [NOTE]
-The JAR archive *syndesis-extension-log-body-1.0.0.fuse-000018.jar* contains the `syndesis-extension-log-body` technical extension.
-+
-. Using a command-line terminal window, navigate to the subdirectory `syndesis-extension-log-body` located in the directory containing extensions.
-. Select the *Customizations* tab on the left-hand pane of Red Hat Fuse Ignite Console.
-. Select the *Extensions* tab.
+The `syndesis-extension-log-body-1.0.0.fuse-000018.jar` file contains the `syndesis-extension-log-body` technical extension.
+
+. In the left-hand panel of the Fuse Ignite console, click *Customizations*.
+. Select the *Extensions* tab, then click *Import Extension*:
 +
 image::images/import-extensions.png[]
-+
-. Click the *Import Extension* button.
+
 . Click *Browse* and select the JAR file containing the `syndesis-extension-log-body` technical extension.
-+
-[NOTE]
-The archive file containing the `syndesis-extension-log-body` technical extension is validated and extracted. On the Fuse Ignite console, the technical extension’s name, ID, and description are listed, additionally `syndesis-extension-log-body` is indicated as the custom step that the technical extension defines.
-+
-. Click *Import*. This custom step becomes available for use in any integration, with the details of the technical extension displayed.
+* The archive file containing the `syndesis-extension-log-body` technical extension is validated and extracted.
+
+. Click *Import Extension*.
+* The technical extension’s name, ID, and description are listed, and `syndesis-extension-log-body` is indicated as the custom step that the technical extension defines.
+
+This custom step is now available for use in any integration.
 
 
-== Create a AWS S3 Bucket
+== Create AWS S3 Bucket
 
-You will create an AWS S3 Bucket that will host the promotional image that will be broadcasted over social media.
+In this section, you create an AWS S3 bucket that hosts the promotional image to be broadcast over social media.
 
-. Launch a new browser windiw, login to your AWS account using the link:https://console.aws.amazon.com/console/home[AWS Console].
-. Setup your S3 bucket by following the instructions on the link:https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html[AWS documentation].
-. Note down (on your favorite text editor) the following information your AWS account
-.. ARN (Amazon Resource Name) for the S3 bucket
-.. Access Key
-.. Secret Key
-.. Region.
-
-
-== Create a connection using the Fuse Ignite AWS S3 connector
-
-You will create a connection to your AWS S3 bucket.
-
-. On the left-hand panel of the Fuse Ignite console, click *Connections*.
-. Select the *AWS S3* connector. The AWS S3 connection creation page loads.
-. Fill in all the fields for the Amazon S3 Configuration, using the account information which you noted in the previous section of the lab.
-. Click *Validate*. A successful validation should be reflected in the message that appears.
-. Provide *AWS-S3* as the name of the connection.
-. Click *Done* to make the configuration changes to the connection final.
+. Launch a new browser window and log in to your AWS account using the link:https://console.aws.amazon.com/console/home[AWS console].
+. Follow the instructions in the link:https://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html[AWS documentation] to set up your S3 bucket.
+. In your favorite text editor, make a note of the following information about your AWS account:
+* ARN (Amazon Resource Name) for the S3 bucket
+* Access key
+* Secret key
+* Region
 
 
-== Create an integration using the AWS S3 connection and the FTP connection
+== Create Connection Using AWS S3 Connector
 
-You will create an integration using the two connections you have already created. The FTP connection was created in Lab 1 of Module 2.
+In this section, you create a connection to your AWS S3 bucket using the AWS S3 connector in Fuse Ignite.
 
-. On the left-hand panel of the Fuse Ignite console, click *Integrations*. The Integration creation wizard is displayed.
-. Select on the left-hand panel, the *Start Connection*.
-. Click on the *AWS-S3* connection.
+. In the left-hand panel of the Fuse Ignite console, click *Connections*.
+. Select the *AWS S3* connector.
+* The AWS S3 connection creation screen appears.
+. Fill in all of the fields for the Amazon S3 configuration, using the account information that you noted in the previous section.
+. Click *Validate*.
+* Expect to see a successful validation message.
+. Type `AWS-S3` as the name of the connection.
+. Click *Done*.
+* This makes the configuration changes to the connection final.
+
+
+== Create Integration
+
+In this section, you create an integration using the AWS S3 connection and the FTP connection.
+
+NOTE: You created the FTP connection in the first lab of Module 2.
+
+=== Configure Start Connection
+
+. In the left-hand panel of the Fuse Ignite console, click *Integrations* and then *Create Integration*.
+. On the *Choose a Start Connection* screen, select the *AWS-S3* connection.
+. On the *Choose an Action* screen, select *Poll an Amazon S3 Bucket*:
 +
 image::images/choose-an-action-poll-aws-s3.png[]
-+
-. Click *Next* and then select the *Poll an Amazon S3 Bucket* action from the list of available actions.
+
+. On the *Poll an Amazon S3 Bucket* screen, examine the configurable fields:
 +
 image::images/configuring-poll-aws-s3.png[]
+* *Delay*: Determines the delay interval between polls of the S3 bucket.
+* *Maximum Objects to Retrieve*: Determines the maximum number of files in the S3 bucket to be polled and fetched.
+* *Prefix*: The criteria used by the filename filter that determines which file to fetch.
+
+. Click *Done*.
+* This completes the setup of the *Start* connection.
+
+=== Configure Finish Connection
+
+. In the left-hand panel, select *FINISH*.
+. Select the *FTP* connection.
+. In the *File name expression* field, type `coolstore-flyer.png`.
+. In the *FTP directory* field, type `./htdocs`.
+. Click *Next* and then *Done*.
+* This completes the setup of the *Finish* connection.
+
+=== Add Step
+
+. In the left-hand panel, hover over the image:images/add_filter_icon.png[] icon located between the *START* connection and the *FINISH* connection and select *Add a step*.
+. On the *Choose a Step* screen, select the *syndesis-extension-log-body* technical extension that you created.
+. In the *Message* field, type `Flyer is ready on staging server`.
+. Click *Done*.
+* This adds the custom step to the integration.
+
+=== Complete Integration
+
+. Name the integration `AWS S3 to FTP`.
+. Click *Publish*.
+* This deploys the integration.
 +
-. On the *Poll an Amazon S3 Bucket* screen, examine the configurable fields.
+****
+*Questions:*
+
+* What changes have to be made to either the FTP connection or its setup as part of the integration in the case of multiple promotional flyers in a wide variety of file formats that need to be staged on the vendor's server?
+*  Are there also changes that have to made to the AWS S3 connection and its setup during integration design?
+****
+
+== Test Integration
+
+In this section, you test the integration by initiating a demand generation campaign.
+
+. In the left-hand panel of the Fuse Ignite console, click *Integrations*.
+. Once the state of the *AWS S3 to FTP* integration changes to *Published*, proceed to test it.
+. Upload the promotional flyer link:https://raw.githubusercontent.com/gpe-mw-training/fuse-ipaas-labs/master/04_technical_extensions/coolstore-flyer.png[digital image] to your AWS S3 bucket.
+. Check the *AWS S3 to FTP* OpenShift pod's log for entries containing the `Flyer is ready on staging server` string.
+. Log in to your remote hosting account and validate that the digital image--the promotional flyer--appears in the `htdocs` directory.
++
+****
+*Question:* Imagine that access to the OpenShift pod logs by both members of the Coolstore marketing department and their advertising services vendor is no longer a viable option due to enhanced corporate security restrictions. What alternative means of both logging and log retrieval can you incorporate in your solution design to address this change?
+****
+
+== Clean Up Integration
+
+In this section, you clean up the integration as a housekeeping best practice.
+
+. In the left-hand panel, click *Integrations*.
+. Locate the *AWS S3 to FTP* integration.
+. Click image:images/more_options_icon.png[] (*More Options*) next to the green check box and select *Unpublish*.
+. Click *OK*
+* This deactivates the integration.
+* If you are utilizing the Fuse Ignite Technology Preview, other integration can now be published and tested.
 +
 [NOTE]
-_Delay_ paramater determines the delay interval between polls of the S3 bucket. _Maximum Objects to Retrieve_ determines the maximum number of files in the S3 bucket to be polled and fetched. _Prefix_ is the criteria used by the filename filter, determining which file to fetch.
-+
-. Click *Done* to complete the setup of the *Start* connection.
-. Select on the left-hand panel, the *Finish Connection*.
-. Click on the *FTP* connection.
-. Specify the value of the *File name expression* field, as `coolstore-flyer.png`.
-. Specify the value of the *FTP Directory* field, as `./htdocs`.
-. Click *Next* and then *Done* to complete the setup of the *Finish* connection.
-. Move your pointer cursor over the *+* sign, which is wedged between the *Start* connection and the *Finish* connection.
-. Select *Add a step* located on the callout, next to the *+* sign.
-. Select from the drop down box, the `syndesis-extension-log-body` technical extension that you should just created.
-. Provide the value *Flyer is ready on staging server* in the message field for the custom step.
-. Click *Done*. The custom step has been added to the integration.
-. Name the integration _AWS S3 to FTP_.
-. Click *Publish*. The integration will be deployed.
+The next two steps are optional. Use them only when you are certain that you do not need the integration anymore.
 
-*QUESTION:* What changes have to be made, to either the FTP connection or its setup as part of the integration, if now there are multiple promotional flyers, of a wide variety of file formats, to be staged on the vendor's server? Are there also necessary changes that have to made to the AWS S3 connection and its setup during integration design?
+. Locate the *AWS S3 to FTP* integration, click image:images/more_options_icon.png[] (*More Options*), and select *Delete Integration*.
+. Click *OK* at the bottom of the summary panel.
 
-
-== Test the integration
-
-You will test the integration by initiating a demand generation campaign.
-
-. On the left-hand panel of the Fuse Ignite console, click *Integrations*.
-. Once the state of the _AWS S3 to FTP_ integration changes to *Published*, proceed to test it.
-. Upload to your AWS S3 bucket, the link:https://raw.githubusercontent.com/gpe-mw-training/fuse-ipaas-labs/master/04_technical_extensions/coolstore-flyer.png[digital image] that is the promotional flyer.
-. Check the log of the OpenShift Pod _AWS S3 to FTP_ for log entries containing the string *Flyer is ready on staging server*.
-. Logon to your remote hosting account and validate that the digital image (aka. promotional flyer) appears in the `htdocs` directory.
-
-*QUESTION:* Imagine that access to OpenShift pod logs by both members of the `Coolstore` marketing department and their advertising services vendor is no longer a viable option - due to enhanced corporate security restrictions. What alternative means of both logging and log retrieval can you incorporate in your solution design to address this change in business expectations?
-
-
-== Housekeeping
-
-You will clean up the integration. as a housekeeping best practice.
-
-. In the left-hand pane, click *Integrations*.
-. Locate the entry for the _AWS S3 to FTP_ integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Select *Unpublish* from the drop down list, followed by selecting *OK* in the pop-up window. This will deactivate the integration.
-* If you are utilizing the Fuse Ignite Technical Preview, some other integration can now be published and tested.
-+
-[NOTE]
-The next few steps are optional. Use them only when you are certain that the integration will never be required again.
-+
-. Locate the entry for the _AWS S3 to FTP_ integration.
-. Click the icon displaying three black dots in a vertical sequence, located right of the green check box. A drop down list appears.
-. Click *Delete Integration*, followed by clicking *OK*, at the bottom of the summary pane.
-
-You have completed, tested and cleaned up your integration in Fuse Ignite.
+You have completed, tested, and cleaned up your integration in Fuse Ignite.
 
 ifdef::showscript[]
 
