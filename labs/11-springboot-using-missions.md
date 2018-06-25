@@ -17,29 +17,26 @@ To begin, we need to download the booster-circuitbreaker project from OpenShift.
 2. Click **Launch your Project** and login as necessary.
 
 ![Create Fuse Project](images/11-Step-2.png)
+  
+  and provide a name to your application
+  
+![Create Fuse Project](images/11-Step-2-1.png)
 
 3. Click **I will build and run locally**.
 
 ![Type Project Name](images/11-Step-3.png)
 
-4. Select the **Circuit Breaker** Mission then click **Next**.
+4. Select the **Circuit Breaker** Mission  and **Fuse** Runtime then click **Next**.
 
 ![Type Project Name](images/11-Step-4.png)
 
-5. Select **Fuse** as the Runtime then click **Next**.
 
+5.  Select **Set Up Application**.  
 ![Type Project Name](images/11-Step-5.png)
-
-6.  Select **7.0.0(Red Hat Fuse )** as the **Runtime Version**.  Leave other fields with their default settings.  Click **Next**.
-
 ![Type Project Name](images/11-Step-6.png)
 
 
-7. On the **Review Summary** page, click **Download as ZIP File**.  The `booster-circuit-breaker-fuse.zip` will download to your local Downloads directory.
-
-![Type Project Name](images/11-Step-7.png)
-
-8. Unzip the `booster-circuit-breaker-fuse.zip` file to a local directory, and import the **greetings-service** Maven project into the IDE of your choice.
+8. Unzip the `booster.zip` file to a local directory, and import the **greetings-service** Maven project into the IDE of your choice.
 
 ![Type Project Name](images/11-Step-8.png)
 
