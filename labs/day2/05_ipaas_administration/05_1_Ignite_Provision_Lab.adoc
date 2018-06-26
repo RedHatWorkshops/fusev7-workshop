@@ -28,7 +28,7 @@ Fuse Ignite is provisioned in a single remote OpenShift project. For the purpose
 
 The majority of the Fuse Ignite installation procedures described in this lab use the OpenShift Container Platform web console. There is one step in the process that needs to be executed at the command line using the OpenShift `oc` utility.
 
-. If you do not already have version 3.7 of the `oc` utility installed on your local machine, download it from the link:https://access.redhat.com/downloads/content/290[Red Hat Customer Portal] and install it on your local machine.
+. If you do not already have version 3.9 of the `oc` utility installed on your local machine, download it from the link:https://access.redhat.com/downloads/content/290[Red Hat Customer Portal] and install it on your local machine.
 
 == Provision OpenShift Container Platform Environment
 
