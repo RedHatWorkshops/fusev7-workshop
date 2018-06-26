@@ -84,8 +84,9 @@ Downloading from oss-sonatype-snapshots: https://oss.sonatype.org/content/reposi
 ----
 * This confirms that compilation of the technical extension was successful.
 
-. Locate the `syndesis-extension-log-body-1.0.0.fuse-000018.jar` file in the `target` subdirectory of the `syndesis-extension-log-body` directory.
-* This is the JAR archive file containing the `syndesis-extension-log-body` technical extension.
+. Locate the `syndesis-extension-log-body-1.0.0.fuse-<$version>.jar` file in the `target` subdirectory of the `syndesis-extension-log-body` directory.
+* This is the JAR archive file containing the `syndesis-extension-log-body` technical extension. 
+* Replace <$version> with the current extension version.
 +
 [TIP]
 You can either move or copy this JAR archive file to a directory with a shorter name--for example, `/tmp`&#8212;to speed up import of the technical extension in the next section.
@@ -95,16 +96,16 @@ You can either move or copy this JAR archive file to a directory with a shorter 
 
 In this section, you import the `syndesis-extension-log-body` technical extension into Fuse Ignite.
 
-NOTE: When you completed the previous lab, the code base for the `Syndesis` community project was located in the `$lab_dir` working directory.
+NOTE: When you completed the previous lab, the code base for the `Syndesis` community project was located in the `<$lab_dir>` working directory.
 
 . If you skipped the previous optional section, locate the precompiled technical extension by navigating to the following directory:
 +
 ----
-$lab_dir/maven-syndesis-extension-1.0.0.fuse-000018/io/syndesis/extensions/syndesis-extension-log-body/1.0.0.fuse-000018
+<$lab_dir>/maven-syndesis-extension-1.0.0.fuse-<$version>/io/syndesis/extensions/syndesis-extension-log-body/1.0.0.fuse-<$version>
 ----
 +
-[NOTE]
-The `syndesis-extension-log-body-1.0.0.fuse-000018.jar` file contains the `syndesis-extension-log-body` technical extension.
+* Remember to replace <$version> with the current extension version.
+* The `syndesis-extension-log-body-1.0.0.fuse-<$version>.jar` file contains the `syndesis-extension-log-body` technical extension.
 
 . In the left-hand panel of the Fuse Ignite console, click *Customizations*.
 . Select the *Extensions* tab, then click *Import Extension*:
@@ -175,17 +176,22 @@ image::images/configuring-poll-aws-s3.png[]
 === Configure Finish Connection
 
 . In the left-hand panel, select *FINISH*.
-. Select the *FTP* connection.
-. In the *File name expression* field, type `coolstore-flyer.png`.
-. In the *FTP directory* field, type `./htdocs`.
+. Select the `hosting-server` *FTP* connection you set up earlier in this course.
+. In the *File name ht* field, type `coolstore-flyer.png`.
+. In the *FTP directory* field, type `/htdocs`.
 . Click *Next* and then *Done*.
 * This completes the setup of the *Finish* connection.
 
 === Add Step
 
 . In the left-hand panel, hover over the image:images/add_filter_icon.png[] icon located between the *START* connection and the *FINISH* connection and select *Add a step*.
-. On the *Choose a Step* screen, select the *syndesis-extension-log-body* technical extension that you created.
-. In the *Message* field, type `Flyer is ready on staging server`.
+. On the *Choose a Step* screen, select *Log* (the `syndesis-extension-log-body` technical extension that you created earlier).
++
+image::images/add_step_01.png[]
+. On the *Configure Log* screen, make sure the *Message Body* box is checked.
+. In the *Custom Text* field, enter `Flyer is ready on staging server`.
++
+image::images/add_step_02.png[]
 . Click *Done*.
 * This adds the custom step to the integration.
 
@@ -210,7 +216,7 @@ In this section, you test the integration by initiating a demand generation camp
 . Once the state of the *AWS S3 to FTP* integration changes to *Published*, proceed to test it.
 . Upload the promotional flyer link:https://raw.githubusercontent.com/gpe-mw-training/fuse-ipaas-labs/master/04_technical_extensions/coolstore-flyer.png[digital image] to your AWS S3 bucket.
 . Check the *AWS S3 to FTP* OpenShift pod's log for entries containing the `Flyer is ready on staging server` string.
-. Log in to your remote hosting account and validate that the digital image--the promotional flyer--appears in the `htdocs` directory.
+. Log in to your remote hosting account and validate that the digital image--the promotional flyer--appears in the `/htdocs` directory.
 +
 ****
 *Question:* Imagine that access to the OpenShift pod logs by both members of the Coolstore marketing department and their advertising services vendor is no longer a viable option due to enhanced corporate security restrictions. What alternative means of both logging and log retrieval can you incorporate in your solution design to address this change?

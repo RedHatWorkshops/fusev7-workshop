@@ -78,10 +78,10 @@ image::images/nightly-builds.png[]
 
 In this section, you import the damage reporter application into Developer Studio for analysis and eventual compilation of the code.
 
-. Download the repository containing the lab assets to the `$lab_dir` working directory using `git`:
+. Download the repository containing the lab assets to the `<$lab_dir>` working directory using `git`:
 +
 ----
-$ cd $lab_dir
+$ cd <$lab_dir>
 $ git clone https://github.com/gpe-mw-training/fuse-ipaas-labs
 ----
 
@@ -89,7 +89,7 @@ $ git clone https://github.com/gpe-mw-training/fuse-ipaas-labs
 . Navigate to the directory containing the `pom.xml` file for the `damage-reporter` project:
 +
 ----
-/$lab_dir/fuse_ipaas_labs/04_technical_extensions/damage_reporter
+/<$lab_dir>/fuse_ipaas_labs/04_technical_extensions/damage_reporter
 ----
 . After the project finishes importing, look for the `damage-reporter` project in the *Project Explorer* view in Developer Studio.
 +
@@ -217,7 +217,7 @@ In this section, you export the `damage-reporter` project from Developer Studio 
 +
 image::images/jar-export.png[]
 +
-. In the *Export* window, click *Browse* and navigate to your preferred working directory:
+. In the *Export* window, select `File System` and navigate to your preferred working directory:
 +
 image::images/export-file-system.png[]
 +
@@ -241,7 +241,7 @@ A selection of native steps are available in Fuse Ignite that were developed for
 . Click *Browse* and select the JAR file containing the damage reporter technical extension.
 * The archive file is validated and extracted.
 
-. On the Fuse Ignite console, note that the technical extension’s name, ID, and description are listed, and `log-body` is indicated as the custom step that the technical extension defines.
+. On the Fuse Ignite console, note that the technical extension’s name, ID, and description are listed, and `Damage Reporter` is listed under Supported Steps as the custom step that the technical extension defines.
 
 . Click *Import*.
 * The details of the technical extension are displayed.
@@ -253,7 +253,7 @@ The custom step is now available for use in any integration.
 
 In this section, you set up the AMQ broker included in the Fuse Ignite installation.
 
-. From the OpenShift Container Platform web console, click the active OpenShift pod icon to the right of the *syndesis-amq* deployment:
+. From the OpenShift Container Platform web console, click the active OpenShift pod icon to the right of the deployment with `amq` in the name, such as `broker-amq`:
 +
 image::images/01-Step-53.png[]
 +
@@ -302,6 +302,7 @@ image:images/create-connection-amq.png[]
 == Remove To Do Application's Route Security
 
 . In the OpenShift Container Platform web console, navigate to *Applications -> Routes*.
+. Click *todo* to go to the todo route page.
 . Click *Actions* and select *Edit*:
 +
 image:images/edit-todo-route.png[]

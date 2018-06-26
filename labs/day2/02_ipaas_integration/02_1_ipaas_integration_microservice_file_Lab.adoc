@@ -59,10 +59,10 @@ image::images/http-connector-validate.png[]
 
 == Set Up Web Hosting Account
 
-In the next part of the lab, you utilize a remote file hosting server as the environment for hosting the destination endpoint (which is a flat file) of the Fuse Ignite integration. In this section, you set up the account.
+In the next part of the lab, you use a remote file hosting server as the environment for hosting the destination endpoint (which is a flat file) of the Fuse Ignite integration. In this section, you set up the account.
 
 . Set up a user account with a free web-hosting service provider.
-.. Make sure that you are able to utilize FTP and SFTP services using this account.
+.. Make sure that you are able to use FTP and SFTP services with this account.
 +
 NOTE: The lab examples use an account from link:https://infinityfree.net/[Infinity Free].
 
@@ -137,7 +137,7 @@ In this section, you test the integration.
 === Validate Data Quality
 
 . Using an FTP client, or a web-based console if available, log in and navigate to the root directory of your web hosting service account.
-. Navigate to the `./htdocs` subdirectory.
+. Navigate to the `/htdocs` subdirectory.
 . Locate and download the `product-catalog.txt` file to your local PC.
 . Locate the `product-catalog.txt` file on your local PC and open it using your favorite text editor.
 . Compare the contents of the `product-catalog.txt` file with the response from the test of the `/products` API operation of the Coolstore product catalog microservice using the Swagger user interface of the microservice.
@@ -157,7 +157,7 @@ image::images/integration-summary-metrics.png[]
 === Test Data Transfer
 
 . Using the FTP client, or a web-based console if available, delete the `product-catalog.txt` files from the remote web host and the local PC.
-. After a minute or so, list the contents of the `./htdocs` subdirectory.
+. After a minute or so, list the contents of the `/htdocs` subdirectory.
 . Verify that the `product-catalog.txt` file appears again.
 +
 ****

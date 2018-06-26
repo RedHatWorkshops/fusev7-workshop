@@ -185,6 +185,7 @@ image::images/01-Step-69.png[]
 image::images/01-Step-70.png[]
 * This initiates a water utility bill payment.
 
+. On the *Payment* screen, click *Done*.
 
 === Add Steps
 

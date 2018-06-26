@@ -74,7 +74,9 @@ In this section, you set up the Apache Maven repository for use in the compilati
 
 . Download this link:https://drive.google.com/open?id=11lJ0IFCxFJIcg9Ex_D8iYxZ7iZqhu1Zf[Apache Maven repository] (zipped archive).
 * It contains previously compiled Apache Maven archetypes that are used in the compilation of the Fuse Ignite technical extensions.
-. Extract the contents of the zipped archive into the `$lab_dir` working directory.
+. Extract the contents of the zipped archive.
++ 
+NOTE: You can store the expanded archive in a directory of your choice. In the remainder of this course, the directory into which you expanded the archive is referred to as the `<$lab_dir>` working directory.
 . Make a note of the directory path for this local Apache Maven repository.
 . Download the Apache Maven link:https://raw.githubusercontent.com/gpe-mw-training/fuse-ipaas-labs/master/04_technical_extensions/settings.xml[settings.xml file], which contains references to the Apache Maven repositories.
 . Copy the `settings.xml` file into your `~/.m2` directory, where at least one local Apache Maven repository will reside.
@@ -140,7 +142,7 @@ In this section, you set up the Apache Maven repository for use in the compilati
 ----
 * These are the Apache Maven repositories where the Apache Maven archetypes used for the compilation of Fuse Ignite reside. These repositories play a key role in the build process.
 
-. Replace references to the `/tmp` directory with `/$lab_dir/maven-syndesis-extension-1.0.0.fuse-000027`, where `$lab_dir` is the path of your working directory:
+. Replace references to the `/tmp` directory with `/<$lab_dir>/maven-syndesis-extension-1.0.0.fuse-<$version>`, where `<$lab_dir>` is the path of your working directory and `<$version>` is the current release version:
 +
 .Sample Path
 ----
@@ -155,7 +157,7 @@ file:///fuseignite/maven-syndesis-extension-1.0.0.fuse-000027
 In this section, you compile a technical extension as part of the integration. Note that this section is optional, as a precompiled technical extension is provided for your use in subsequent lab sections.
 
 . Using a new web browser window, download the link:https://github.com/syndesisio/syndesis-extensions/releases[latest technical extensions release] for Fuse Ignite.
-. Extract the archive containing the technical extensions into the `$lab_dir` working directory.
+. Extract the archive containing the technical extensions into the `<$lab_dir>` working directory.
 . Using a command-line terminal window, navigate to the `syndesis-extension-loop` subdirectory, which contains the code for the technical extension.
 . Within the `syndesis-extension-loop` subdirectory, compile the technical extension using the following command:
 +
@@ -178,7 +180,8 @@ $ mvn clean install
 ----
 * This confirms that compilation of the technical extension was successful.
 
-. Locate the `syndesis-extension-loop-1.0.0.fuse-000027.jar` file in the `target` subdirectory of the `syndesis-extension-loop` directory.
+. Locate the `syndesis-extension-loop-1.0.0.fuse-<$version>.jar` file in the `target` subdirectory of the `syndesis-extension-loop` directory.
+* Replace <$version> with the number of the current release.
 * This is the JAR archive file containing the `syndesis-extension-loop` technical extension.
 +
 [TIP]
@@ -192,9 +195,10 @@ In this section, you import the compiled technical extension into Fuse Ignite, w
 . If you skipped the previous optional section, locate the precompiled technical extension by navigating to the following directory:
 +
 ----
-$lab_dir/maven-syndesis-extension-1.0.0.fuse-000027/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-000027
+<$lab_dir>/repository/io/syndesis/extensions/syndesis-extension-loop/1.0.0.fuse-<$version>
 ----
-* The `syndesis-extension-loop-1.0.0.fuse-000027.jar` file contains the `syndesis-extension-loop` technical extension.
+* Replace `<$version>` with the release number of the current extension
+* The `syndesis-extension-loop-1.0.0.fuse-<$version>.jar` file contains the `syndesis-extension-loop` technical extension.
 . In the left-hand panel of the Fuse Ignite console, click *Customizations*.
 . Select the *Extensions* tab located at the top of the console.
 . Click *Import Extension*:
@@ -337,12 +341,12 @@ public class LoopAction implements Step {
 In this optional exercise, you compile the code base for the Syndesis community project. If you wish, you can skip this exercise, as the code base is provided in the next section.
 
 
-. Using a command-line terminal window, download the link:https://github.com/syndesisio/syndesis/releases/tag/syndesis-1.3.4.fuse-000002[Syndesis code base] zip archive into the `$lab_dir` working directory. 
+. Using a command-line terminal window, download the link:https://github.com/syndesisio/syndesis/releases/tag/syndesis-1.3.4.fuse-000002[Syndesis code base] zip archive into the `<$lab_dir>` working directory. 
 . Expand the zip archive.
 . Navigate to the subdirectory called `/syndesis/tools/bin` and execute the command to compile the `Syndesis` code:
 +
 ----
-$ cd $lab_dir/syndesis/tools/bin
+$ cd <$lab_dir>/syndesis/tools/bin
 $ ./syndesis build -b -f -c
 ----
 * A successful compilation results in the following messages:

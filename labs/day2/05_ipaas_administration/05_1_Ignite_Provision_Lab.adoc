@@ -38,7 +38,7 @@ In this section of the lab, you register for the ability to create a project in 
 +
 image::images/cf_home.png[]
 
-. Navigate to *Services -> Catalogs -> OPENTLC OpenShift Labs -> OPENTLC OpenShift 3.7 Shared Access*:
+. Navigate to *Services -> Catalogs -> OPENTLC OpenShift Labs -> OPENTLC OpenShift 3.9 Shared Access*:
 +
 image::images/cf_ocp_item.png[]
 
