@@ -15,10 +15,11 @@ To begin, we need to create a FIS SpringBoot project in JBDS.
 2.  Underneath the `cxf-rt-frontend-jaxws` component in dependencies, paste the following:
 
 ```
-		<!-- Spring-Cloud-Kubernetes -->
+		<!-- Spring-Cloud-Kubernetes YOU WILL NEED TO POINT TO EARLY ACCESS-->
 		<dependency>
 			<groupId>io.fabric8</groupId>
 			<artifactId>spring-cloud-kubernetes-core</artifactId>
+			<version>0.1.6.fuse-000018-redhat-2</version>
 		</dependency>
 ```
 
