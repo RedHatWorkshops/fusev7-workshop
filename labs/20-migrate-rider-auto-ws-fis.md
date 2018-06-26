@@ -117,18 +117,7 @@ Now let's try running our SpringBoot container on OpenShift.
 21. Via the CLI, cd to your mvn project and execute 
 
 ```
-mvn clean install fabric8:deploy -o \
- -Dkubernetes.master=https://YOUR_MASTER_URL:443 \
- -Dkubernetes.namespace=YOUR_USER_NO-fis-rider-auto-ws \
- -Dkubernetes.auth.basic.username=YOUR_USER_NO \
- -Dkubernetes.auth.basic.password=r3dh4t1! \
- -Dfabric8.mode=openshift \
- -Dkubernetes.trust.certificates=true \
- -Dfabric8.build.strategy=s2i \
- -Dkubernetes.auth.tryServiceAccount=false \
- -Dfabric8.generator.from=registry.access.redhat.com/fuse7/fuse-java-openshift \
- -Dfabric8.generator.fromMode=docker \
- -Dkubernetes.auth.tryKubeConfig=false 
+mvn clean install fabric8:deploy 
 
 ```
 
