@@ -9,25 +9,12 @@
   <description>Migration Demonstration for Lab5</description>
   <properties>
         <!-- Dependency Versions -->
-        <commons-logging.version>1.2</commons-logging.version>
-        <kubernetes-client.version>2.2.0</kubernetes-client.version>
-        <mockwebserver.version>0.0.12</mockwebserver.version>
-        <lombok.version>1.16.10</lombok.version>
-        <hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
-        <servlet-api.version>2.5</servlet-api.version>
-        <spock.version>1.1-groovy-2.4-rc-3</spock.version>
         <spring-boot.version>1.5.4.RELEASE</spring-boot.version>
-        <spring-cloud.version>Camden.SR5</spring-cloud.version>
-        <spring.version>4.3.3.RELEASE</spring.version>
-        <junit.version>4.12</junit.version>
-
-        <!-- Maven Plugin Versions -->
-        <maven-compiler-plugin.version>3.5</maven-compiler-plugin.version>
-        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
-        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
-        <fabric8.maven.plugin.version>3.1.69</fabric8.maven.plugin.version>
-        <gmavenplus-plugin.version>1.2</gmavenplus-plugin.version>
-        <sundrio-plugin.vesion>0.3.4</sundrio-plugin.vesion>
+        <fabric8.version>3.0.11.fuse-000039-redhat-1</fabric8.version>
+    	<fabric8.maven.plugin.version>3.5.33.fuse-000067-redhat-1</fabric8.maven.plugin.version>
+    	<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
     </properties>
   <dependencyManagement>
         <dependencies>
@@ -39,6 +26,15 @@
                 <version>${spring-boot.version}</version>
             </dependency>
         </dependencies>
+	<dependencies>
+	      <dependency>
+		<groupId>io.fabric8</groupId>
+		<artifactId>fabric8-project-bom-camel-spring-boot</artifactId>
+		<version>3.0.11.fuse-000039-redhat-1</version>
+		<type>pom</type>
+		<scope>import</scope>
+	      </dependency>
+    	</dependencies>
     </dependencyManagement>
 
     <dependencies>
@@ -56,7 +52,6 @@
         <dependency>
 	      <groupId>org.apache.camel</groupId>
 	      <artifactId>camel-spring-boot-starter</artifactId>
-	      <version>2.21.0.000033-fuse-000001-redhat-1</version>
 	    </dependency>
 	            
         <dependency>
@@ -67,7 +62,6 @@
         <dependency>
       		<groupId>org.apache.camel</groupId>
       		<artifactId>camel-undertow</artifactId>
-      		<version>2.21.0.000033-fuse-000001-redhat-1</version>
     	</dependency>
         
 		<dependency>
@@ -79,13 +73,11 @@
 		<dependency>
       		<groupId>org.apache.camel</groupId>
       		<artifactId>camel-swagger-java-starter</artifactId>
-      		<version>2.21.0.000033-fuse-000001-redhat-1</version>
     	</dependency>
     	
     	<dependency>
       		<groupId>org.apache.camel</groupId>
       		<artifactId>camel-jackson-starter</artifactId>
-      		<version>2.21.0.000033-fuse-000001-redhat-1</version>
     	</dependency>
     	
         <dependency>
