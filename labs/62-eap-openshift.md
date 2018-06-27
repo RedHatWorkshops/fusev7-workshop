@@ -79,7 +79,6 @@ mvn clean package fabric8:deploy -o \
 -Dkubernetes.namespace=fuseeap \
 -Dkubernetes.auth.basic.username=YOUR_USERNAME \
 -Dkubernetes.auth.basic.password=YOUR_PASSWORD \
--Dfabric8.mode=openshift \
 -Dkubernetes.trust.certificates=true \
 -Dkubernetes.auth.tryServiceAccount=false \
 -Dfabric8.generator.from=registry.access.redhat.com/fuse7/fuse-eap-openshift \
