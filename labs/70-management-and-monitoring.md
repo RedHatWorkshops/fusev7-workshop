@@ -59,9 +59,10 @@ minishift addon apply management-infra
 8. Via the CLI, execute the following:
 
 ```
-cd prometheus-demo/democonfig
+cd prometheus-demo/democonfig 
+#Update the fabric8 version to 3.0.11.fuse-000039-redhat-1
 mvn install
-mvn fabric8:install
+mvn fabric8:deploy
 ```
 
 9.  Once the democonfig project has started up, you can check the prometheus dashboard for the Camel Exchage completed metric.  Type ***org_apache_camel_ExchangesCompleted*** in the field and hit ***Execute***.  You should see a graph appear showing the number of completed exchanges since start-up.  Play around with adding more pods to see an Aggregated view of your metric.
